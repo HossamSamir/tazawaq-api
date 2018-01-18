@@ -11,6 +11,8 @@ const titles = {
   'chat': 'Chat',
   'compose': 'Compose',
   'datatable': 'Datatable',
+  'markets': 'markets',
+  'users': 'users',
   'email': 'Email',
   'forms': 'Forms',
   'google-maps': 'Google Maps',
