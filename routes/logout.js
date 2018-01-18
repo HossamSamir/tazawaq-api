@@ -6,9 +6,8 @@ if (typeof localStorage === 'undefined' || localStorage === null) {
 }
 
 router.get('/', function(req, res, next) {
-	if (localStorage.getItem('loggedIn') == 'true')
-		res.render('index', { title: 'Express' });
-	else res.render('login', { title: 'Express' });
+	localStorage.setItem('loggedIn', 'false');
+	res.render('login', { title: 'Express' });
 });
 
 module.exports = router;

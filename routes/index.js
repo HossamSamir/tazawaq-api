@@ -1,9 +1,27 @@
 var express = require('express');
 var router = express.Router();
+if (typeof localStorage === 'undefined' || localStorage === null) {
+	var LocalStorage = require('node-localstorage').LocalStorage;
+	localStorage = new LocalStorage('./scratch');
+}
 
-/* GET home page. */
 router.get('/', function(req, res, next) {
-	res.render('index', { title: 'Express' });
+	if (localStorage.getItem('loggedIn') == 'true') {
+		res.render('index', { title: 'Express' });
+	} else {
+		var username = req.query.username;
+		var password = req.query.password;
+		if (
+			typeof username != 'undefined' &&
+			username.toUpperCase() == 'ADMIN' &&
+			password.toUpperCase() == 'ADMIN'
+		) {
+			res.render('index', { title: 'Express' });
+			localStorage.setItem('loggedIn', 'true');
+		} else {
+			res.render('login', {});
+		}
+	}
 });
 
 router.get('/sales', function(req, res, next) {
