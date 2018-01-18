@@ -1,13 +1,14 @@
 const express = require('express');
+const app = express();
 const path = require('path');
 const PORT = process.env.PORT || 3000;
+const login = require('./routes/login');
+const index = require('./routes/index');
 
-express()
-	// static files >>
-	.use(express.static(path.join(`${__dirname}/client`, 'views')))
-	.set('views', path.join(`${__dirname}/client`, 'views'))
-	.set('view engine', 'ejs')
-	.get('/', (req, res) => res.render('index'))
-	.get('/home', (req, res) => res.render('home'))
-	.listen(PORT, () => console.log(`Listening on ${PORT}`));
-// console.log(`${__dirname}/client`);
+app.set('view engine', 'ejs');
+app.use(express.static(path.join(`${__dirname}/client`, 'views')));
+app.set('views', path.join(`${__dirname}/client`, 'views'));
+app.listen(PORT, () => console.log(`Listening on ${PORT}`));
+
+app.use('/login', login);
+app.use('/', index);
