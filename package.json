@@ -3,6 +3,12 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "dependencies": {
+    "ejs": "^2.5.7",
+    "express": "^4.16.2",
+    "mysql": "^2.15.0"
+  },
+  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -10,15 +16,10 @@
     "type": "git",
     "url": "git+https://github.com/HossamSamir/tazawaq-api.git"
   },
-  "author": "Hossam Samir & Khalid Ahmed",
+  "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/HossamSamir/tazawaq-api/issues"
   },
-  "homepage": "https://github.com/HossamSamir/tazawaq-api#readme",
-  "dependencies": {
-    "ejs": "^2.5.7",
-    "express": "^4.16.2",
-    "mysql": "^2.15.0"
-  }
+  "homepage": "https://github.com/HossamSamir/tazawaq-api#readme"
 }
