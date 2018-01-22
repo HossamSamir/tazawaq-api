@@ -14,3 +14,9 @@ app.listen(PORT, () => console.log(`Listening on ${PORT}`));
 app.use('/login', login);
 app.use('/logout', logout);
 app.use('/', index);
+
+
+// API
+require('./routes/api/signin');
+require('./routes/api/signup');
+require('./routes/api/verifycode');
