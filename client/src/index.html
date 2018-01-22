@@ -127,6 +127,23 @@
                 <span class="title">لوحة التحكم</span>
               </a>
             </li>
+
+            <li class="nav-item dropdown">
+              <a class="dropdown-toggle" href="orders.html">
+                <span class="icon-holder">
+                  <i class="c-teal-500 ti-map-alt"></i>
+                </span>
+                <span class="title">الطلبات</span>
+                <span class="arrow">
+                  <span class="badge" style="
+                  background: #ff0057;
+                  color: white;
+                  font-size: 11px;
+                  border-radius: 50%;">28</span>
+                </span>
+              </a>
+            </li>
+
             <li class="nav-item">
               <a class='sidebar-link' href="datatable.html">
                 <span class="icon-holder">
@@ -136,21 +153,68 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class='sidebar-link' href="markets.html">
-                <span class="icon-holder">
-                  <i class="c-deep-purple-500 ti-shopping-cart"></i>
-                </span>
-                <span class="title">المطاعم / الماركت</span>
-              </a>
-            </li>
-            <li class="nav-item">
               <a class='sidebar-link' href="users.html">
                 <span class="icon-holder">
                   <i class="c-pink-500 ti-user"></i>
                 </span>
-                <span class="title">مستخدمي التطبيق</span>
+                <span class="title">سجل الزبائن</span>
               </a>
             </li>
+            <li class="nav-item dropdown">
+              <a class="dropdown-toggle" href="javascript:void(0);">
+                <span class="icon-holder">
+                  <i class="c-teal-500 ti-shopping-cart"></i>
+                </span>
+                <span class="title">المنتجات</span>
+                <span class="arrow">
+                  <i class="ti-angle-right"></i>
+                </span>
+              </a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a class='sidebar-link' href="products.html">
+                    <span class="icon-holder">
+                      <i class="c-teal-500 ti-shopping-cart"></i>
+                    </span>
+                      جميع المنتجات
+                   </a>
+                </li>
+                <li>
+                  <a class='sidebar-link' href="offers.html">
+                    <span class="icon-holder">
+                      <i class="c-teal-500 ti-gift"></i>
+                    </span>
+                      العروض
+                   </a>
+                </li>
+              </ul>
+            </li>
+
+            <li class="nav-item">
+              <a class='sidebar-link' href="compose.html">
+                <span class="icon-holder">
+                  <i class="c-pink-500 ti-announcement"></i>
+                </span>
+                <span class="title">ارسل تنويهات</span>
+              </a>
+            </li>
+
+            <li class="nav-item dropdown">
+              <a class="dropdown-toggle" href="email.html">
+                <span class="icon-holder">
+                  <i class="c-teal-500 ti-headphone-alt"></i>
+                </span>
+                <span class="title">تذاكر الدعم الفني</span>
+                <span class="arrow">
+                  <span class="badge" style="
+                  background: #ff0057;
+                  color: white;
+                  font-size: 11px;
+                  border-radius: 50%;">4</span>
+                </span>
+              </a>
+            </li>
+
           </ul>
         </div>
       </div>
@@ -193,8 +257,30 @@
         <!-- ### $App Screen Content ### -->
         <main class='main-content bgc-grey-100'>
           <div id='mainContent'>
+
+            <div class="alert alert-danger" role="alert" style="
+              position: fixed;
+              z-index: 1;
+              display: none;
+              right: 35px;
+              bottom: 18px;">
+              ! تنبيه : وصلك اوردر جديد أضغط للمزيد
+            </div>
+            <script type="text/javascript">
+  setInterval(function() {
+  gotAnOrder();
+}, 30000);
+function gotAnOrder() {
+  var audio = new Audio('assets/static/sounds/new_order.mp3').play();
+  document.getElementsByClassName('alert')[0].style.display = 'block';
+  setTimeout(function() {
+    document.getElementsByClassName('alert')[0].style.display = 'none';
+  }, 8000);
+}
+</script>
+
             <div class="row gap-20 masonry pos-r">
-              <div class="masonry-sizer col-lg-4"></div>
+              <div class="masonry-sizer col-lg-1"></div>
               <div class="masonry-item  w-100">
                 <div class="row gap-20">
                   <!-- #Toatl Visits ==================== -->
@@ -220,7 +306,7 @@
                   <div class='col-md-4'>
                     <div class="layers bd bgc-white p-20">
                       <div class="layer w-100 mB-10" style="text-align: center">
-                        <h6 class="lh-1">اجمالي عدد المطاعم / الماركت</h6>
+                        <h6 class="lh-1">اجمالي عدد الأصناف للبيع</h6>
                       </div>
                       <div class="layer w-100">
                         <div class="peers ai-sb fxw-nw">
@@ -228,7 +314,7 @@
                             <span id="sparklinedash2"></span>
                           </div>
                           <div class="peer">
-                            <span class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15 bgc-red-50 c-red-500">846</span>
+                            <span class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15 bgc-red-50 c-red-500">30</span>
                           </div>
                         </div>
                       </div>
@@ -239,7 +325,7 @@
                   <div class='col-md-4'>
                     <div class="layers bd bgc-white p-20">
                       <div class="layer w-100 mB-10" style="text-align: center">
-                        <h6 class="lh-1">اجمالي عدد الطلبات</h6>
+                        <h6 class="lh-1">اجمالي عدد الطلبات السابقه</h6>
                       </div>
                       <div class="layer w-100">
                         <div class="peers ai-sb fxw-nw">
@@ -255,24 +341,7 @@
                   </div>
                 </div>
               </div>
-              <div class="masonry-item col-12">
-                <!-- #Site Visits ==================== -->
-                <div class="bd bgc-white">
-                  <div class="peers fxw-nw@lg+ ai-s">
-                    <div class="peer peer-greed w-70p@lg+ w-100@lg- p-20">
-                      <div class="layers">
-                        <div class="layer w-100 mB-10" style="text-align: center">
-                          <h6 class="lh-1">خريطة المطاعم / الماركت</h6>
-                        </div>
-                        <div class="layer w-100">
-                          <div id="world-map-marker"></div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="masonry-item col-lg-4">
+              <div class="masonry-item col-lg-6">
                 <!-- #Sales Report ==================== -->
                 <div class="bd bgc-white">
                   <div class="layers">
@@ -338,78 +407,68 @@
                     </div>
                   </div>
                   <div class="ta-c bdT w-100 p-20">
-                    <a href="datatable.html">اطلع علي جميع التقارير</a>
+                    <a href="datatable.html">اطلع علي التقرير كامل</a>
                   </div>
                 </div>
               </div>
-              <div class="masonry-item col-lg-8">
+              <div class="masonry-item col-lg-6">
                 <!-- #Sales Report ==================== -->
                 <div class="bd bgc-white">
                   <div class="layers">
                     <div class="layer w-100 p-20"  style="text-align: center">
-                      <h6 class="lh-1">المطاعم / السوبر ماركت</h6>
+                      <h6 class="lh-1">تقرير الزبائن</h6>
                     </div>
                     <div class="layer w-100">
                       <div class="bgc-light-blue-500 c-white p-20">
                         <div class="peers ai-c jc-sb gap-40">
                           <div class="peer peer-greed">
-                            <h5>مطعم / سوبر ماركت</h5>
-                            <p class="mB-0">اخر التقارير</p>
+                            <h5>نوفمبر 2017</h5>
+                            <p class="mB-0">تقرير الزبائن</p>
                           </div>
                           <div class="peer">
-                            <h3 class="text-right">28</h3>
+                            <h3 class="text-right">80 زبون</h3>
                           </div>
                         </div>
                       </div>
                       <div class="table-responsive p-20">
-                        <table id="marketsTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
-                            <thead>
+                        <table id="usersPreief" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                            <thead style="text-align: center">
                               <tr>
-                                <th>اسم الماركت</th>
-                                <th>رابط لوحه التحكم</th>
                                 <th>اسم المستخدم</th>
                                 <th onclick="togglePw()" style="cursor: pointer;">
-                                  <i class="c-blue-500 ti-eye" style="cursor: pointer;"></i>
+                                  <i class="c-blue-500 ti-eye"></i>
                                   كلمة المرور</th>
+                                  <th>الموقع</th>
                               </tr>
                             </thead>
-                            <tfoot>
-                            </tfoot>
                             <tbody>
                               <tr>
-                                <td>System Architect</td>
-
-          <td><a href="https://oncall-admin.herokuapp.com/" target="_blank" class="badge badge-success" style="padding: 8px;font-size: 13px; letter-spacing: 1.5px;"><i class="c-white-500 ti-share"></i>/test_name_path</a></td>
-          <td>test_username</td>
-          <td>  <input value="test_password" disabled class="form-control marketpw" style="text-align: center;" type="password" class="dashboard_pw" /></td>
-                              </tr>
-                              <tr>
-                                <td>Accountant</td>
-
-                  <td><a href="https://oncall-admin.herokuapp.com/" target="_blank" class="badge badge-success" style="padding: 8px;font-size: 13px; letter-spacing: 1.5px;"><i class="c-white-500 ti-share"></i>/test_name_path</a></td>
-                  <td>test_username</td>
-                  <td>  <input value="test_password" disabled class="form-control marketpw" style="text-align: center;" type="password" class="dashboard_pw" /></td>
-                              </tr>
-                              <tr>
-                                <td>Junior Technical Author</td>
-                                <td><a href="https://oncall-admin.herokuapp.com/" target="_blank" class="badge badge-success" style="padding: 8px;font-size: 13px; letter-spacing: 1.5px;"><i class="c-white-500 ti-share"></i>/test_name_path</a></td>
                                 <td>test_username</td>
-                                <td>  <input value="test_password" disabled class="form-control marketpw" style="text-align: center;" type="password" class="dashboard_pw" /></td>
+                                <td>
+                                  <input value="test_password" disabled class="form-control marketpw" style="text-align: center;" type="password" class="dashboard_pw" />
+                                </td>
+                                <td>saudi arabia</td>
                               </tr>
                               <tr>
-                                <td>Senior Javascript Developer</td>
-
-          <td><a href="https://oncall-admin.herokuapp.com/" target="_blank" class="badge badge-success" style="padding: 8px;font-size: 13px; letter-spacing: 1.5px;"><i class="c-white-500 ti-share"></i>/test_name_path</a></td>
-          <td>test_username</td>
-          <td>  <input value="test_password" disabled class="form-control marketpw" style="text-align: center;" type="password" class="dashboard_pw" /></td>
+                                <td>test_username</td>
+                                <td>
+                                  <input value="test_password" disabled class="form-control marketpw" style="text-align: center;" type="password" class="dashboard_pw" />
+                                </td>
+                                <td>saudi arabia</td>
+                              </tr>
+                              <tr>
+                                <td>test_username</td>
+                                <td>
+                                  <input value="test_password" disabled class="form-control marketpw" style="text-align: center;" type="password" class="dashboard_pw" />
+                                </td>
+                                <td>saudi arabia</td>
                               </tr>
                             </tbody>
-                          </table>
                        </div>
                     </div>
                   </div>
                   <div class="ta-c bdT w-100 p-20">
-                    <a href="markets.html">اطلع علي تفاصيل أكثر</a>
+                    <a href="datatable.html">اطلع علي التقرير كامل</a>
                   </div>
                 </div>
               </div>
@@ -423,4 +482,15 @@
       </div>
     </div>
   </body>
+  <script>
+function togglePw() {
+var pws = document.getElementsByClassName('marketpw');
+for (var i = 0; i < pws.length; i++) {
+pws[i].type === 'password'
+  ? (pws[i].type = 'text')
+  : (pws[i].type = 'password');
+}
+}
+</script>
+
 </html>
