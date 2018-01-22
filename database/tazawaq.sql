@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 22, 2018 at 06:04 PM
+-- Generation Time: Jan 22, 2018 at 11:30 PM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 7.1.7
 
@@ -35,9 +35,7 @@ CREATE TABLE `awaiting_verification` (
   `time_generated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `code` int(11) NOT NULL,
   `phone` varchar(16) NOT NULL,
-  `email` varchar(256) NOT NULL,
   `password` varchar(64) NOT NULL,
-  `conftype` int(11) NOT NULL,
   `location` varchar(128) NOT NULL,
   `latitude` double NOT NULL,
   `longitude` double NOT NULL,
@@ -54,9 +52,7 @@ CREATE TABLE `awaiting_verification` (
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `phone` varchar(16) NOT NULL,
-  `email` varchar(256) NOT NULL,
   `password` varchar(64) NOT NULL,
-  `conftype` int(11) NOT NULL,
   `location` varchar(128) NOT NULL,
   `latitude` double NOT NULL,
   `longitude` double NOT NULL,
