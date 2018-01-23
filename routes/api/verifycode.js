@@ -7,20 +7,26 @@ app.get('/api/verifycode',function(req,res){
         FROM awaiting_verification WHERE TIMESTAMPDIFF(MINUTE,time_generated,NOW()) <= 20 AND code=? AND phone=? LIMIT 1',
         [code, identifier], function(err,codeData) {
         if(!err) {
-            if(data.length)
+            if(codeData.length)
             {
-                if(process == 0) // signup request
-                {
-                    con.query('SELECT id from users WHERE phone=? LIMIT 1', [identifier], function(err,data) {
-                        if(!err) {
-                            if(data.length > 0)
-                            {
+                con.query('SELECT id from users WHERE phone=? LIMIT 1', [identifier], function(err,data) {
+                    if(!err) {
+                        if(data.length > 0)
+                        {
+                            if(process == 0) { // signup request
                                 res.json({
-                                    response: 0
+                                    response: 0  // already registered
                                 });
                             }
-                            else
-                            {
+                            else { // reset password request
+                                res.json({
+                                    response: 2
+                                });
+                            }
+                        }
+                        else
+                        {
+                            if(process == 0) { // signup request
                                 con.query('INSERT INTO users(phone,password,location,latitude,longitude,region,country) VALUES(?,?,?,?,?,?,?)',
                                 [codeData[0]['phone'],codeData[0]['password'],codeData[0]['location'],codeData[0]['latitude'],codeData[0]['longitude'],
                                     codeData[0]['region'],codeData[0]['country']], function(err,data) {
@@ -48,27 +54,23 @@ app.get('/api/verifycode',function(req,res){
                                     }
                                 })
                             }
+                            else { // reset password request
+                                res.json({
+                                    response: 3  // not registered
+                                });
+                            }
                         }
-                        else
-                        {
-                            res.json(err);
-                        }
-                    });
-                }
-                else { // reset password request
-                    con.query('DELETE FROM awaiting_verification WHERE id=?', [codeData[0]['id']], function(err,data) {
-                        if(!err) {
-                            res.json({
-                                response: 2
-                            });
-                        } else res.json(err);
-                    });
-                }
+                    }
+                    else
+                    {
+                        res.json(err);
+                    }
+                });
             }
             else
             {
                 res.json({
-                    response: 1
+                    response: 1 // invalid code
                 });
             }
         }

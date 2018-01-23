@@ -1,5 +1,3 @@
-var crypto = require('crypto');
-
 function SendCode(to, code) {
     // phone
     /*
@@ -18,15 +16,8 @@ function SendCode(to, code) {
     */
 }
 
-app.get('/api/signup',function(req,res){
+app.get('/api/requestnewpass',function(req,res){
     var phone = req.param("phone");
-    var password = req.param("password");
-    var hash = crypto.createHash('md5').update(password).digest("hex");
-    var location = req.param("location");
-    var latitude = req.param("latitude");
-    var longitude = req.param("longitude");
-    var region = req.param("region");
-    var country = req.param("country");
 
     con.query('SELECT id, code, phone FROM awaiting_verification WHERE TIMESTAMPDIFF(MINUTE,time_generated,NOW()) <= 20 AND phone=? LIMIT 1',
         [phone], function(err,data) {
@@ -44,22 +35,22 @@ app.get('/api/signup',function(req,res){
         {
             con.query('SELECT id FROM users WHERE phone=? LIMIT 1', [phone], function(err,data) {
                 if(!err) {
-                    if(data.length > 0)
+                    if(data.length == 0)
                     {
-                        // already registered
+                        // not registered
                         res.json({
                             response: 0
                         });
                     }
                     else
                     {
-                        // not registered, generate and send code
+                        // registered, generate and send code
 
                         var code = Math.floor(Math.random()*(89998)+10000); // from 10,000 to 99,999
                         SendCode(phone, code);
                         con.query(
-                            'INSERT INTO awaiting_verification(code,phone,password,location,latitude,longitude,region,country) VALUES(?,?,?,?,?,?,?,?)',
-                            [code,phone,hash,location,latitude,longitude,region,country], function(err,data) {
+                            'INSERT INTO awaiting_verification(code,phone,password,location,latitude,longitude,region,country) VALUES(?,?,'','','','','','')',
+                            [code,phone], function(err,data) {
                             if(!err) {
                                 res.json({
                                     response: 2
@@ -75,12 +66,11 @@ app.get('/api/signup',function(req,res){
                 else {
                     res.json(err);
                 }
-            });
+            }
         }
-    }
-    else
-    {
-        res.json(err);
-    }
+        else
+        {
+            res.json(err);
+        }
     });
 });

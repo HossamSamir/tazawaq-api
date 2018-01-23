@@ -21,3 +21,5 @@ require('./routes/api/signin');
 require('./routes/api/signup');
 require('./routes/api/verifycode');
 require('./routes/api/user_location');
+require('./routes/api/requestnewpass');
+require('./routes/api/setnewpass');
