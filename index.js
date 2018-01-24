@@ -1,5 +1,5 @@
 const express = require('express');
-const app = express();
+app = express();
 const path = require('path');
 const PORT = process.env.PORT || 3000;
 const login = require('./routes/login');
@@ -14,3 +14,21 @@ app.listen(PORT, () => console.log(`Listening on ${PORT}`));
 app.use('/login', login);
 app.use('/logout', logout);
 app.use('/', index);
+
+// MySQL database
+/*var mysql = require('mysql');
+
+con = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "",
+    database:"tazawaq",
+});*/
+
+// API
+require('./routes/api/signin');
+require('./routes/api/signup');
+require('./routes/api/verifycode');
+require('./routes/api/user_location');
+require('./routes/api/requestnewpass');
+require('./routes/api/setnewpass');
