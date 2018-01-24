@@ -12,9 +12,19 @@ if (typeof localStorage === 'undefined' || localStorage === null) {
 	var LocalStorage = require('node-localstorage').LocalStorage;
 	localStorage = new LocalStorage('./scratch');
 }
-// modules
+// importing routes
 const home = require('./routes/home');
 const logout = require('./routes/logout');
+const sales = require('./routes/sales');
+const markets = require('./routes/markets');
+const users = require('./routes/users');
+
+// routes
+app.get('/', checkAuth, home);
+app.get('/logout', checkAuth, logout);
+app.get('/sales', checkAuth, sales);
+app.get('/markets', checkAuth, markets);
+app.get('/users', checkAuth, users);
 
 // checking authentication session
 function checkAuth(req, res, next) {
@@ -35,9 +45,6 @@ function checkAuth(req, res, next) {
 		}
 	}
 }
-
-app.get('/', checkAuth, home);
-app.get('/logout', checkAuth, logout);
 
 // MySQL database
 /*var mysql = require('mysql');
