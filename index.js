@@ -18,6 +18,14 @@ const logout = require('./routes/logout');
 const sales = require('./routes/sales');
 const markets = require('./routes/markets');
 const users = require('./routes/users');
+const store_home = require('./routes/store_owner/home');
+const store_orders = require('./routes/store_owner/orders');
+const store_sales = require('./routes/store_owner/sales');
+const store_users = require('./routes/store_owner/users');
+const store_products = require('./routes/store_owner/products');
+const store_offers = require('./routes/store_owner/offers');
+const store_compose = require('./routes/store_owner/compose');
+const store_email = require('./routes/store_owner/email');
 
 // routes
 app.get('/', checkAuth, home);
@@ -25,6 +33,14 @@ app.get('/logout', checkAuth, logout);
 app.get('/sales', checkAuth, sales);
 app.get('/markets', checkAuth, markets);
 app.get('/users', checkAuth, users);
+app.get('/store_owner', checkAuth, store_home);
+app.get('/store_orders', checkAuth, store_orders);
+app.get('/store_sales', checkAuth, store_sales);
+app.get('/store_users', checkAuth, store_users);
+app.get('/store_products', checkAuth, store_products);
+app.get('/store_offers', checkAuth, store_offers);
+app.get('/store_compose', checkAuth, store_compose);
+app.get('/store_email', checkAuth, store_email);
 
 // checking authentication session
 function checkAuth(req, res, next) {
