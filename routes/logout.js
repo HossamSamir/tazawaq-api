@@ -1,13 +1,6 @@
-var express = require('express');
-var router = express.Router();
-if (typeof localStorage === 'undefined' || localStorage === null) {
-	var LocalStorage = require('node-localstorage').LocalStorage;
-	localStorage = new LocalStorage('./scratch');
-}
-
-router.get('/', function(req, res, next) {
+module.exports = (req, res) => {
 	localStorage.setItem('loggedIn', 'false');
 	res.render('login', { title: 'Express' });
-});
+};
 
-module.exports = router;
+// module.exports = travers;
