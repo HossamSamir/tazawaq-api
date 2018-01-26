@@ -5,7 +5,7 @@ app.get('/api/signin',function(req,res){
     var password = req.param("password");
     var hash = crypto.createHash('md5').update(password).digest("hex");
 
-    con.query('SELECT id from users WHERE phone=? AND password=? LIMIT 1', [identifier, hash], function(err,data) {
+    con.query('SELECT id from users WHERE (phone=? OR email=? OR username=?) AND password=? LIMIT 1', [identifier, identifier, identifier, hash], function(err,data) {
         if(!err) {
             if(data.length == 0)
             {

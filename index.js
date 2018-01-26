@@ -12,6 +12,34 @@ if (typeof localStorage === 'undefined' || localStorage === null) {
 	var LocalStorage = require('node-localstorage').LocalStorage;
 	localStorage = new LocalStorage('./scratch');
 }
+
+// MySQL database
+var mysql = require('mysql');
+
+con = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "",
+    database:"tazawaq",
+});
+
+con.connect(function(err) {
+	if (err) {
+		console.error('error connecting: ' + err.stack);
+		return;
+	}
+
+	/*con.query("SET CHARACTER SET utf8", function (err, result) {
+		con.query("SET SESSION collation_connection ='utf8_general_ci",  function (err, result) {
+			con.query('SET NAMES \'UTF8\'',function(err,res){
+
+			});
+		});
+	});*/
+
+	console.log('mysql connected as id ' + con.threadId);
+});
+
 // importing routes
 const home = require('./routes/home');
 const logout = require('./routes/logout');
@@ -62,20 +90,10 @@ function checkAuth(req, res, next) {
 	}
 }
 
-// MySQL database
-/*var mysql = require('mysql');
-
-con = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "",
-    database:"tazawaq",
-});*/
-
 // API
-// require('./routes/api/signin');
-// require('./routes/api/signup');
-// require('./routes/api/verifycode');
-// require('./routes/api/user_location');
-// require('./routes/api/requestnewpass');
-// require('./routes/api/setnewpass');
+require('./routes/api/signin');
+require('./routes/api/signup');
+require('./routes/api/verifycode');
+require('./routes/api/user_location');
+require('./routes/api/requestnewpass');
+require('./routes/api/setnewpass');

@@ -14,6 +14,8 @@ function SendCode(to, code) {
         body: 'هذا هو الكود الخاص بك ' + code,
     }).then(message => console.log(message.sid));
     */
+
+    // remember to add country code
 }
 
 app.get('/api/requestnewpass',function(req,res){
@@ -49,7 +51,7 @@ app.get('/api/requestnewpass',function(req,res){
                         var code = Math.floor(Math.random()*(89998)+10000); // from 10,000 to 99,999
                         SendCode(phone, code);
                         con.query(
-                            'INSERT INTO awaiting_verification(code,phone,password,location,latitude,longitude,region,country) VALUES(?,?,'','','','','','')',
+                            "INSERT INTO awaiting_verification(code,phone,password,location,latitude,longitude,region,country) VALUES(?,?,'','','','','','')",
                             [code,phone], function(err,data) {
                             if(!err) {
                                 res.json({
@@ -66,11 +68,11 @@ app.get('/api/requestnewpass',function(req,res){
                 else {
                     res.json(err);
                 }
-            }
+            });
         }
-        else
-        {
-            res.json(err);
-        }
-    });
+    }
+    else
+    {
+        res.json(err);
+    }});
 });
