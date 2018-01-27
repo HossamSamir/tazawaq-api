@@ -30,7 +30,6 @@ app.get('/api/signup',function(req,res){
     var latitude = req.param("latitude");
     var longitude = req.param("longitude");
     var region = req.param("region");
-    var country = req.param("country");
 
     con.query('SELECT id, code, phone FROM awaiting_verification WHERE TIMESTAMPDIFF(MINUTE,time_generated,NOW()) <= 20 AND phone=? LIMIT 1',
         [phone], function(err,data) {
@@ -74,8 +73,8 @@ app.get('/api/signup',function(req,res){
                         var code = Math.floor(Math.random()*(89998)+10000); // from 10,000 to 99,999
                         SendCode(phone, code);
                         con.query(
-                            'INSERT INTO awaiting_verification(code,phone,email,username,password,location,latitude,longitude,region,country) VALUES(?,?,?,?,?,?,?,?,?,?)',
-                            [code,phone,email,username,hash,location,latitude,longitude,region,country], function(err,data) {
+                            'INSERT INTO awaiting_verification(code,phone,email,username,password,location,latitude,longitude,region) VALUES(?,?,?,?,?,?,?,?,?)',
+                            [code,phone,email,username,hash,location,latitude,longitude,region], function(err,data) {
                             if(!err) {
                                 res.json({
                                     response: 2
