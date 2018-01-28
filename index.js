@@ -17,10 +17,10 @@ if (typeof localStorage === 'undefined' || localStorage === null) {
 var mysql = require('mysql');
 
 con = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "",
-    database:"tazawaq",
+	host: 'localhost',
+	user: 'root',
+	password: '',
+	database: 'tazawaq'
 });
 
 con.connect(function(err) {
@@ -40,7 +40,7 @@ con.connect(function(err) {
 	console.log('mysql connected as id ' + con.threadId);
 });
 
-// importing routes
+// store owner routes
 const home = require('./routes/home');
 const logout = require('./routes/logout');
 const sales = require('./routes/sales');
