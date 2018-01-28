@@ -1,4 +1,4 @@
-async = require("async");
+async = require('async');
 const path = require('path');
 
 // express configs
@@ -27,10 +27,10 @@ if (typeof localStorage === 'undefined' || localStorage === null) {
 var mysql = require('mysql');
 
 con = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "",
-    database:"tazawaq",
+	host: 'localhost',
+	user: 'root',
+	password: '',
+	database: 'tazawaq'
 });
 
 con.connect(function(err) {
