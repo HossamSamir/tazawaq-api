@@ -5,7 +5,7 @@ exports.qry = function qry(query, arr = [], callback) {
 	}
 
 	con.query(query, arr, function(err,result) {
-		if(err) res.json(err);
+		if(err) console.log(err);
 		else callback(result);
 	});
 }
