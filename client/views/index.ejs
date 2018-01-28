@@ -180,11 +180,10 @@
                   <div class="bgc-light-blue-500 c-white p-20">
                     <div class="peers ai-c jc-sb gap-40">
                       <div class="peer peer-greed">
-                        <h5>نوفمبر 2017</h5>
-                        <p class="mB-0">تقرير المبيعات</p>
+                        <h3><%= salesCt %></h3>
                       </div>
                       <div class="peer">
-                        <h3 class="text-right">$6,000</h3>
+                        <h3 class="text-right"><%= salesCost %> ر.س</h3>
                       </div>
                     </div>
                   </div>
@@ -199,36 +198,14 @@
                         </tr>
                       </thead>
                       <tbody>
+                          <% sales.forEach(function(sale) { %>
                         <tr>
-                          <td class="fw-600">Item #1 Name</td>
-                          <td><span class="badge bgc-red-50 c-red-700 p-10 lh-0 tt-c badge-pill">اسم متجر</span></td>
-                          <td>Nov 18</td>
-                          <td><span class="text-success">$12</span></td>
+                          <td class="fw-600"><%= sale.data.info %></td>
+                          <td><span class="badge bgc-red-50 c-red-700 p-10 lh-0 tt-c badge-pill"><%= sale.name %></span></td>
+                          <td><%= sale.data.date %></td>
+                          <td><span class="text-success"><%= sale.data.cost %></span></td>
                         </tr>
-                        <tr>
-                          <td class="fw-600">Item #2 Name</td>
-                          <td><span class="badge bgc-deep-purple-50 c-deep-purple-700 p-10 lh-0 tt-c badge-pill">اسم متجر</span></td>
-                          <td>Nov 19</td>
-                          <td><span class="text-info">$34</span></td>
-                        </tr>
-                        <tr>
-                          <td class="fw-600">Item #3 Name</td>
-                          <td><span class="badge bgc-pink-50 c-pink-700 p-10 lh-0 tt-c badge-pill">اسم متجر</span></td>
-                          <td>Nov 20</td>
-                          <td><span class="text-danger">-$45</span></td>
-                        </tr>
-                        <tr>
-                          <td class="fw-600">Item #4 Name</td>
-                          <td><span class="badge bgc-green-50 c-green-700 p-10 lh-0 tt-c badge-pill">اسم متجر</span></td>
-                          <td>Nov 21</td>
-                          <td><span class="text-success">$65</span></td>
-                        </tr>
-                        <tr>
-                          <td class="fw-600">Item #5 Name</td>
-                          <td><span class="badge bgc-red-50 c-red-700 p-10 lh-0 tt-c badge-pill">اسم متجر</span></td>
-                          <td>Nov 22</td>
-                          <td><span class="text-success">$78</span></td>
-                        </tr>
+                        <% }) %>
                       </tbody>
                     </table>
                   </div>
@@ -247,11 +224,10 @@
                   <div class="bgc-light-blue-500 c-white p-20">
                     <div class="peers ai-c jc-sb gap-40">
                       <div class="peer peer-greed">
-                        <h5>المحل التجاري</h5>
-                        <p class="mB-0">اخر التقارير</p>
+
                       </div>
                       <div class="peer">
-                        <h3 class="text-right">28</h3>
+                        <h3 class="text-right">آخر المحلات</h3>
                       </div>
                     </div>
                   </div>
@@ -262,44 +238,19 @@
                         <tr>
                           <th>اسم الماركت</th>
                           <th>رابط لوحه التحكم</th>
-                          <th>اسم المستخدم</th>
-                          <th onclick="togglePw()" style="cursor:pointer; text-align: center;"><i class="c-blue-500 ti-eye" style="cursor:pointer"></i>                            كلمة المرور</th>
+                          <th>الموقع</th>
                         </tr>
                       </thead>
                       <tfoot></tfoot>
                       <tbody>
+                          <% stores.forEach(function(store) { %>
                         <tr>
-                          <td>System Architect</td>
-                          <td><a href="https://oncall-admin.herokuapp.com/" target="_blank"
-                              class="badge badge-success" style="padding:8px;font-size:13px;letter-spacing:1.5px"><i class="c-white-500 ti-share"></i>/test_name_path</a></td>
-                          <td>test_username</td>
-                          <td><input value="test_password" disabled="disabled" class="form-control marketpw"
-                              style="text-align:center" type="password" class="dashboard_pw"></td>
+                          <td><%= store.display_name %></td>
+                          <td><a href="/<%= store.passname %>" target="_blank"
+                              class="badge badge-success" style="padding:8px;font-size:13px;letter-spacing:1.5px"><i class="c-white-500 ti-share"></i>/<%= store.passname %></a></td>
+                          <td><%= store.region %></td>
                         </tr>
-                        <tr>
-                          <td>Accountant</td>
-                          <td><a href="https://oncall-admin.herokuapp.com/" target="_blank"
-                              class="badge badge-success" style="padding:8px;font-size:13px;letter-spacing:1.5px"><i class="c-white-500 ti-share"></i>/test_name_path</a></td>
-                          <td>test_username</td>
-                          <td><input value="test_password" disabled="disabled" class="form-control marketpw"
-                              style="text-align:center" type="password" class="dashboard_pw"></td>
-                        </tr>
-                        <tr>
-                          <td>Junior Technical Author</td>
-                          <td><a href="https://oncall-admin.herokuapp.com/" target="_blank"
-                              class="badge badge-success" style="padding:8px;font-size:13px;letter-spacing:1.5px"><i class="c-white-500 ti-share"></i>/test_name_path</a></td>
-                          <td>test_username</td>
-                          <td><input value="test_password" disabled="disabled" class="form-control marketpw"
-                              style="text-align:center" type="password" class="dashboard_pw"></td>
-                        </tr>
-                        <tr>
-                          <td>Senior Javascript Developer</td>
-                          <td><a href="https://oncall-admin.herokuapp.com/" target="_blank"
-                              class="badge badge-success" style="padding:8px;font-size:13px;letter-spacing:1.5px"><i class="c-white-500 ti-share"></i>/test_name_path</a></td>
-                          <td>test_username</td>
-                          <td><input value="test_password" disabled="disabled" class="form-control marketpw"
-                              style="text-align:center" type="password" class="dashboard_pw"></td>
-                        </tr>
+                        <% }) %>
                       </tbody>
                     </table>
                   </div>
@@ -316,16 +267,6 @@
   </div>
   <script type="text/javascript" src="./assets/js/vendor.js"></script>
   <script type="text/javascript" src="./assets/js/bundle.js"></script>
-  <script>
-  function togglePw() {
-  var pws = document.getElementsByClassName('marketpw');
-  for (var i = 0; i < pws.length; i++) {
-    pws[i].type === 'password'
-      ? (pws[i].type = 'text')
-      : (pws[i].type = 'password');
-  }
-}
-</script>
 </body>
 
 </html>
