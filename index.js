@@ -1,3 +1,4 @@
+async = require('async');
 const path = require('path');
 // express configs
 const express = require('express');
@@ -40,7 +41,9 @@ con.connect(function(err) {
 	console.log('mysql connected as id ' + con.threadId);
 });
 
-// store owner routes
+sql = require('./sql/common');
+
+// importing routes
 const home = require('./routes/home');
 const logout = require('./routes/logout');
 const sales = require('./routes/sales');
