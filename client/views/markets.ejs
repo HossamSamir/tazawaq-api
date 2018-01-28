@@ -145,9 +145,6 @@
                       <th>اسم الماركت</th>
                       <th>الموقع</th>
                       <th>رابط لوحه التحكم</th>
-                      <th>اسم المستخدم</th>
-                      <th onclick="togglePw()" style="cursor:pointer"><i class="c-blue-500 ti-eye" style="cursor:pointer"></i> كلمة
-                        المرور</th>
                       <th>تعديل اسم / صورة</th>
                       <th>حذف</th>
                     </tr>
@@ -157,47 +154,44 @@
                       <th>اسم الماركت</th>
                       <th>الموقع</th>
                       <th>رابط لوحه التحكم</th>
-                      <th>اسم المستخدم</th>
-                      <th onclick="togglePw()" style="cursor:pointer"><i class="c-blue-500 ti-eye" style="cursor:pointer"></i> كلمة
-                        المرور</th>
                       <th>تعديل اسم / صورة</th>
                       <th>حذف</th>
                     </tr>
                   </tfoot>
                   <tbody>
+                      <% stores.forEach(function(store) { %>
                     <tr>
-                      <td>System Architect</td>
-                      <td>Edinburgh</td>
-                      <td><a href="/store_owner" target="_blank" class="badge badge-success"
-                          style="padding:8px;font-size:13px;letter-spacing:1.5px"><i class="c-white-500 ti-share"></i>/test_name_path</a></td>
-                      <td>test_username</td>
-                      <td><input value="test_password" disabled="disabled" class="form-control marketpw"
-                          style="text-align:center" type="password" class="dashboard_pw"></td>
-                      <td><button type="button" class="btn btn-info" data-toggle="modal"
+                      <td><%= store.display_name %></td>
+                      <td><%= store.region %></td>
+                      <td><a href="/<%= store.passname %>" target="_blank" class="badge badge-success"
+                          style="padding:8px;font-size:13px;letter-spacing:1.5px"><i class="c-white-500 ti-share"></i>/<%= store.passname %></a></td>
+                      <td><button type="button" class="edit btn btn-info" data-toggle="modal"
                           data-target="#editModal">تعديل</button>
-                        <div class="modal fade"
-                          id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                        <div class="modal fade" id="editModal" role="dialog" aria-labelledby="exampleModalLabel"
                           aria-hidden="true">
                           <div class="modal-dialog" role="document">
+                        <form encType="multipart/form-data" method="post" action="/edit-store" data-parsley-validate>
                             <div class="modal-content">
                               <div class="modal-header">
                                 <h5 class="modal-title" id="exampleModalLabel">تعديل ماركت</h5><button type="button" class="close"
                                   data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
-                              <div
-                                class="modal-body">
-                                <div class="form-group"><input type="email" class="form-control" aria-describedby="emailHelp"
-                                    placeholder="قم بادخال الأسم الجديد"><label for="exampleFormControlFile1">قم باختيار الصورة الجديدة</label>
-                                  <input
-                                    type="file" class="form-control-file" id="exampleFormControlFile1"></div>
+                              <div class="modal-body">
+                                <div class="form-group">
+                                    <input type="hidden" class="id_holder" name="id" value="<%= store.id %>">
+                                    <input type="text" name="newName" class="form-control" aria-describedby="emailHelp"
+                                    placeholder="قم بادخال الأسم الجديد" >
+                                    <label for="exampleFormControlFile1">قم باختيار الصورة الجديدة</label>
+                                  <input name="newImage" type="file" class="form-control-file"></div>
                             </div>
                             <div class="modal-footer"><button type="button" class="btn btn-outline-secondary"
-                                data-dismiss="modal">إلغاء</button> <button type="button"
-                                class="btn btn-info">تأكيد</button></div>
+                                data-dismiss="modal">إلغاء</button>
+                                <button type="submit" class="btn btn-info">تأكيد</button></div>
                           </div>
+                      </form>
                         </div>
               </div>
               </td>
-              <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">حذف</button>
+              <td><button type="button" class="delete btn btn-danger" data-toggle="modal" data-target="#exampleModal">حذف</button>
                 <div
                   class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
                   aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -210,153 +204,15 @@
                         class="modal-body">
                         <h5>هل انت متاكد من حذف هذا الماركت</h5>
                     </div>
-                    <div class="modal-footer"><button type="button" class="btn btn-outline-secondary" data-dismiss="modal">إلغاء</button>                      <button type="button" class="btn btn-danger">تأكيد</button></div>
+                    <div class="modal-footer"><button type="button" class="btn btn-outline-secondary" data-dismiss="modal">إلغاء</button>
+                        <a class="delete-confirm-btn" href="/delete-store?id=<%= store.id %>"><button type="button" class="btn btn-danger">تأكيد</button></a>
+                    </div>
                   </div>
             </div>
           </div>
           </td>
           </tr>
-          <tr>
-            <td>Accountant</td>
-            <td>Tokyo</td>
-            <td><a href="/store_owner" target="_blank" class="badge badge-success" style="padding:8px;font-size:13px;letter-spacing:1.5px"><i class="c-white-500 ti-share"></i>/test_name_path</a></td>
-            <td>test_username</td>
-            <td><input value="test_password" disabled="disabled" class="form-control marketpw"
-                style="text-align:center" type="password" class="dashboard_pw"></td>
-            <td><button type="button" class="btn btn-info" data-toggle="modal" data-target="#editModal">تعديل</button>
-              <div
-                class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">تعديل ماركت</h5><button type="button" class="close" data-dismiss="modal"
-                        aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
-                    <div
-                      class="modal-body">
-                      <div class="form-group"><input type="email" class="form-control" aria-describedby="emailHelp"
-                          placeholder="قم بادخال الأسم الجديد"><label for="exampleFormControlFile1">قم باختيار الصورة الجديدة</label>
-                        <input
-                          type="file" class="form-control-file" id="exampleFormControlFile1"></div>
-                  </div>
-                  <div class="modal-footer"><button type="button" class="btn btn-outline-secondary" data-dismiss="modal">إلغاء</button>                    <button type="button" class="btn btn-info">تأكيد</button></div>
-                </div>
-        </div>
-      </div>
-      </td>
-      <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">حذف</button>
-        <div
-          class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-          aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">حذف ماركت</h5><button type="button" class="close" data-dismiss="modal"
-                  aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
-              <div
-                class="modal-body">
-                <h5>هل انت متاكد من حذف هذا الماركت</h5>
-            </div>
-            <div class="modal-footer"><button type="button" class="btn btn-outline-secondary" data-dismiss="modal">إلغاء</button>              <button type="button" class="btn btn-danger">تأكيد</button></div>
-          </div>
-  </div>
-  </div>
-  </td>
-  </tr>
-  <tr>
-    <td>Junior Technical Author</td>
-    <td>San Francisco</td>
-    <td><a href="/store_owner" target="_blank" class="badge badge-success" style="padding:8px;font-size:13px;letter-spacing:1.5px"><i class="c-white-500 ti-share"></i>/test_name_path</a></td>
-    <td>test_username</td>
-    <td><input value="test_password" disabled="disabled" class="form-control marketpw"
-        style="text-align:center" type="password" class="dashboard_pw"></td>
-    <td><button type="button" class="btn btn-info" data-toggle="modal" data-target="#editModal">تعديل</button>
-      <div
-        class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">تعديل ماركت</h5><button type="button" class="close" data-dismiss="modal"
-                aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
-            <div
-              class="modal-body">
-              <div class="form-group"><input type="email" class="form-control" aria-describedby="emailHelp"
-                  placeholder="قم بادخال الأسم الجديد"><label for="exampleFormControlFile1">قم باختيار الصورة الجديدة</label>
-                <input
-                  type="file" class="form-control-file" id="exampleFormControlFile1"></div>
-          </div>
-          <div class="modal-footer"><button type="button" class="btn btn-outline-secondary" data-dismiss="modal">إلغاء</button>            <button type="button" class="btn btn-info">تأكيد</button></div>
-        </div>
-        </div>
-        </div>
-    </td>
-    <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">حذف</button>
-      <div
-        class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">حذف ماركت</h5><button type="button" class="close" data-dismiss="modal"
-                aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
-            <div
-              class="modal-body">
-              <h5>هل انت متاكد من حذف هذا الماركت</h5>
-          </div>
-          <div class="modal-footer"><button type="button" class="btn btn-outline-secondary" data-dismiss="modal">إلغاء</button>            <button type="button" class="btn btn-danger">تأكيد</button></div>
-        </div>
-        </div>
-        </div>
-    </td>
-  </tr>
-  <tr>
-    <td>Senior Javascript Developer</td>
-    <td>Edinburgh</td>
-    <td><a href="/store_owner" target="_blank" class="badge badge-success" style="padding:8px;font-size:13px;letter-spacing:1.5px"><i class="c-white-500 ti-share"></i>/test_name_path</a></td>
-    <td>test_username</td>
-    <td><input value="test_password" disabled="disabled" class="form-control marketpw"
-        style="text-align:center" type="password" class="dashboard_pw"></td>
-    <td><button type="button" class="btn btn-info" data-toggle="modal" data-target="#editModal">تعديل</button>
-      <div
-        class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">تعديل ماركت</h5><button type="button" class="close" data-dismiss="modal"
-                aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
-            <div
-              class="modal-body">
-              <div class="form-group"><input type="email" class="form-control" aria-describedby="emailHelp"
-                  placeholder="قم بادخال الأسم الجديد"><label for="exampleFormControlFile1">قم باختيار الصورة الجديدة</label>
-                <input
-                  type="file" class="form-control-file" id="exampleFormControlFile1"></div>
-          </div>
-          <div class="modal-footer"><button type="button" class="btn btn-outline-secondary" data-dismiss="modal">إلغاء</button>            <button type="button" class="btn btn-info">تأكيد</button></div>
-        </div>
-        </div>
-        </div>
-    </td>
-    <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">حذف</button>
-      <div
-        class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">حذف ماركت</h5><button type="button" class="close" data-dismiss="modal"
-                aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
-            <div
-              class="modal-body">
-              <h5>هل انت متاكد من حذف هذا الماركت</h5>
-          </div>
-          <div class="modal-footer"><button type="button" class="btn btn-outline-secondary" data-dismiss="modal">إلغاء</button>            <button type="button" class="btn btn-danger">تأكيد</button></div>
-        </div>
-        </div>
-        </div>
-    </td>
-  </tr>
+          <% }) %>
   </tbody>
   </table>
   </div>
@@ -396,22 +252,25 @@
   <script type="text/javascript" src="./assets/js/bundle.js"></script>
 </body>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAn2cMwmJGKprkaT5kitgVzx-hm4UWErCQ&libraries=places"></script>
+<script type="text/javascript" src="./assets/js/jquery-3.3.1.min.js"></script>
 <script>
+    $('.edit').click(function(event) {
+        var correct_id = $(this).parents("td").find(".id_holder").val();
+        $(".id_holder:first").val(correct_id);
+    });
+
+    $('.delete').click(function(event) {
+        var correct = $(this).parents("td").find(".delete-confirm-btn").attr('href');
+        alert(correct);
+        $(".delete-confirm-btn:first").attr('href', correct);
+    });
+</script>
 function initialize() {
   var e = document.getElementById('inputAddress');
   new google.maps.places.Autocomplete(e);
   google.maps.event.addDomListener(e, 'keydown', function(e) {
     13 === e.keyCode && e.preventDefault();
   });
-}
-
-function togglePw() {
-  for (
-    var e = document.getElementsByClassName('marketpw'), t = 0;
-    t < e.length;
-    t++
-  )
-    'password' === e[t].type ? (e[t].type = 'text') : (e[t].type = 'password');
 }
 google.maps.event.addDomListener(window, 'load', initialize);
 </script>

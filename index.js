@@ -1,5 +1,6 @@
 async = require("async");
 const path = require('path');
+
 // express configs
 const express = require('express');
 app = express();
@@ -8,6 +9,14 @@ app.set('view engine', 'ejs');
 app.use(express.static(path.join(`${__dirname}/client`, 'views')));
 app.set('views', path.join(`${__dirname}/client`, 'views'));
 app.listen(PORT, () => console.log(`Listening on ${PORT}`));
+
+// File upload (for images)
+const fileUpload = require('express-fileupload');
+app.use(fileUpload());
+
+// Domain name (we prepend this to uploaded images)
+domain = "domainname.com";
+
 // localStorage
 if (typeof localStorage === 'undefined' || localStorage === null) {
 	var LocalStorage = require('node-localstorage').LocalStorage;
@@ -29,14 +38,6 @@ con.connect(function(err) {
 		console.error('error connecting: ' + err.stack);
 		return;
 	}
-
-	/*con.query("SET CHARACTER SET utf8", function (err, result) {
-		con.query("SET SESSION collation_connection ='utf8_general_ci",  function (err, result) {
-			con.query('SET NAMES \'UTF8\'',function(err,res){
-
-			});
-		});
-	});*/
 
 	console.log('mysql connected as id ' + con.threadId);
 });

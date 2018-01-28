@@ -13,13 +13,13 @@ function travers(req, res) {
 						}, function(err) {
 							if(err) throw err;
 						    sql.qry('SELECT display_name,passname,region FROM stores ORDER BY id DESC LIMIT 4', function(stores) {
-									res.render('index', { usersCt: usersCount[0].cnt,
-										storesCt: storesCount[0].cnt,
-										salesCt: salesCount[0].cnt,
-										salesCost: salesCst[0].totalCost,
-										sales, stores
-								 	});
-								});
+								res.render('index', { usersCt: usersCount[0].cnt,
+									storesCt: storesCount[0].cnt,
+									salesCt: salesCount[0].cnt,
+									salesCost: salesCst[0].totalCost,
+									sales, stores
+							 	});
+							});
 						});
 					});
 				});
