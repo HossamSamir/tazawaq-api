@@ -67,20 +67,28 @@ app.post('/add-store',function(req,res) {
 		return;
 	}
 
-	var hash = crypto.createHash('md5').update(password).digest("hex");
+	sql.qry('SELECT id FROM stores WHERE passname=?', [passname], function(result) {
+		if(result.length)
+		{
+			res.send('اسم الدخول على لوحة التحكم مُستخدم من قبل');
+		}
+		else
+		{
+			var hash = crypto.createHash('md5').update(password).digest("hex");
+			sql.qry('INSERT INTO stores(display_name,passname,password,address,latitude,longitude,region,img) VALUES(?,?,?,?,?,?,?,"")',
+				[display_name, passname.replace(/\s+/g, '_'), hash, address, lat, lng, region], function(insert) {
 
-	sql.qry('INSERT INTO stores(display_name,passname,password,address,latitude,longitude,region,img) VALUES(?,?,?,?,?,?,?,"")',
-		[display_name, passname.replace(/\s+/g, '_'), hash, address, lat, lng, region], function(insert) {
+				var id = insert.insertId;
+				var img_path = 'uploaded_images/store_images/store_'+id+'.jpg';
+				image.mv(img_path, function(err) {
+					if (err) return res.status(500).send(err);
 
-		var id = insert.insertId;
-		var img_path = 'uploaded_images/store_images/store_'+id+'.jpg';
-		image.mv(img_path, function(err) {
-			if (err) return res.status(500).send(err);
-
-			sql.qry('UPDATE stores SET img=? WHERE id=?', [(domain + "/" + img_path), id], function(stores) {
-				res.redirect('markets');
+					sql.qry('UPDATE stores SET img=? WHERE id=?', [(domain + "/" + img_path), id], function(stores) {
+						res.redirect('markets');
+					});
+				});
 			});
-		});
+		}
 	});
 });
 
