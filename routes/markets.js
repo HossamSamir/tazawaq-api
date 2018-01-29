@@ -6,7 +6,7 @@ function travers(req, res) {
 
 app.get('/delete-store',function(req,res) {
 	var id = req.param("id");
-	sql.qry('DELETE FROM stores WHERE id=?', [id], function(stores) {
+	sql.qry('DELETE FROM stores WHERE id=?', [id], function() {
 		res.redirect('markets');
 	});
 });

@@ -142,552 +142,57 @@
                   cellspacing="0" width="100%">
                   <thead>
                     <tr>
-                      <th>id</th>
                       <th>اسم المستخدم</th>
-                      <th onclick="togglePw()" style="cursor:pointer"><i class="c-blue-500 ti-eye"></i> كلمة المرور</th>
-                      <th>الموقع</th>
+                      <th>جوال</th>
+                      <th>بريد الكتروني</th>
+                      <th>العنوان</th>
+                      <th>المنطقة</th>
                       <th>حذف</th>
                     </tr>
                   </thead>
                   <tfoot>
                     <tr>
-                      <th>id</th>
-                      <th>اسم المستخدم</th>
-                      <th onclick="togglePw()" style="cursor:pointer"><i class="c-blue-500 ti-eye" onclick="togglePw()" style="cursor:pointer"></i>                        كلمة المرور</th>
-                      <th>الموقع</th>
+                        <th>اسم المستخدم</th>
+                        <th>جوال</th>
+                        <th>بريد الكتروني</th>
+                        <th>العنوان</th>
+                        <th>المنطقة</th>
                       <th>حذف</th>
                     </tr>
                   </tfoot>
                   <tbody>
+                       <% users.forEach(function(user) { %>
                     <tr>
-                      <td>0</td>
-                      <td>test_username</td>
-                      <td><input value="test_password" disabled="disabled" class="form-control marketpw"
-                          style="text-align:center" type="password" class="dashboard_pw"></td>
-                      <td>saudi arabia</td>
+                      <td><%= user.username %></td>
+                      <td><%= user.phone %></td>
+                      <td><%= user.email %></td>
+                       <td><%= user.location %></td>
+                        <td><%= user.region %></td>
                       <td><button type="button" class="btn btn-danger" data-toggle="modal"
-                          data-target="#exampleModal">حظر</button>
+                          data-target="#exampleModal">حذف</button>
                         <div class="modal fade"
                           id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                           aria-hidden="true">
                           <div class="modal-dialog" role="document">
                             <div class="modal-content">
                               <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">حظر المستخدم</h5><button type="button" class="close"
+                                <h5 class="modal-title" id="exampleModalLabel">حذف المستخدم</h5><button type="button" class="close"
                                   data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
                               <div
                                 class="modal-body">
-                                <h5>هل انت متاكد من حظر هذا المستخدم</h5>
+                                <h5>هل انت متاكد من حذف هذا المستخدم</h5>
                             </div>
                             <div class="modal-footer"><button type="button" class="btn btn-outline-secondary"
-                                data-dismiss="modal">إلغاء</button> <button type="button"
-                                class="btn btn-danger">تأكيد</button></div>
+                                data-dismiss="modal">إلغاء</button>
+                                <a class="delete-confirm-btn" href="/delete-user?id=<%= user.id %>">
+                                    <button type="button" class="btn btn-danger">تأكيد</button></a>
+                                </div>
                           </div>
                         </div>
               </div>
               </td>
               </tr>
-              <tr>
-                <td>0</td>
-                <td>test_username</td>
-                <td><input value="test_password" disabled="disabled" class="form-control marketpw"
-                    style="text-align:center" type="password" class="dashboard_pw"></td>
-                <td>saudi arabia</td>
-                <td><button type="button" class="btn btn-danger" data-toggle="modal"
-                    data-target="#exampleModal">حظر</button>
-                  <div class="modal fade"
-                    id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                    aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title" id="exampleModalLabel">حظر المستخدم</h5><button type="button" class="close" data-dismiss="modal"
-                            aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
-                        <div
-                          class="modal-body">
-                          <h5>هل انت متاكد من حظر هذا المستخدم</h5>
-                      </div>
-                      <div class="modal-footer"><button type="button" class="btn btn-outline-secondary" data-dismiss="modal">إلغاء</button>                        <button type="button" class="btn btn-danger">تأكيد</button></div>
-                    </div>
-                  </div>
-            </div>
-            </td>
-            </tr>
-            <tr>
-              <td>0</td>
-              <td>test_username</td>
-              <td><input value="test_password" disabled="disabled" class="form-control marketpw"
-                  style="text-align:center" type="password" class="dashboard_pw"></td>
-              <td>saudi arabia</td>
-              <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">حظر</button>
-                <div
-                  class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
-                  aria-labelledby="exampleModalLabel" aria-hidden="true">
-                  <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">حظر المستخدم</h5><button type="button" class="close" data-dismiss="modal"
-                          aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
-                      <div
-                        class="modal-body">
-                        <h5>هل انت متاكد من حظر هذا المستخدم</h5>
-                    </div>
-                    <div class="modal-footer"><button type="button" class="btn btn-outline-secondary" data-dismiss="modal">إلغاء</button>                      <button type="button" class="btn btn-danger">تأكيد</button></div>
-                  </div>
-          </div>
-        </div>
-        </td>
-        </tr>
-        <tr>
-          <td>0</td>
-          <td>test_username</td>
-          <td><input value="test_password" disabled="disabled" class="form-control marketpw"
-              style="text-align:center" type="password" class="dashboard_pw"></td>
-          <td>saudi arabia</td>
-          <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">حظر</button>
-            <div
-              class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-              aria-hidden="true">
-              <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">حظر المستخدم</h5><button type="button" class="close" data-dismiss="modal"
-                      aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
-                  <div
-                    class="modal-body">
-                    <h5>هل انت متاكد من حظر هذا المستخدم</h5>
-                </div>
-                <div class="modal-footer"><button type="button" class="btn btn-outline-secondary" data-dismiss="modal">إلغاء</button>                  <button type="button" class="btn btn-danger">تأكيد</button></div>
-              </div>
-      </div>
-  </div>
-  </td>
-  </tr>
-  <tr>
-    <td>0</td>
-    <td>test_username</td>
-    <td><input value="test_password" disabled="disabled" class="form-control marketpw"
-        style="text-align:center" type="password" class="dashboard_pw"></td>
-    <td>saudi arabia</td>
-    <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">حظر</button>
-      <div
-        class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">حظر المستخدم</h5><button type="button" class="close" data-dismiss="modal"
-                aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
-            <div
-              class="modal-body">
-              <h5>هل انت متاكد من حظر هذا المستخدم</h5>
-          </div>
-          <div class="modal-footer"><button type="button" class="btn btn-outline-secondary" data-dismiss="modal">إلغاء</button>            <button type="button" class="btn btn-danger">تأكيد</button></div>
-        </div>
-        </div>
-        </div>
-    </td>
-  </tr>
-  <tr>
-    <td>0</td>
-    <td>test_username</td>
-    <td><input value="test_password" disabled="disabled" class="form-control marketpw"
-        style="text-align:center" type="password" class="dashboard_pw"></td>
-    <td>saudi arabia</td>
-    <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">حظر</button>
-      <div
-        class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">حظر المستخدم</h5><button type="button" class="close" data-dismiss="modal"
-                aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
-            <div
-              class="modal-body">
-              <h5>هل انت متاكد من حظر هذا المستخدم</h5>
-          </div>
-          <div class="modal-footer"><button type="button" class="btn btn-outline-secondary" data-dismiss="modal">إلغاء</button>            <button type="button" class="btn btn-danger">تأكيد</button></div>
-        </div>
-        </div>
-        </div>
-    </td>
-  </tr>
-  <tr>
-    <td>0</td>
-    <td>test_username</td>
-    <td><input value="test_password" disabled="disabled" class="form-control marketpw"
-        style="text-align:center" type="password" class="dashboard_pw"></td>
-    <td>saudi arabia</td>
-    <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">حظر</button>
-      <div
-        class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">حظر المستخدم</h5><button type="button" class="close" data-dismiss="modal"
-                aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
-            <div
-              class="modal-body">
-              <h5>هل انت متاكد من حظر هذا المستخدم</h5>
-          </div>
-          <div class="modal-footer"><button type="button" class="btn btn-outline-secondary" data-dismiss="modal">إلغاء</button>            <button type="button" class="btn btn-danger">تأكيد</button></div>
-        </div>
-        </div>
-        </div>
-    </td>
-  </tr>
-  <tr>
-    <td>0</td>
-    <td>test_username</td>
-    <td><input value="test_password" disabled="disabled" class="form-control marketpw"
-        style="text-align:center" type="password" class="dashboard_pw"></td>
-    <td>saudi arabia</td>
-    <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">حظر</button>
-      <div
-        class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">حظر المستخدم</h5><button type="button" class="close" data-dismiss="modal"
-                aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
-            <div
-              class="modal-body">
-              <h5>هل انت متاكد من حظر هذا المستخدم</h5>
-          </div>
-          <div class="modal-footer"><button type="button" class="btn btn-outline-secondary" data-dismiss="modal">إلغاء</button>            <button type="button" class="btn btn-danger">تأكيد</button></div>
-        </div>
-        </div>
-        </div>
-    </td>
-  </tr>
-  <tr>
-    <td>0</td>
-    <td>test_username</td>
-    <td><input value="test_password" disabled="disabled" class="form-control marketpw"
-        style="text-align:center" type="password" class="dashboard_pw"></td>
-    <td>saudi arabia</td>
-    <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">حظر</button>
-      <div
-        class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">حظر المستخدم</h5><button type="button" class="close" data-dismiss="modal"
-                aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
-            <div
-              class="modal-body">
-              <h5>هل انت متاكد من حظر هذا المستخدم</h5>
-          </div>
-          <div class="modal-footer"><button type="button" class="btn btn-outline-secondary" data-dismiss="modal">إلغاء</button>            <button type="button" class="btn btn-danger">تأكيد</button></div>
-        </div>
-        </div>
-        </div>
-    </td>
-  </tr>
-  <tr>
-    <td>0</td>
-    <td>test_username</td>
-    <td><input value="test_password" disabled="disabled" class="form-control marketpw"
-        style="text-align:center" type="password" class="dashboard_pw"></td>
-    <td>saudi arabia</td>
-    <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">حظر</button>
-      <div
-        class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">حظر المستخدم</h5><button type="button" class="close" data-dismiss="modal"
-                aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
-            <div
-              class="modal-body">
-              <h5>هل انت متاكد من حظر هذا المستخدم</h5>
-          </div>
-          <div class="modal-footer"><button type="button" class="btn btn-outline-secondary" data-dismiss="modal">إلغاء</button>            <button type="button" class="btn btn-danger">تأكيد</button></div>
-        </div>
-        </div>
-        </div>
-    </td>
-  </tr>
-  <tr>
-    <td>0</td>
-    <td>test_username</td>
-    <td><input value="test_password" disabled="disabled" class="form-control marketpw"
-        style="text-align:center" type="password" class="dashboard_pw"></td>
-    <td>saudi arabia</td>
-    <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">حظر</button>
-      <div
-        class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">حظر المستخدم</h5><button type="button" class="close" data-dismiss="modal"
-                aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
-            <div
-              class="modal-body">
-              <h5>هل انت متاكد من حظر هذا المستخدم</h5>
-          </div>
-          <div class="modal-footer"><button type="button" class="btn btn-outline-secondary" data-dismiss="modal">إلغاء</button>            <button type="button" class="btn btn-danger">تأكيد</button></div>
-        </div>
-        </div>
-        </div>
-    </td>
-  </tr>
-  <tr>
-    <td>0</td>
-    <td>test_username</td>
-    <td><input value="test_password" disabled="disabled" class="form-control marketpw"
-        style="text-align:center" type="password" class="dashboard_pw"></td>
-    <td>saudi arabia</td>
-    <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">حظر</button>
-      <div
-        class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">حظر المستخدم</h5><button type="button" class="close" data-dismiss="modal"
-                aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
-            <div
-              class="modal-body">
-              <h5>هل انت متاكد من حظر هذا المستخدم</h5>
-          </div>
-          <div class="modal-footer"><button type="button" class="btn btn-outline-secondary" data-dismiss="modal">إلغاء</button>            <button type="button" class="btn btn-danger">تأكيد</button></div>
-        </div>
-        </div>
-        </div>
-    </td>
-  </tr>
-  <tr>
-    <td>0</td>
-    <td>test_username</td>
-    <td><input value="test_password" disabled="disabled" class="form-control marketpw"
-        style="text-align:center" type="password" class="dashboard_pw"></td>
-    <td>saudi arabia</td>
-    <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">حظر</button>
-      <div
-        class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">حظر المستخدم</h5><button type="button" class="close" data-dismiss="modal"
-                aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
-            <div
-              class="modal-body">
-              <h5>هل انت متاكد من حظر هذا المستخدم</h5>
-          </div>
-          <div class="modal-footer"><button type="button" class="btn btn-outline-secondary" data-dismiss="modal">إلغاء</button>            <button type="button" class="btn btn-danger">تأكيد</button></div>
-        </div>
-        </div>
-        </div>
-    </td>
-  </tr>
-  <tr>
-    <td>0</td>
-    <td>test_username</td>
-    <td><input value="test_password" disabled="disabled" class="form-control marketpw"
-        style="text-align:center" type="password" class="dashboard_pw"></td>
-    <td>saudi arabia</td>
-    <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">حظر</button>
-      <div
-        class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">حظر المستخدم</h5><button type="button" class="close" data-dismiss="modal"
-                aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
-            <div
-              class="modal-body">
-              <h5>هل انت متاكد من حظر هذا المستخدم</h5>
-          </div>
-          <div class="modal-footer"><button type="button" class="btn btn-outline-secondary" data-dismiss="modal">إلغاء</button>            <button type="button" class="btn btn-danger">تأكيد</button></div>
-        </div>
-        </div>
-        </div>
-    </td>
-  </tr>
-  <tr>
-    <td>0</td>
-    <td>test_username</td>
-    <td><input value="test_password" disabled="disabled" class="form-control marketpw"
-        style="text-align:center" type="password" class="dashboard_pw"></td>
-    <td>saudi arabia</td>
-    <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">حظر</button>
-      <div
-        class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">حظر المستخدم</h5><button type="button" class="close" data-dismiss="modal"
-                aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
-            <div
-              class="modal-body">
-              <h5>هل انت متاكد من حظر هذا المستخدم</h5>
-          </div>
-          <div class="modal-footer"><button type="button" class="btn btn-outline-secondary" data-dismiss="modal">إلغاء</button>            <button type="button" class="btn btn-danger">تأكيد</button></div>
-        </div>
-        </div>
-        </div>
-    </td>
-  </tr>
-  <tr>
-    <td>0</td>
-    <td>test_username</td>
-    <td><input value="test_password" disabled="disabled" class="form-control marketpw"
-        style="text-align:center" type="password" class="dashboard_pw"></td>
-    <td>saudi arabia</td>
-    <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">حظر</button>
-      <div
-        class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">حظر المستخدم</h5><button type="button" class="close" data-dismiss="modal"
-                aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
-            <div
-              class="modal-body">
-              <h5>هل انت متاكد من حظر هذا المستخدم</h5>
-          </div>
-          <div class="modal-footer"><button type="button" class="btn btn-outline-secondary" data-dismiss="modal">إلغاء</button>            <button type="button" class="btn btn-danger">تأكيد</button></div>
-        </div>
-        </div>
-        </div>
-    </td>
-  </tr>
-  <tr>
-    <td>0</td>
-    <td>test_username</td>
-    <td><input value="test_password" disabled="disabled" class="form-control marketpw"
-        style="text-align:center" type="password" class="dashboard_pw"></td>
-    <td>saudi arabia</td>
-    <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">حظر</button>
-      <div
-        class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">حظر المستخدم</h5><button type="button" class="close" data-dismiss="modal"
-                aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
-            <div
-              class="modal-body">
-              <h5>هل انت متاكد من حظر هذا المستخدم</h5>
-          </div>
-          <div class="modal-footer"><button type="button" class="btn btn-outline-secondary" data-dismiss="modal">إلغاء</button>            <button type="button" class="btn btn-danger">تأكيد</button></div>
-        </div>
-        </div>
-        </div>
-    </td>
-  </tr>
-  <tr>
-    <td>0</td>
-    <td>test_username</td>
-    <td><input value="test_password" disabled="disabled" class="form-control marketpw"
-        style="text-align:center" type="password" class="dashboard_pw"></td>
-    <td>saudi arabia</td>
-    <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">حظر</button>
-      <div
-        class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">حظر المستخدم</h5><button type="button" class="close" data-dismiss="modal"
-                aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
-            <div
-              class="modal-body">
-              <h5>هل انت متاكد من حظر هذا المستخدم</h5>
-          </div>
-          <div class="modal-footer"><button type="button" class="btn btn-outline-secondary" data-dismiss="modal">إلغاء</button>            <button type="button" class="btn btn-danger">تأكيد</button></div>
-        </div>
-        </div>
-        </div>
-    </td>
-  </tr>
-  <tr>
-    <td>0</td>
-    <td>test_username</td>
-    <td><input value="test_password" disabled="disabled" class="form-control marketpw"
-        style="text-align:center" type="password" class="dashboard_pw"></td>
-    <td>saudi arabia</td>
-    <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">حظر</button>
-      <div
-        class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">حظر المستخدم</h5><button type="button" class="close" data-dismiss="modal"
-                aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
-            <div
-              class="modal-body">
-              <h5>هل انت متاكد من حظر هذا المستخدم</h5>
-          </div>
-          <div class="modal-footer"><button type="button" class="btn btn-outline-secondary" data-dismiss="modal">إلغاء</button>            <button type="button" class="btn btn-danger">تأكيد</button></div>
-        </div>
-        </div>
-        </div>
-    </td>
-  </tr>
-  <tr>
-    <td>0</td>
-    <td>test_username</td>
-    <td><input value="test_password" disabled="disabled" class="form-control marketpw"
-        style="text-align:center" type="password" class="dashboard_pw"></td>
-    <td>saudi arabia</td>
-    <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">حظر</button>
-      <div
-        class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">حظر المستخدم</h5><button type="button" class="close" data-dismiss="modal"
-                aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
-            <div
-              class="modal-body">
-              <h5>هل انت متاكد من حظر هذا المستخدم</h5>
-          </div>
-          <div class="modal-footer"><button type="button" class="btn btn-outline-secondary" data-dismiss="modal">إلغاء</button>            <button type="button" class="btn btn-danger">تأكيد</button></div>
-        </div>
-        </div>
-        </div>
-    </td>
-  </tr>
-  <tr>
-    <td>0</td>
-    <td>test_username</td>
-    <td><input value="test_password" disabled="disabled" class="form-control marketpw"
-        style="text-align:center" type="password" class="dashboard_pw"></td>
-    <td>saudi arabia</td>
-    <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">حظر</button>
-      <div
-        class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">حظر المستخدم</h5><button type="button" class="close" data-dismiss="modal"
-                aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
-            <div
-              class="modal-body">
-              <h5>هل انت متاكد من حظر هذا المستخدم</h5>
-          </div>
-          <div class="modal-footer"><button type="button" class="btn btn-outline-secondary" data-dismiss="modal">إلغاء</button>            <button type="button" class="btn btn-danger">تأكيد</button></div>
-        </div>
-        </div>
-        </div>
-    </td>
-  </tr>
+              <% }) %>
   </tbody>
   </table>
   </div>
@@ -701,16 +206,14 @@
   </div>
   <script type="text/javascript" src="./assets/js/vendor.js"></script>
   <script type="text/javascript" src="./assets/js/bundle.js"></script>
+  <script type="text/javascript" src="./assets/js/jquery-3.3.1.min.js"></script>
+  <script>
+      $('.delete').click(function(event) {
+          var correct = $(this).parents("td").find(".delete-confirm-btn").attr('href');
+          alert(correct);
+          $(".delete-confirm-btn:first").attr('href', correct);
+      });
+  </script>
 </body>
-<script>
-function togglePw() {
-  for (
-    var e = document.getElementsByClassName('marketpw'), t = 0;
-    t < e.length;
-    t++
-  )
-    'password' === e[t].type ? (e[t].type = 'text') : (e[t].type = 'password');
-}
-</script>
 
 </html>
