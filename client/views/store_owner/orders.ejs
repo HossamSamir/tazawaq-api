@@ -202,14 +202,15 @@
           <thead class="thead-dark">
             <tr>
               <th scope="col">قبول</th>
-              <th scope="col">بيانات الزبون</th>
-              <th scope="col">العنوان</th>
+              <th scope="col">اسم الزبون</th>
+              <th scope="col">مكان التوصيل</th>
               <th scope="col">مجموع السعر</th>
-              <th scope="col">تفاصيل الاوردر</th>
+              <th scope="col">تفاصيل الطلب</th>
               <th scope="col">#</th>
             </tr>
           </thead>
           <tbody>
+              <% orders.forEach(function(order) { %>
             <tr>
               <td><a href="#" data-toggle="modal" data-target="#delCat" class="col-6"><i class="c-pink-500 ti-check-box" style="font-size:15px"></i> <span>تم التوصيل</span></a>
                 <div
@@ -229,169 +230,14 @@
       </div>
   </div>
   </td>
-  <td>name: Hossam Samir<br>ID: 8</td>
-  <td>123 test st. AlRyaid ,SA</td>
-  <td>30 SR</td>
-  <td>3x - cheese burger - 10 SR<br>3x - normal burger - 10 SR<br>1x - pepsi - 10 SR</td>
+  <td><%= order.username %></td>
+  <td><%= order.data.location %></td>
+  <td><%= order.data.cost %></td>
+  <td><%= order.data.info %></td>
   <th
     scope="row">1</th>
     </tr>
-    <tr>
-      <td><a href="#" data-toggle="modal" data-target="#delCat" class="col-6"><i class="c-pink-500 ti-check-box" style="font-size:15px"></i> <span>تم التوصيل</span></a>
-        <div
-          class="modal fade" id="delCat" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-          aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">انهي الطلب</h5><button type="button" class="close" data-dismiss="modal"
-                  aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
-              <div
-                class="modal-body">
-                <h5>سيتم ازاله الطلب من صفحه الطلبات النشطة</h5>
-            </div>
-            <div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">الغاء</button>              <button type="button" class="btn btn-danger">موافق</button></div>
-          </div>
-          </div>
-          </div>
-      </td>
-      <td>name: Hossam Samir<br>ID: 8</td>
-      <td>123 test st. AlRyaid ,SA</td>
-      <td>30 SR</td>
-      <td>3x - cheese burger - 10 SR<br>3x - normal burger - 10 SR<br>1x - pepsi - 10
-        SR</td>
-      <th scope="row">2</th>
-    </tr>
-    <tr>
-      <td><a href="#" data-toggle="modal" data-target="#delCat" class="col-6"><i class="c-pink-500 ti-check-box" style="font-size:15px"></i> <span>تم التوصيل</span></a>
-        <div
-          class="modal fade" id="delCat" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-          aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">انهي الطلب</h5><button type="button" class="close" data-dismiss="modal"
-                  aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
-              <div
-                class="modal-body">
-                <h5>سيتم ازاله الطلب من صفحه الطلبات النشطة</h5>
-            </div>
-            <div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">الغاء</button>              <button type="button" class="btn btn-danger">موافق</button></div>
-          </div>
-          </div>
-          </div>
-      </td>
-      <td>name: Hossam Samir<br>ID: 8</td>
-      <td>123 test st. AlRyaid ,SA</td>
-      <td>30 SR</td>
-      <td>3x - cheese burger - 10 SR<br>3x - normal burger - 10 SR<br>1x - pepsi - 10
-        SR</td>
-      <th scope="row">3</th>
-    </tr>
-    <tr>
-      <td><a href="#" data-toggle="modal" data-target="#delCat" class="col-6"><i class="c-pink-500 ti-check-box" style="font-size:15px"></i> <span>تم التوصيل</span></a>
-        <div
-          class="modal fade" id="delCat" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-          aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">انهي الطلب</h5><button type="button" class="close" data-dismiss="modal"
-                  aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
-              <div
-                class="modal-body">
-                <h5>سيتم ازاله الطلب من صفحه الطلبات النشطة</h5>
-            </div>
-            <div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">الغاء</button>              <button type="button" class="btn btn-danger">موافق</button></div>
-          </div>
-          </div>
-          </div>
-      </td>
-      <td>name: Hossam Samir<br>ID: 8</td>
-      <td>123 test st. AlRyaid ,SA</td>
-      <td>30 SR</td>
-      <td>3x - cheese burger - 10 SR<br>3x - normal burger - 10 SR<br>1x - pepsi - 10
-        SR</td>
-      <th scope="row">4</th>
-    </tr>
-    <tr>
-      <td><a href="#" data-toggle="modal" data-target="#delCat" class="col-6"><i class="c-pink-500 ti-check-box" style="font-size:15px"></i> <span>تم التوصيل</span></a>
-        <div
-          class="modal fade" id="delCat" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-          aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">انهي الطلب</h5><button type="button" class="close" data-dismiss="modal"
-                  aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
-              <div
-                class="modal-body">
-                <h5>سيتم ازاله الطلب من صفحه الطلبات النشطة</h5>
-            </div>
-            <div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">الغاء</button>              <button type="button" class="btn btn-danger">موافق</button></div>
-          </div>
-          </div>
-          </div>
-      </td>
-      <td>name: Hossam Samir<br>ID: 8</td>
-      <td>123 test st. AlRyaid ,SA</td>
-      <td>30 SR</td>
-      <td>3x - cheese burger - 10 SR<br>3x - normal burger - 10 SR<br>1x - pepsi - 10
-        SR</td>
-      <th scope="row">5</th>
-    </tr>
-    <tr>
-      <td><a href="#" data-toggle="modal" data-target="#delCat" class="col-6"><i class="c-pink-500 ti-check-box" style="font-size:15px"></i> <span>تم التوصيل</span></a>
-        <div
-          class="modal fade" id="delCat" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-          aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">انهي الطلب</h5><button type="button" class="close" data-dismiss="modal"
-                  aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
-              <div
-                class="modal-body">
-                <h5>سيتم ازاله الطلب من صفحه الطلبات النشطة</h5>
-            </div>
-            <div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">الغاء</button>              <button type="button" class="btn btn-danger">موافق</button></div>
-          </div>
-          </div>
-          </div>
-      </td>
-      <td>name: Hossam Samir<br>ID: 8</td>
-      <td>123 test st. AlRyaid ,SA</td>
-      <td>30 SR</td>
-      <td>3x - cheese burger - 10 SR<br>3x - normal burger - 10 SR<br>1x - pepsi - 10
-        SR</td>
-      <th scope="row">6</th>
-    </tr>
-    <tr>
-      <td><a href="#" data-toggle="modal" data-target="#delCat" class="col-6"><i class="c-pink-500 ti-check-box" style="font-size:15px"></i> <span>تم التوصيل</span></a>
-        <div
-          class="modal fade" id="delCat" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-          aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">انهي الطلب</h5><button type="button" class="close" data-dismiss="modal"
-                  aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
-              <div
-                class="modal-body">
-                <h5>سيتم ازاله الطلب من صفحه الطلبات النشطة</h5>
-            </div>
-            <div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">الغاء</button>              <button type="button" class="btn btn-danger">موافق</button></div>
-          </div>
-          </div>
-          </div>
-      </td>
-      <td>name: Hossam Samir<br>ID: 8</td>
-      <td>123 test st. AlRyaid ,SA</td>
-      <td>30 SR</td>
-      <td>3x - cheese burger - 10 SR<br>3x - normal burger - 10 SR<br>1x - pepsi - 10
-        SR</td>
-      <th scope="row">7</th>
-    </tr>
+    <% }) %>
     </tbody>
     </table>
     </div>
