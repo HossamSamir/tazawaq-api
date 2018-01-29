@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 27, 2018 at 01:45 PM
+-- Generation Time: Jan 29, 2018 at 01:22 AM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 7.1.7
 
@@ -146,7 +146,8 @@ CREATE TABLE `stores` (
   `address` varchar(128) CHARACTER SET utf8 NOT NULL,
   `latitude` double NOT NULL,
   `longitude` double NOT NULL,
-  `region` varchar(64) CHARACTER SET utf8 NOT NULL
+  `region` varchar(64) CHARACTER SET utf8 NOT NULL,
+  `img` varchar(256) CHARACTER SET utf8 NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
