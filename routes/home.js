@@ -12,7 +12,7 @@ function travers(req, res) {
 							});
 						}, function(err) {
 							if(err) throw err;
-						    sql.qry('SELECT display_name,passname,region FROM stores ORDER BY id DESC LIMIT 4', function(stores) {
+						    sql.qry('SELECT id,display_name,passname,region FROM stores ORDER BY id DESC LIMIT 4', function(stores) {
 								res.render('index', { usersCt: usersCount[0].cnt,
 									storesCt: storesCount[0].cnt,
 									salesCt: salesCount[0].cnt,

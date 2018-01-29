@@ -1,5 +1,6 @@
 function travers(req, res) {
-	res.render('store_owner/sales');
+	var store_id = req.params.store_id;
+	res.render('store_owner/sales', { store_id });
 }
 
 module.exports = travers;

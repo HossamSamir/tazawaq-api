@@ -96,11 +96,11 @@
           </div>
         </div>
         <ul class="sidebar-menu scrollable pos-r">
-          <li class="nav-item mT-30 active"><a class="sidebar-link" href="/store_owner" default><span class="icon-holder"><i class="c-blue-500 ti-home"></i> </span><span class="title">لوحة التحكم</span></a></li>
+          <li class="nav-item mT-30 active"><a class="sidebar-link" href="/store/<%= store_id %>" default><span class="icon-holder"><i class="c-blue-500 ti-home"></i> </span><span class="title">لوحة التحكم</span></a></li>
           <li
             class="nav-item dropdown"><a class="dropdown-toggle" href="/store_orders"><span class="icon-holder"><i class="c-teal-500 ti-map-alt"></i> </span><span class="title">الطلبات</span> <span class="arrow"><span class="badge" style="background:#ff0057;color:#fff;font-size:11px;border-radius:50%">28</span></span></a></li>
             <li
-              class="nav-item"><a class="sidebar-link" href="/store_sales"><span class="icon-holder"><i class="c-teal-500 ti-credit-card"></i> </span><span class="title">تقارير المبيعات</span></a></li>
+              class="nav-item"><a class="sidebar-link" href="/store_sales/<%= store_id %>"><span class="icon-holder"><i class="c-teal-500 ti-credit-card"></i> </span><span class="title">تقارير المبيعات</span></a></li>
               <li
                 class="nav-item"><a class="sidebar-link" href="/store_users"><span class="icon-holder"><i class="c-pink-500 ti-user"></i> </span><span class="title">سجل الزبائن</span></a></li>
                 <li
@@ -146,48 +146,33 @@
             <div class="masonry-sizer col-lg-1"></div>
             <div class="masonry-item w-100">
               <div class="row gap-20">
-                <div class="col-md-4">
+                <div class="col-md-6">
                   <div class="layers bd bgc-white p-20">
                     <div class="layer w-100 mB-10" style="text-align:center">
-                      <h6 class="lh-1">اجمالي عدد المستخدمين</h6>
+                      <h6 class="lh-1">اجمالي عدد المنتجات</h6>
                     </div>
                     <div class="layer w-100">
                       <div class="peers ai-sb fxw-nw">
-                        <div class="peer peer-greed"><span id="sparklinedash"></span></div>
-                        <div class="peer"><span class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15 bgc-green-50 c-green-500">12254</span></div>
+                        <div class="peer"><span class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15 bgc-red-50 c-red-500"><%= productsCt %></span></div>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-6">
                   <div class="layers bd bgc-white p-20">
                     <div class="layer w-100 mB-10" style="text-align:center">
-                      <h6 class="lh-1">اجمالي عدد الأصناف للبيع</h6>
+                      <h6 class="lh-1">اجمالي عدد المبيعات</h6>
                     </div>
                     <div class="layer w-100">
                       <div class="peers ai-sb fxw-nw">
-                        <div class="peer peer-greed"><span id="sparklinedash2"></span></div>
-                        <div class="peer"><span class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15 bgc-red-50 c-red-500">30</span></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="layers bd bgc-white p-20">
-                    <div class="layer w-100 mB-10" style="text-align:center">
-                      <h6 class="lh-1">اجمالي عدد الطلبات السابقه</h6>
-                    </div>
-                    <div class="layer w-100">
-                      <div class="peers ai-sb fxw-nw">
-                        <div class="peer peer-greed"><span id="sparklinedash3"></span></div>
-                        <div class="peer"><span class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15 bgc-purple-50 c-purple-500">65879</span></div>
+                        <div class="peer"><span class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15 bgc-purple-50 c-purple-500"><%= salesCt %></span></div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="masonry-item col-lg-6">
+            <div class="masonry-item col-lg-12">
               <div class="bd bgc-white">
                 <div class="layers">
                   <div class="layer w-100 p-20" style="text-align:center">
@@ -196,13 +181,12 @@
                   <div class="layer w-100">
                     <div class="bgc-light-blue-500 c-white p-20">
                       <div class="peers ai-c jc-sb gap-40">
-                        <div class="peer peer-greed">
-                          <h5>نوفمبر 2017</h5>
-                          <p class="mB-0">تقرير المبيعات</p>
-                        </div>
-                        <div class="peer">
-                          <h3 class="text-right">$6,000</h3>
-                        </div>
+                          <div class="peer peer-greed">
+                            <h3><%= salesCt %></h3>
+                          </div>
+                          <div class="peer">
+                            <h3 class="text-right"><%= salesCost %> ر.س</h3>
+                          </div>
                       </div>
                     </div>
                     <div class="table-responsive p-20">
@@ -210,103 +194,24 @@
                         <thead>
                           <tr>
                             <th class="bdwT-0">المنتج</th>
-                            <th class="bdwT-0">الماركت</th>
                             <th class="bdwT-0">التاريخ</th>
                             <th class="bdwT-0">السعر</th>
                           </tr>
                         </thead>
                         <tbody>
+                            <% sales.forEach(function(sale) { %>
                           <tr>
-                            <td class="fw-600">Item #1 Name</td>
-                            <td><span class="badge bgc-red-50 c-red-700 p-10 lh-0 tt-c badge-pill">اسم متجر</span></td>
-                            <td>Nov 18</td>
-                            <td><span class="text-success">$12</span></td>
+                            <td class="fw-600"><%= sale.info %></td>
+                            <td><%= sale.date %></td>
+                            <td><span class="text-success"><%= sale.cost %></span></td>
                           </tr>
-                          <tr>
-                            <td class="fw-600">Item #2 Name</td>
-                            <td><span class="badge bgc-deep-purple-50 c-deep-purple-700 p-10 lh-0 tt-c badge-pill">اسم متجر</span></td>
-                            <td>Nov 19</td>
-                            <td><span class="text-info">$34</span></td>
-                          </tr>
-                          <tr>
-                            <td class="fw-600">Item #3 Name</td>
-                            <td><span class="badge bgc-pink-50 c-pink-700 p-10 lh-0 tt-c badge-pill">اسم متجر</span></td>
-                            <td>Nov 20</td>
-                            <td><span class="text-danger">-$45</span></td>
-                          </tr>
-                          <tr>
-                            <td class="fw-600">Item #4 Name</td>
-                            <td><span class="badge bgc-green-50 c-green-700 p-10 lh-0 tt-c badge-pill">اسم متجر</span></td>
-                            <td>Nov 21</td>
-                            <td><span class="text-success">$65</span></td>
-                          </tr>
-                          <tr>
-                            <td class="fw-600">Item #5 Name</td>
-                            <td><span class="badge bgc-red-50 c-red-700 p-10 lh-0 tt-c badge-pill">اسم متجر</span></td>
-                            <td>Nov 22</td>
-                            <td><span class="text-success">$78</span></td>
-                          </tr>
+                          <% }) %>
                         </tbody>
                       </table>
                     </div>
                   </div>
                 </div>
-                <div class="ta-c bdT w-100 p-20"><a href="/store_sales">اطلع علي التقرير كامل</a></div>
-              </div>
-            </div>
-            <div class="masonry-item col-lg-6">
-              <div class="bd bgc-white">
-                <div class="layers">
-                  <div class="layer w-100 p-20" style="text-align:center">
-                    <h6 class="lh-1">تقرير الزبائن</h6>
-                  </div>
-                  <div class="layer w-100">
-                    <div class="bgc-light-blue-500 c-white p-20">
-                      <div class="peers ai-c jc-sb gap-40">
-                        <div class="peer peer-greed">
-                          <h5>نوفمبر 2017</h5>
-                          <p class="mB-0">تقرير الزبائن</p>
-                        </div>
-                        <div class="peer">
-                          <h3 class="text-right">80 زبون</h3>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="table-responsive p-20">
-                      <table id="usersPreief" class="table table-striped table-bordered"
-                        cellspacing="0" width="100%">
-                        <thead style="text-align:center">
-                          <tr>
-                            <th>اسم المستخدم</th>
-                            <th onclick="togglePw()" style="cursor:pointer"><i class="c-blue-500 ti-eye"></i> كلمة المرور</th>
-                            <th>الموقع</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td>test_username</td>
-                            <td><input value="test_password" disabled="disabled" class="form-control marketpw"
-                                style="text-align:center" type="password" class="dashboard_pw"></td>
-                            <td>saudi arabia</td>
-                          </tr>
-                          <tr>
-                            <td>test_username</td>
-                            <td><input value="test_password" disabled="disabled" class="form-control marketpw"
-                                style="text-align:center" type="password" class="dashboard_pw"></td>
-                            <td>saudi arabia</td>
-                          </tr>
-                          <tr>
-                            <td>test_username</td>
-                            <td><input value="test_password" disabled="disabled" class="form-control marketpw"
-                                style="text-align:center" type="password" class="dashboard_pw"></td>
-                            <td>saudi arabia</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-                <div class="ta-c bdT w-100 p-20"><a href="/store_users">اطلع علي التقرير كامل</a></div>
+                <div class="ta-c bdT w-100 p-20"><a href="/store_sales/<%= store_id %>">اطلع علي التقرير كامل</a></div>
               </div>
             </div>
       </div>

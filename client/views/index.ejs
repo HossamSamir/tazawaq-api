@@ -246,7 +246,7 @@
                           <% stores.forEach(function(store) { %>
                         <tr>
                           <td><%= store.display_name %></td>
-                          <td><a href="/<%= store.passname %>" target="_blank"
+                          <td><a href="/store/<%= store.id %>" target="_blank"
                               class="badge badge-success" style="padding:8px;font-size:13px;letter-spacing:1.5px"><i class="c-white-500 ti-share"></i>/<%= store.passname %></a></td>
                           <td><%= store.region %></td>
                         </tr>
