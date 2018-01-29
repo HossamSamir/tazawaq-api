@@ -49,4 +49,39 @@ app.post('/edit-store',function(req,res) {
 	}
 });
 
+var crypto = require('crypto');
+
+app.post('/add-store',function(req,res) {
+	var display_name = req.param("name");
+	var image = req.files.image || null;
+	var password = req.param("password");
+	var passname = req.param("passname");
+	var region = req.param("region");
+	var address = req.param("address");
+	var lat = req.param("lat");
+	var lng = req.param("lng");
+
+	if(!display_name || image === null || !password || !region || !address || !lat || !lng)
+	{
+		res.send("هناك مدخلات ناقصة او لم تُكتب بشكل صحيح من فضلك راجعها");
+		return;
+	}
+
+	var hash = crypto.createHash('md5').update(password).digest("hex");
+
+	sql.qry('INSERT INTO stores(display_name,passname,password,address,latitude,longitude,region,img) VALUES(?,?,?,?,?,?,?,"")',
+		[display_name, passname.replace(/\s+/g, '_'), hash, address, lat, lng, region], function(insert) {
+
+		var id = insert.insertId;
+		var img_path = 'uploaded_images/store_images/store_'+id+'.jpg';
+		image.mv(img_path, function(err) {
+			if (err) return res.status(500).send(err);
+
+			sql.qry('UPDATE stores SET img=? WHERE id=?', [(domain + "/" + img_path), id], function(stores) {
+				res.redirect('markets');
+			});
+		});
+	});
+});
+
 module.exports = travers;

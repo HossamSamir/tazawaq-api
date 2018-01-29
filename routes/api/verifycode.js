@@ -33,22 +33,15 @@ app.get('/api/verifycode',function(req,res){
                                 codeData[0]['password'],codeData[0]['location'],codeData[0]['latitude'],codeData[0]['longitude'],
                                     codeData[0]['region']], function(err,data) {
                                     if(!err) {
-                                        con.query('SELECT LAST_INSERT_ID() AS user_id', function(err,lastID) {
+                                        var user_id = data.insertId;
+                                        con.query('DELETE FROM awaiting_verification WHERE id=?', [codeData[0]['id']], function(err,data) {
                                             if(!err) {
-                                                con.query('DELETE FROM awaiting_verification WHERE id=?', [codeData[0]['id']], function(err,data) {
-                                                    if(!err) {
-                                                        res.json({
-                                                            response: 2,
-                                                            id: String(lastID[0]['user_id'])
-                                                        });
-                                                    } else res.json(err);
+                                                res.json({
+                                                    response: 2,
+                                                    id: String(user_id)
                                                 });
-                                            }
-                                            else
-                                            {
-                                                res.json(err);
-                                            }
-                                        })
+                                            } else res.json(err);
+                                        });
                                     }
                                     else
                                     {
