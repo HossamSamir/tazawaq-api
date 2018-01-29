@@ -1,5 +1,5 @@
 function travers(req, res) {
-	sql.qry('SELECT cost,date,store_id,info,location FROM sales ORDER BY id DESC LIMIT 5', function(sales_res) {
+	sql.qry('SELECT cost,date,store_id,info,location FROM sales ORDER BY id DESC', function(sales_res) {
 		var sales = [];
 		async.forEachOf(sales_res, function (sale, i, callback) {
 			sql.qry('SELECT display_name FROM stores WHERE id=? LIMIT 1', [ sale.store_id ], function(storeName) {
