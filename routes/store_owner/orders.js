@@ -4,7 +4,10 @@ function travers(req, res) {
 		var orders = [];
 		async.forEachOf(orders_res, function (order, i, callback) {
 			sql.qry('SELECT username FROM users WHERE id=? LIMIT 1', [ order.user_id ], function(userName) {
-				sales.push( { username: userName[0].username, data: order } );
+				if(userName.length)
+					orders.push( { username: userName[0].username, data: order } );
+				else
+					orders.push( { username: 'غير متاح', data: order } );
 				callback(null);
 			});
 		}, function(err) {
@@ -13,5 +16,19 @@ function travers(req, res) {
 		});
 	});
 }
+
+app.get('/delivered-order', function(req, res) {
+	var id = req.param("id");
+	var store_id = req.param("store_id");
+	sql.qry('SELECT id,cost,info,location FROM orders WHERE id=? LIMIT 1', [id], function(orders) {
+		var order = orders[0];
+		sql.qry('INSERT INTO sales(store_id,info,location,cost,date) VALUES(?,?,?,?, NOW() )',
+			[store_id, order.info, order.location, order.cost], function(insert) {
+			sql.qry('DELETE FROM orders WHERE id=?', [id], function(del) {
+				res.redirect('store_orders/' + store_id);
+			});
+		});
+	});
+});
 
 module.exports = travers;

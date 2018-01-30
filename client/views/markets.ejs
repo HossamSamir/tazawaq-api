@@ -378,7 +378,6 @@
 
     $('.delete').click(function(event) {
         var correct = $(this).parents("td").find(".delete-confirm-btn").attr('href');
-        alert(correct);
         $(".delete-confirm-btn:first").attr('href', correct);
     });
 

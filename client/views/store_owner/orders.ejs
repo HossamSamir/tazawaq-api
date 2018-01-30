@@ -212,7 +212,8 @@
           <tbody>
               <% orders.forEach(function(order) { %>
             <tr>
-              <td><a href="#" data-toggle="modal" data-target="#delCat" class="col-6"><i class="c-pink-500 ti-check-box" style="font-size:15px"></i> <span>تم التوصيل</span></a>
+              <td>
+                  <a href="#" data-toggle="modal" data-target="#delCat" class="mark-delivered col-6"><i class="c-pink-500 ti-check-box" style="font-size:15px"></i> <span>تم التوصيل</span></a>
                 <div
                   class="modal fade" id="delCat" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                   aria-hidden="true">
@@ -223,9 +224,13 @@
                           aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
                       <div
                         class="modal-body">
-                        <h5>سيتم ازاله الطلب من صفحه الطلبات النشطة</h5>
+                        <h5>سيتم ازاله الطلب من صفحه الطلبات النشطة و وضعه فى صفحة المبيعات</h5>
                     </div>
-                    <div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">الغاء</button>                      <button type="button" class="btn btn-danger">موافق</button></div>
+                    <div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">الغاء</button>
+                        <a class="mark-delivered-confirm" href="/delivered-order?store_id=<%= store_id %>&id=<%= order.data.id %>">
+                            <button type="button" class="btn btn-danger">موافق</button>
+                        </a>
+                        </div>
                   </div>
       </div>
   </div>
@@ -235,7 +240,7 @@
   <td><%= order.data.cost %></td>
   <td><%= order.data.info %></td>
   <th
-    scope="row">1</th>
+    scope="row"><%= order.data.id %></th>
     </tr>
     <% }) %>
     </tbody>
@@ -248,15 +253,12 @@
     <script type="text/javascript" src="../assets/js/soVendor.js"></script>
     <script type="text/javascript" src="../assets/js/soBundle.js"></script>
 </body>
+<script type="text/javascript" src="../assets/js/jquery-3.3.1.min.js"></script>
 <script>
-function togglePw() {
-  for (
-    var e = document.getElementsByClassName('marketpw'), t = 0;
-    t < e.length;
-    t++
-  )
-    'password' === e[t].type ? (e[t].type = 'text') : (e[t].type = 'password');
-}
+$('.mark-delivered').click(function(event) {
+    var correct = $(this).parents("td").find(".mark-delivered-confirm").attr('href');
+    $(".mark-delivered-confirm:first").attr('href', correct);
+});
 </script>
 
 </html>
