@@ -61,11 +61,12 @@ app.get('/api/get-my-tickets',function(req,res){
 app.get('/api/get-ticket-messages',function(req,res){
     var ticket_id = req.param("ticket_id");
 
-    con.query('SELECT message FROM ticket_messages WHERE ticket_id=?', [ticket_id],function(err,messages) {
+    con.query('SELECT message,sender_type FROM ticket_messages WHERE ticket_id=?', [ticket_id],function(err,messages) {
         if(err) return res.json({response: -1});
 
         // if(!messages.length) return res.json({response: 0}); // Ticket got no messages...will this ever happen? No..
 
         res.json({ response: 1, messages });
+        // Note: sender_type | 0 means sent by user | 1 means sent by admin
     });
 });
