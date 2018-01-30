@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 29, 2018 at 11:03 PM
+-- Generation Time: Jan 30, 2018 at 07:44 PM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 7.1.7
 
@@ -159,7 +159,7 @@ CREATE TABLE `stores` (
 CREATE TABLE `ticket_messages` (
   `id` int(11) NOT NULL,
   `ticket_id` int(11) NOT NULL,
-  `sender` int(11) NOT NULL,
+  `sender_type` int(11) NOT NULL,
   `message` varchar(512) CHARACTER SET utf8 NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -171,10 +171,9 @@ CREATE TABLE `ticket_messages` (
 
 CREATE TABLE `tickets` (
   `id` int(11) NOT NULL,
-  `store_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `title` varchar(128) CHARACTER SET utf8 NOT NULL,
-  `status` int(11) NOT NULL
+  `status` int(11) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
