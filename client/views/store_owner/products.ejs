@@ -173,10 +173,10 @@
                         class="lh-1"><%= cat.name %></h5>
                     </div>
                     <div class="layer row w-100 mB-10" style="text-align:center;border-top:1px solid #a2a6a8;padding:7px 0">
-                      <a href="#" data-toggle="modal" data-target="#editCat" class="col-6"
+                      <a href="#" data-toggle="modal" data-target="#editCat_<%= cat.id %>" class="col-6"
                         style="border-right:1px solid #a2a6a8"><i class="c-pink-500 ti-pencil-alt" style="font-size:15px"></i> <span>تعديل</span></a>
                       <div
-                        class="modal fade" id="editCat" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                        class="modal fade" id="editCat_<%= cat.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                         aria-hidden="true">
                         <div class="modal-dialog" role="document">
                           <div class="modal-content">
@@ -191,9 +191,9 @@
                           <div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">اغلاق</button>                          <button id="<%= cat.id%>" type="button" class="btn btn-primary saveNewCatName">حفظ</button></div>
                         </div>
                     </div>
-                  </div><a href="#" data-toggle="modal" data-target="#delCat" class="col-6"><i class="c-pink-500 ti-trash" style="font-size:15px"></i> <span>حذف</span></a>
+                  </div><a href="#" data-toggle="modal" data-target="#delCat_<%=cat.id %>" class="col-6"><i class="c-pink-500 ti-trash" style="font-size:15px"></i> <span>حذف</span></a>
                   <div
-                    class="modal fade" id="delCat" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                    class="modal fade" id="delCat_<%=cat.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                     aria-hidden="true">
                     <div class="modal-dialog" role="document">
                       <div class="modal-content">
