@@ -237,6 +237,20 @@
         SendMessage();
     });
 
+    $(".close-ticket").click(function(event) {
+        if(currTicketID == -1) return;
+        fetch(`/close-ticket?id=${currTicketID}`, {headers: {'Cache-Control': 'no-cache'}}).
+        then((res) => res.json()).then((resJson) => {
+
+            if(resJson.response == 1)
+            {
+                $(".input-group, .close-ticket").hide();
+                window.location = '/tickets';
+            }
+        });
+
+    });
+
     function loadTicket(ticket_id, status)
     {
         currTicketID = ticket_id;

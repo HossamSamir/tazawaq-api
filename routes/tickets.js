@@ -24,8 +24,16 @@ app.get('/send-ticket-message',function(req,res){
         var message = req.param("message");
         sql.qry('INSERT INTO ticket_messages(ticket_id,sender_type,message) VALUES(?,1,?)',
             [ticket_id, message], function(messages) {
-				
+
             res.json({ response: 1 }); // Added message
         });
+    });
+});
+
+app.get('/close-ticket',function(req,res){
+    var ticket_id = req.param("id");
+
+    sql.qry('UPDATE tickets SET status=0 WHERE id=?', [ticket_id], function(tickets) {
+        res.json({ response: 1 });
     });
 });
