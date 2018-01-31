@@ -183,7 +183,7 @@
                                   aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
                               <div
                                 class="modal-body">
-                                <div class="form-row form-group" style="text-align:right"><input type="text" class="form-control newName" name="" value="" class="form-control"
+                                <div class="form-row form-group" style="text-align:right"><input type="text" class="form-control newName"  value="" class="form-control"
                                     placeholder="اسم القسم الجديد"></div>
                             </div>
                             <div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">اغلاق</button>                          <button id="<%= cat.id%>" type="button" class="btn btn-primary saveNewCatName">حفظ</button></div>
@@ -233,7 +233,7 @@
                       <div
                         class="modal-body">
                         <div class="form-row form-group" style="text-align:right">
-                          <input type="text" name="" id="addNewCat" value="" class="form-control" placeholder="اسم القسم"></div>
+                          <input type="text"  id="addNewCat" value="" class="form-control" placeholder="اسم القسم"></div>
                     </div>
                     <div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">اغلاق</button>
                       <button type="button" class="btn btn-primary addNewCat">حفظ</button></div>
@@ -310,7 +310,7 @@
                                     class="form-control" aria-describedby="emailHelp" value="منتج تجريبي"
                                     placeholder="قم بادخال الأسم الجديد"><label for="">اختار القسم</label>
                                   <select
-                                    class="form-control" name="">
+                                    class="form-control" >
                                     <option value="">قسم الفطائر</option>
                                     <option value="">قسم الحلويات</option>
                                     <option value="">قسم الطواجن</option>
@@ -367,25 +367,42 @@
   <div class="col-md-10" style="margin-left: 260px">
     <div class="layers bd bgc-white p-20">
       <div class="layer w-100 mB-10" style="text-align:center">
-        <form style="text-align:right">
+        <form encType="multipart/form-data" method="post" action="/add-product" data-parsley-validate style="text-align:right">
           <h5 class="c-grey-900 mB-20">: إضافة منتج</h5>
           <div class="form-row">
-            <div class="form-group col-md-6"><label for="inputPassword4">صورة المنتج</label><input type="file" class="form-control"
-                placeholder="قم بإدخال اسم الماركت"></div>
-            <div class="form-group col-md-6"><label for="inputPassword4">اسم المنتج</label><input type="text" class="form-control"
-                placeholder="قم بإدخال اسم الماركت"></div>
+            <div class="form-group col-md-6"><label for="inputPassword4">صورة المنتج</label>
+              <input name="image" type="file" class="form-control"
+                placeholder="قم بإدخال اسم الماركت">
+              </div>
+            <div class="form-group col-md-6"><label for="inputPassword4">اسم المنتج</label>
+              <input name="name" type="text" class="form-control"
+                placeholder="قم بإدخال اسم الماركت">
+              </div>
           </div>
-          <div class="form-group"><label for="inputAddress">وصف المنتج</label><input type="area" class="form-control"
-              id="inputAddress" placeholder="وصف قصير للمنتج" style="height:80px"></div>
+          <div class="form-group"><label for="inputAddress">وصف المنتج</label>
+            <input name="info" type="area" class="form-control"
+              id="inputAddress" placeholder="وصف قصير للمنتج" style="height:80px">
+            </div>
           <div
             class="form-row">
-            <div class="form-group col-md-6"><label for="inputZip">الحاله</label><select class="form-control" name=""><option value="">نشط</option><option value="">غير نشط</option></select></div>
+            <div class="form-group col-md-6"><label for="inputZip">الحاله</label>
+              <select name="status" class="form-control" >
+                <option value="1">نشط</option>
+                <option value="0">غير نشط</option>
+              </select></div>
             <div
-              class="form-group col-md-6"><label for="inputZip">اختار القسم</label><select class="form-control"
-                name=""><option value="">قسم الفطائر</option><option value="">قسم الحلويات</option><option value="">قسم الطواجن</option><option value="">قسم المشروبات</option><option value="">قسم المعجنات</option></select></div>
+              class="form-group col-md-6"><label for="inputZip">اختار القسم</label>
+              <select name="category_id" class="form-control" >
+                <% cats.forEach(function(cat) { %>
+                  <option value="<%= cat.id %>"><%= cat.name %></option>
+                <% }) %>
+              </select>
+            </div>
       <div
-        class="form-group col-md-12"><label for="inputPassword4">سعر المنتج</label><input type="number" class="form-control"
-          placeholder="قم بإدخال سعر المنتج "></div>
+        class="form-group col-md-12"><label for="inputPassword4">سعر المنتج</label>
+        <input name="price" type="number" class="form-control"
+          placeholder="قم بإدخال سعر المنتج ">
+        </div>
   </div><button type="submit" class="btn btn-primary">اضافه</button></form>
   </div>
   </div>

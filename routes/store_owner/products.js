@@ -63,6 +63,40 @@ app.get('/delete-product', (req, res) => {
 	});
 });
 
+app.post('/add-product', function(req, res) {
+	var name = req.param('name');
+	var image = req.files.image || null;
+	var info = req.param('info');
+	var status = req.param('status');
+	var category_id = req.param('category_id');
+	var price = req.param('price');
+
+	if (!name || image === null || !info || !status || !category_id || !price) {
+		res.send('هناك مدخلات ناقصة او لم تُكتب بشكل صحيح من فضلك راجعها');
+	} else {
+		sql.qry(
+			'INSERT INTO products (store_id, category_id, name, info, cost, status, img) VALUES(?,?,?,?,?,?,"")',
+			[_ID, category_id, name, info, price, status],
+			function(product) {
+				var id = product.category_id;
+				var img_path =
+					'uploaded_images/store_images/products/product_' + id + '.jpg';
+				image.mv(img_path, function(err) {
+					if (err) return res.status(500).send(err);
+
+					sql.qry(
+						'UPDATE products SET img=? WHERE id=?',
+						[`${domain}/${img_path}`, id],
+						function(stores) {
+							res.redirect(`/store_products/${_ID}`);
+						}
+					);
+				});
+			}
+		);
+	}
+});
+
 // function travers(req, res) {
 // 	res.render('store_owner/products');
 // }
