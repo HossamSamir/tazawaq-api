@@ -21,8 +21,7 @@ SET time_zone = "+00:00";
 --
 -- Database: `tazawaq`
 --
-CREATE DATABASE IF NOT EXISTS `tazawaq` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `tazawaq`;
+
 
 -- --------------------------------------------------------
 
@@ -31,7 +30,7 @@ USE `tazawaq`;
 --
 
 CREATE TABLE `awaiting_verification` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
   `time_generated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `code` int(11) NOT NULL,
   `phone` varchar(16) NOT NULL,
@@ -52,7 +51,7 @@ CREATE TABLE `awaiting_verification` (
 --
 
 CREATE TABLE `categories` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
   `store_id` int(11) NOT NULL,
   `name` varchar(32) CHARACTER SET utf8 NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -64,7 +63,7 @@ CREATE TABLE `categories` (
 --
 
 CREATE TABLE `expo_push_tokens` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
   `token` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -75,7 +74,7 @@ CREATE TABLE `expo_push_tokens` (
 --
 
 CREATE TABLE `offers` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
   `store_id` int(11) NOT NULL,
   `name` varchar(128) CHARACTER SET utf8 NOT NULL,
   `info` varchar(512) CHARACTER SET utf8 NOT NULL,
@@ -92,7 +91,7 @@ CREATE TABLE `offers` (
 --
 
 CREATE TABLE `orders` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
   `store_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `cost` decimal(8,3) NOT NULL,
@@ -107,7 +106,7 @@ CREATE TABLE `orders` (
 --
 
 CREATE TABLE `products` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
   `store_id` int(11) NOT NULL,
   `category_id` int(11) NOT NULL,
   `name` varchar(128) CHARACTER SET utf8 NOT NULL,
@@ -124,7 +123,7 @@ CREATE TABLE `products` (
 --
 
 CREATE TABLE `sales` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
   `store_id` int(11) NOT NULL,
   `info` varchar(512) CHARACTER SET utf8 NOT NULL,
   `location` varchar(128) CHARACTER SET utf8 NOT NULL,
@@ -139,7 +138,7 @@ CREATE TABLE `sales` (
 --
 
 CREATE TABLE `stores` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
   `passname` varchar(32) CHARACTER SET utf8 NOT NULL,
   `password` varchar(64) CHARACTER SET utf8 NOT NULL,
   `display_name` varchar(32) CHARACTER SET utf8 NOT NULL,
@@ -157,7 +156,7 @@ CREATE TABLE `stores` (
 --
 
 CREATE TABLE `ticket_messages` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
   `ticket_id` int(11) NOT NULL,
   `sender_type` int(11) NOT NULL,
   `message` varchar(512) CHARACTER SET utf8 NOT NULL
@@ -170,7 +169,7 @@ CREATE TABLE `ticket_messages` (
 --
 
 CREATE TABLE `tickets` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `title` varchar(128) CHARACTER SET utf8 NOT NULL,
   `status` int(11) NOT NULL DEFAULT '1'
@@ -183,7 +182,7 @@ CREATE TABLE `tickets` (
 --
 
 CREATE TABLE `users` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
   `phone` varchar(16) CHARACTER SET utf8 NOT NULL,
   `email` varchar(255) CHARACTER SET utf8 NOT NULL,
   `username` varchar(64) CHARACTER SET utf8 NOT NULL,
@@ -193,137 +192,3 @@ CREATE TABLE `users` (
   `longitude` double NOT NULL,
   `region` varchar(64) CHARACTER SET utf8 NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `awaiting_verification`
---
-ALTER TABLE `awaiting_verification`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `categories`
---
-ALTER TABLE `categories`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `expo_push_tokens`
---
-ALTER TABLE `expo_push_tokens`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `offers`
---
-ALTER TABLE `offers`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `orders`
---
-ALTER TABLE `orders`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `products`
---
-ALTER TABLE `products`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `sales`
---
-ALTER TABLE `sales`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `stores`
---
-ALTER TABLE `stores`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `ticket_messages`
---
-ALTER TABLE `ticket_messages`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `tickets`
---
-ALTER TABLE `tickets`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `awaiting_verification`
---
-ALTER TABLE `awaiting_verification`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `categories`
---
-ALTER TABLE `categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `expo_push_tokens`
---
-ALTER TABLE `expo_push_tokens`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `offers`
---
-ALTER TABLE `offers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `orders`
---
-ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `products`
---
-ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `sales`
---
-ALTER TABLE `sales`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `stores`
---
-ALTER TABLE `stores`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `ticket_messages`
---
-ALTER TABLE `ticket_messages`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `tickets`
---
-ALTER TABLE `tickets`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `users`
---
-ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

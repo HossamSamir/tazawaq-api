@@ -27,10 +27,10 @@ if (typeof localStorage === 'undefined' || localStorage === null) {
 var mysql = require('mysql');
 
 con = mysql.createConnection({
-	host: 'localhost',
-	user: 'root',
-	password: '',
-	database: 'tazawaq'
+	host: 'fugfonv8odxxolj8.cbetxkdyhwsb.us-east-1.rds.amazonaws.com	',
+	user: 'yv7zhu2a0knkxik6',
+	password: 'ke9vo85qqgvps1n6',
+	database: 't8chpprig1nsyy5t'
 });
 
 con.connect(function(err) {
