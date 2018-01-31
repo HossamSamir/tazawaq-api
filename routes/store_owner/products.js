@@ -56,6 +56,13 @@ app.get('/edit-cat', (req, res) => {
 	});
 });
 
+app.get('/delete-product', (req, res) => {
+	let id = req.param('id');
+	sql.qry('DELETE FROM products WHERE id = ?', [id], function(cats) {
+		res.redirect(`/store_products/${_ID}`);
+	});
+});
+
 // function travers(req, res) {
 // 	res.render('store_owner/products');
 // }

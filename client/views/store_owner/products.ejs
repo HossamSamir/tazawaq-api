@@ -335,7 +335,7 @@
                         </div>
                         </div>
                     </td>
-                    <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete_<%= product.id %>"><i class="c-white-500 ti-trash"></i> حذف</button>
+                    <td><button id="<%= product.id %>" type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete_<%= product.id %>"><i class="c-white-500 ti-trash"></i> حذف</button>
                       <div
                         class="modal fade" id="delete_<%= product.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                         aria-hidden="true">
@@ -348,7 +348,7 @@
                               class="modal-body">
                               <h5>هل انت متاكد من حذف هذا المنتج</h5>
                           </div>
-                          <div class="modal-footer"><button type="button" class="btn btn-outline-secondary" data-dismiss="modal">إلغاء</button>            <button type="button" class="btn btn-danger">تأكيد</button></div>
+                          <div class="modal-footer"><button type="button" class="btn btn-outline-secondary" data-dismiss="modal">إلغاء</button>            <a href="/delete-product?id=<%= product.id%>" type="button" class="btn btn-danger">تأكيد</a></div>
                         </div>
                         </div>
                         </div>
