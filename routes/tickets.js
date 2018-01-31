@@ -13,3 +13,19 @@ app.get('/fetch-ticket-messages',function(req,res){
         res.json({ messages });
     });
 });
+
+app.get('/send-ticket-message',function(req,res){
+    var ticket_id = req.param("ticket_id");
+
+    sql.qry('SELECT id FROM tickets WHERE id=? AND status=1', [ticket_id], function(tickets) {
+        if(!tickets.length)
+            return res.json({ response: 0 }); // لا يمكنك الرد على هذه التذكرة
+
+        var message = req.param("message");
+        sql.qry('INSERT INTO ticket_messages(ticket_id,sender_type,message) VALUES(?,1,?)',
+            [ticket_id, message], function(messages) {
+				
+            res.json({ response: 1 }); // Added message
+        });
+    });
+});
