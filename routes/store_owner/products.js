@@ -25,7 +25,9 @@ app.get('/add-cat', (req, res) => {
 app.get('/delete-cat', (req, res) => {
 	let id = req.param('id');
 	sql.qry('DELETE FROM categories WHERE id = ?', [id], function(cats) {
-		res.redirect(`/store_products/${_ID}`);
+		sql.qry('DELETE FROM products WHERE category_id = ?', [id], function(cats) {
+			res.redirect(`/store_products/${_ID}`);
+		});
 	});
 });
 
