@@ -78,7 +78,7 @@ app.post('/add-product', function(req, res) {
 			'INSERT INTO products (store_id, category_id, name, info, cost, status, img) VALUES(?,?,?,?,?,?,"")',
 			[_ID, category_id, name, info, price, status],
 			function(response) {
-				var img_path = `uploaded_images/store_images/products/product_${
+				var img_path = `client/views/assets/static/images/uploaded_images/store_images/products/product_${
 					response.insertId
 				}.jpg`;
 				image.mv(img_path, function(err) {
@@ -86,7 +86,10 @@ app.post('/add-product', function(req, res) {
 
 					sql.qry(
 						'UPDATE products SET img=? WHERE id=?',
-						[`${domain}/${img_path}`, response.insertId],
+						[
+							`${domain}/${img_path.replace('client/views/', '')}`,
+							response.insertId
+						],
 						function(stores) {
 							res.redirect(`/store_products/${_ID}`);
 						}
