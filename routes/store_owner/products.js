@@ -6,7 +6,22 @@ function travers(req, res) {
 		'SELECT name, id FROM categories WHERE store_id = ?',
 		[store_id],
 		function(cats) {
-			res.render('store_owner/products', { cats, store_id });
+			sql.qry(
+				'SELECT id, category_id, name, info, cost, status, img FROM products WHERE store_id = ?',
+				[store_id],
+				function(products) {
+					products.forEach((product, i) => {
+						product.status = product.status == 0 ? 'غير نشط' : 'نشط';
+						for (var ii = 0; ii < cats.length; ii++) {
+							if (product.category_id == cats[ii].id) {
+								product.category_name = cats[ii].name;
+								break;
+							}
+						}
+					});
+					res.render('store_owner/products', { cats, products, store_id });
+				}
+			);
 		}
 	);
 }
