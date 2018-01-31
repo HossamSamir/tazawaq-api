@@ -1,23 +1,10 @@
 var crypto = require('crypto');
 
 function SendCode(to, code) {
-    // phone
-    /*
-    // Twilio Credentials
-    const accountSid = 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
-    const authToken = 'your_auth_token';
+    var msg = 'هذا هو الكود الخاص بك ' + code;
+    fetch('http://spread-co.com/s_sms?msg='+msg+'&pn='+to+'&tag=N-Test').then(function(res) {
 
-    // require the Twilio module and create a REST client
-    const client = require('twilio')(accountSid, authToken);
-
-    client.messages.create({
-        to: to,
-        from: '+15017122661',
-        body: 'هذا هو الكود الخاص بك ' + code,
-    }).then(message => console.log(message.sid));
-    */
-
-    // remember to add country code
+    });
 }
 
 app.get('/api/signup',function(req,res){
