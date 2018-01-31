@@ -100,6 +100,48 @@ app.post('/add-product', function(req, res) {
 	}
 });
 
+app.post('/edit-product', function(req, res) {
+	var name = req.param('name');
+	var category_id = req.param('category_id');
+	var price = req.param('price');
+	var info = req.param('info');
+	var status = req.param('status');
+	var image = req.files.image || null;
+	var product_id = req.param('product_id');
+
+	// console.log(name, category_id, price, info, status, image);
+
+	if (!name || !info || !status || !category_id || !price) {
+		res.send('هناك مدخلات ناقصة او لم تُكتب بشكل صحيح من فضلك راجعها');
+	} else {
+		sql.qry(
+			'UPDATE products SET name = ?, category_id = ?, cost = ?, info = ?, status = ? WHERE id = ?',
+			[name, category_id, price, info, status, product_id],
+			function(response) {
+				if (image != null) {
+					var img_path = `client/views/assets/static/images/uploaded_images/store_images/products/product_${product_id}.jpg`;
+					image.mv(img_path, function(err) {
+						if (err) return res.status(500).send(err);
+
+						sql.qry(
+							'UPDATE products SET img=? WHERE id=?',
+							[
+								`${domain}/${img_path.replace('client/views/', '')}`,
+								product_id
+							],
+							function(stores) {
+								res.redirect(`/store_products/${_ID}`);
+							}
+						);
+					});
+				} else {
+					res.redirect(`/store_products/${_ID}`);
+				}
+			}
+		);
+	}
+});
+
 // function travers(req, res) {
 // 	res.render('store_owner/products');
 // }
