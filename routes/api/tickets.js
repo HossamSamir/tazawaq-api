@@ -58,6 +58,7 @@ app.get('/api/get-my-tickets',function(req,res){
     });
 });
 
+// This returns the messages of this ticket
 app.get('/api/get-ticket-messages',function(req,res){
     var ticket_id = req.param("ticket_id");
 
