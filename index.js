@@ -15,7 +15,7 @@ const fileUpload = require('express-fileupload');
 app.use(fileUpload());
 
 // Domain name (we prepend this to uploaded images)
-domain = "domainname.com";
+domain = 'http://localhost:3000';
 
 // localStorage
 if (typeof localStorage === 'undefined' || localStorage === null) {
@@ -51,7 +51,7 @@ const sales = require('./routes/sales');
 const markets = require('./routes/markets');
 const users = require('./routes/users');
 const tickets = require('./routes/tickets');
-const notifications = require('./routes/notifications')
+const notifications = require('./routes/notifications');
 const store_home = require('./routes/store_owner/home');
 const store_orders = require('./routes/store_owner/orders');
 const store_sales = require('./routes/store_owner/sales');
