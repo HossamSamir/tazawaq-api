@@ -21,6 +21,7 @@ app.get('/delete-store', function(req, res) {
 
 app.post('/edit-store', function(req, res) {
 	var name = req.param('newName');
+	var password = req.param('newPassword');
 	var image = req.files.newImage || null;
 	var id = req.param('id');
 
@@ -66,6 +67,22 @@ app.post('/edit-store', function(req, res) {
 				);
 			});
 		}
+	}
+
+	if(password)
+	{
+		var hash = crypto
+			.createHash('md5')
+			.update(password)
+			.digest('hex');
+
+		sql.qry(
+			'UPDATE stores SET password=? WHERE id=?',
+			[hash, id],
+			function(stores) {
+				res.redirect('markets');
+			}
+		);
 	}
 });
 
