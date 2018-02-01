@@ -1,3 +1,4 @@
+const fs = require('fs');
 var _ID;
 function travers(req, res) {
 	var store_id = req.params.store_id;
@@ -59,6 +60,9 @@ app.get('/edit-cat', (req, res) => {
 app.get('/delete-product', (req, res) => {
 	let id = req.param('id');
 	sql.qry('DELETE FROM products WHERE id = ?', [id], function(cats) {
+		fs.unlink(
+			`client/views/assets/static/images/uploaded_images/store_images/products/product_${id}.jpg`
+		);
 		res.redirect(`/store_products/${_ID}`);
 	});
 });
