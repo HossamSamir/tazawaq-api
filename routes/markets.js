@@ -1,3 +1,5 @@
+const fs = require('fs');
+
 function travers(req, res) {
 	sql.qry(
 		'SELECT id,display_name,passname,region FROM stores ORDER BY id DESC',
@@ -10,6 +12,9 @@ function travers(req, res) {
 app.get('/delete-store', function(req, res) {
 	var id = req.param('id');
 	sql.qry('DELETE FROM stores WHERE id=?', [id], function() {
+		fs.unlink(
+			`client/views/assets/static/images/uploaded_images/store_images/store_${id}.jpg`
+		);
 		res.redirect('markets');
 	});
 });
