@@ -102,3 +102,4 @@ require('./routes/api/user_location');
 require('./routes/api/requestnewpass');
 require('./routes/api/setnewpass');
 require('./routes/api/tickets');
+require('./routes/api/store_orders');

@@ -1,6 +1,6 @@
 function travers(req, res) {
 	var store_id = req.params.store_id;
-	sql.qry('SELECT id,cost,info,location FROM orders WHERE store_id=? ORDER BY id DESC', [store_id], function(orders_res) {
+	sql.qry('SELECT id,cost,info,location,user_id FROM orders WHERE store_id=? ORDER BY id DESC', [store_id], function(orders_res) {
 		var orders = [];
 		async.forEachOf(orders_res, function (order, i, callback) {
 			sql.qry('SELECT username, phone FROM users WHERE id=? LIMIT 1', [ order.user_id ], function(userData) {
