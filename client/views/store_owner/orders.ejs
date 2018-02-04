@@ -162,7 +162,7 @@
           <thead class="thead-dark">
             <tr>
               <th scope="col">قبول</th>
-              <th scope="col">اسم الزبون</th>
+              <th scope="col">بيانات الزبون</th>
               <th scope="col">مكان التوصيل</th>
               <th scope="col">مجموع السعر</th>
               <th scope="col">تفاصيل الطلب</th>
@@ -195,7 +195,7 @@
       </div>
   </div>
   </td>
-  <td><%= order.username %></td>
+  <td><%= order.username %> - <%= order.phone %></td>
   <td><%= order.data.location %></td>
   <td><%= order.data.cost %></td>
   <td><%= order.data.info %></td>

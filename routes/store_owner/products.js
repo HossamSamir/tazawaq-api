@@ -1,3 +1,4 @@
+const fs = require('fs');
 var _ID;
 function travers(req, res) {
 	var store_id = req.params.store_id;
@@ -6,7 +7,22 @@ function travers(req, res) {
 		'SELECT name, id FROM categories WHERE store_id = ?',
 		[store_id],
 		function(cats) {
-			res.render('store_owner/products', { cats, store_id });
+			sql.qry(
+				'SELECT id, category_id, name, info, cost, status, img FROM products WHERE store_id = ?',
+				[store_id],
+				function(products) {
+					products.forEach((product, i) => {
+						product.status = product.status == 0 ? 'غير نشط' : 'نشط';
+						for (var ii = 0; ii < cats.length; ii++) {
+							if (product.category_id == cats[ii].id) {
+								product.category_name = cats[ii].name;
+								break;
+							}
+						}
+					});
+					res.render('store_owner/products', { cats, products, store_id });
+				}
+			);
 		}
 	);
 }
@@ -39,6 +55,95 @@ app.get('/edit-cat', (req, res) => {
 	) {
 		res.redirect(`/store_products/${_ID}`);
 	});
+});
+
+app.get('/delete-product', (req, res) => {
+	let id = req.param('id');
+	sql.qry('DELETE FROM products WHERE id = ?', [id], function(cats) {
+		fs.unlink(
+			`client/views/assets/static/images/uploaded_images/store_images/products/product_${id}.jpg`
+		);
+		res.redirect(`/store_products/${_ID}`);
+	});
+});
+
+app.post('/add-product', function(req, res) {
+	var name = req.param('name');
+	var image = req.files.image || null;
+	var info = req.param('info');
+	var status = req.param('status');
+	var category_id = req.param('category_id');
+	var price = req.param('price');
+
+	if (!name || image === null || !info || !status || !category_id || !price) {
+		res.send('هناك مدخلات ناقصة او لم تُكتب بشكل صحيح من فضلك راجعها');
+	} else {
+		sql.qry(
+			'INSERT INTO products (store_id, category_id, name, info, cost, status, img) VALUES(?,?,?,?,?,?,"")',
+			[_ID, category_id, name, info, price, status],
+			function(response) {
+				var img_path = `client/views/assets/static/images/uploaded_images/store_images/products/product_${
+					response.insertId
+				}.jpg`;
+				image.mv(img_path, function(err) {
+					if (err) return res.status(500).send(err);
+
+					sql.qry(
+						'UPDATE products SET img=? WHERE id=?',
+						[
+							`${domain}/${img_path.replace('client/views/', '')}`,
+							response.insertId
+						],
+						function(stores) {
+							res.redirect(`/store_products/${_ID}`);
+						}
+					);
+				});
+			}
+		);
+	}
+});
+
+app.post('/edit-product', function(req, res) {
+	var name = req.param('name');
+	var category_id = req.param('category_id');
+	var price = req.param('price');
+	var info = req.param('info');
+	var status = req.param('status');
+	var image = req.files.image || null;
+	var product_id = req.param('product_id');
+
+	// console.log(name, category_id, price, info, status, image);
+
+	if (!name || !info || !status || !category_id || !price) {
+		res.send('هناك مدخلات ناقصة او لم تُكتب بشكل صحيح من فضلك راجعها');
+	} else {
+		sql.qry(
+			'UPDATE products SET name = ?, category_id = ?, cost = ?, info = ?, status = ? WHERE id = ?',
+			[name, category_id, price, info, status, product_id],
+			function(response) {
+				if (image != null) {
+					var img_path = `client/views/assets/static/images/uploaded_images/store_images/products/product_${product_id}.jpg`;
+					image.mv(img_path, function(err) {
+						if (err) return res.status(500).send(err);
+
+						sql.qry(
+							'UPDATE products SET img=? WHERE id=?',
+							[
+								`${domain}/${img_path.replace('client/views/', '')}`,
+								product_id
+							],
+							function(stores) {
+								res.redirect(`/store_products/${_ID}`);
+							}
+						);
+					});
+				} else {
+					res.redirect(`/store_products/${_ID}`);
+				}
+			}
+		);
+	}
 });
 
 // function travers(req, res) {

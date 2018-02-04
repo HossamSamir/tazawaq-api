@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 30, 2018 at 07:44 PM
+-- Generation Time: Feb 02, 2018 at 02:08 PM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 7.1.7
 
@@ -96,7 +96,8 @@ CREATE TABLE `orders` (
   `user_id` int(11) NOT NULL,
   `cost` decimal(8,3) NOT NULL,
   `info` varchar(512) CHARACTER SET utf8 NOT NULL,
-  `location` varchar(128) CHARACTER SET utf8 NOT NULL
+  `location` varchar(128) CHARACTER SET utf8 NOT NULL,
+  `status` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------

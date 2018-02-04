@@ -183,7 +183,7 @@
                                   aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
                               <div
                                 class="modal-body">
-                                <div class="form-row form-group" style="text-align:right"><input type="text" class="form-control newName" name="" value="" class="form-control"
+                                <div class="form-row form-group" style="text-align:right"><input type="text" class="form-control newName"  value="" class="form-control"
                                     placeholder="اسم القسم الجديد"></div>
                             </div>
                             <div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">اغلاق</button>                          <button id="<%= cat.id%>" type="button" class="btn btn-primary saveNewCatName">حفظ</button></div>
@@ -233,7 +233,7 @@
                       <div
                         class="modal-body">
                         <div class="form-row form-group" style="text-align:right">
-                          <input type="text" name="" id="addNewCat" value="" class="form-control" placeholder="اسم القسم"></div>
+                          <input type="text"  id="addNewCat" value="" class="form-control" placeholder="اسم القسم"></div>
                     </div>
                     <div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">اغلاق</button>
                       <button type="button" class="btn btn-primary addNewCat">حفظ</button></div>
@@ -254,7 +254,7 @@
   </div>
   </div>
   </div>
-  <div class="masonry-item col-lg-12">
+  <div class="masonry-item col-lg-10" style="margin-left: 260px">
     <div class="bd bgc-white">
       <div class="layers">
         <div class="layer w-100 p-20" style="text-align:center">
@@ -287,264 +287,78 @@
                 </tr>
               </tfoot>
               <tbody>
-                <tr>
-                  <td>منتج تجريبي</td>
-                  <td>قسم تجريبي</td>
-                  <td>80 SR</td>
-                  <td>وصف تجريبي للمنتج</td>
-                  <td>نشط</td>
-                  <td><button type="button" class="btn btn-info" data-toggle="modal"
-                      data-target="#editModal"><i class="c-white-500 ti-pencil-alt"></i> تعديل</button>
-                    <div
-                      class="modal fade" id="editModal" tabindex="-1" role="dialog"
-                      aria-labelledby="exampleModalLabel" aria-hidden="true">
-                      <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">تعديل منتج</h5><button type="button" class="close" data-dismiss="modal"
-                              aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
-                          <div
-                            class="modal-body">
-                            <div class="form-group">
-                              <form class="" action="" method="post" style="text-align:right"><label for="product_name">اسم المنتج</label>
-                                <input
-                                  type="email" id="product_name" class="form-control"
-                                  aria-describedby="emailHelp" value="منتج تجريبي"
-                                  placeholder="قم بادخال الأسم الجديد"><label for="">اختار القسم</label><select class="form-control"
-                                    name=""><option value="">قسم الفطائر</option><option value="">قسم الحلويات</option><option value="">قسم الطواجن</option><option value="">قسم المشروبات</option><option value="">قسم المعجنات</option></select>
-                                  <label
-                                    for="product_price">السعر</label><input type="email" id="product_price"
-                                      class="form-control" aria-describedby="emailHelp"
-                                      value="80 " placeholder="قم بداخال السعر الجديد">
-                                    <label
-                                      for="product_desc">الوصف</label><input type="email" id="product_desc"
-                                        class="form-control" aria-describedby="emailHelp"
-                                        value="وصف تجريبي للمنتج" placeholder="قم بادخال وصف تجريبي للمنتج">
-                                      <label
-                                        for="product_status" class="">الحالة</label><br><label class="switch" style="margin-bottom:25px"><input id="product_status" type="checkbox" checked="checked"> <span class="slider round"></span></label>
+                <% products.forEach(function(product) { %>
+                  <tr>
+                    <td><%= product.name %></td>
+                    <td><%= product.category_name %></td>
+                    <td><%= product.cost %> SR</td>
+                    <td><%= product.info %></td>
+                    <td><%= product.status %></td>
+                    <td><button type="button" class="btn btn-info" data-toggle="modal" data-target="#editModal_<%= product.id %>"><i class="c-white-500 ti-pencil-alt"></i> تعديل</button>
+                      <div
+                        class="modal fade" id="editModal_<%= product.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel">تعديل منتج</h5><button type="button" class="close" data-dismiss="modal"
+                                aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
+                            <div
+                              class="modal-body">
+                              <div class="form-group">
+                                <form encType="multipart/form-data" method="post" action="/edit-product" data-parsley-validate style="text-align:right"><label for="product_name">اسم المنتج</label><input name="name" type="text" id="product_name"
+                                    class="form-control" aria-describedby="emailHelp" value="<%= product.name %>"
+                                    placeholder="قم بادخال الأسم الجديد"><label for="">اختار القسم</label>
+                                  <select
+                                    class="form-control" name="category_id" >
+                                    <% cats.forEach(function(cat) { %>
+                                      <option value="<%= cat.id %>"><%= cat.name %></option>
+                                    <% }) %>
+                                  </select><label for="product_price">السعر</label><input type="number" name="price" id="product_price"
+                                      class="form-control" aria-describedby="emailHelp" value="<%= product.cost %>"
+                                      placeholder="قم بداخال السعر الجديد"><label for="product_desc">الوصف</label>
+                                    <input
+                                      name="info" type="text" id="product_desc" style="height: 100px" class="form-control" aria-describedby="emailHelp"
+                                      value="وصف تجريبي للمنتج" placeholder="قم بادخال وصف تجريبي للمنتج"><label for="product_status" class="">الحالة</label><br>
+                                      <select
+                                        class="form-control" name="status">
+                                          <option value="1">نشط</option>
+                                          <option value="0">غير نشط</option>
+                                        </select>
                                         <label
-                                          for="product_pic">تعديل الصورة</label><img id="product_pic"
-                                            src="https://img.talabat.com/MenuItems/Spicy-McChicken-Meal__636463433087547488.jpg"
-                                            alt=""><br><input type="file" class="form-control-file"
-                                            id="exampleFormControlFile1"></form>
-                            </div>
+                                          for="product_pic">تعديل الصورة</label><img style="width: 100%; height: 100%" id="product_pic" src="<%= product.img %>"
+                                            alt=""><br><input type="file" name="image" old-img="<%= product.img %>" class="form-control-file"
+                                            id="exampleFormControlFile1">
+                                            <input type="hidden" value="<%= product.id %>" name="product_id">
+                              </div>
+                          </div>
+                          <div class="modal-footer"><button type="button" class="btn btn-outline-secondary" data-dismiss="modal">إلغاء</button>
+                            <button type="submit" class="btn btn-info">تأكيد</button></div></form>
                         </div>
-                        <div class="modal-footer"><button type="button" class="btn btn-outline-secondary" data-dismiss="modal">إلغاء</button>                          <button type="button" class="btn btn-info">تأكيد</button></div>
-                      </div>
-          </div>
-        </div>
-        </td>
-        <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal"><i class="c-white-500 ti-trash"></i> حذف</button>
-          <div
-            class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">حذف منتج</h5><button type="button" class="close" data-dismiss="modal"
-                    aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
-                <div
-                  class="modal-body">
-                  <h5>هل انت متاكد من حذف هذا المنتج</h5>
-              </div>
-              <div class="modal-footer"><button type="button" class="btn btn-outline-secondary" data-dismiss="modal">إلغاء</button>                <button type="button" class="btn btn-danger">تأكيد</button></div>
-            </div>
-      </div>
-    </div>
-    </td>
-    </tr>
-    <tr>
-      <td>منتج تجريبي</td>
-      <td>قسم تجريبي</td>
-      <td>80 SR</td>
-      <td>وصف تجريبي للمنتج</td>
-      <td>غير نشط</td>
-      <td><button type="button" class="btn btn-info" data-toggle="modal" data-target="#editModal"><i class="c-white-500 ti-pencil-alt"></i> تعديل</button>
-        <div
-          class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-          aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">تعديل منتج</h5><button type="button" class="close" data-dismiss="modal"
-                  aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
-              <div
-                class="modal-body">
-                <div class="form-group">
-                  <form class="" action="" method="post" style="text-align:right"><label for="product_name">اسم المنتج</label><input type="email"
-                      id="product_name" class="form-control" aria-describedby="emailHelp"
-                      value="منتج تجريبي" placeholder="قم بادخال الأسم الجديد">
-                    <label
-                      for="">اختار القسم</label><select class="form-control" name=""><option value="">قسم الفطائر</option><option value="">قسم الحلويات</option><option value="">قسم الطواجن</option><option value="">قسم المشروبات</option><option value="">قسم المعجنات</option></select>
-                      <label
-                        for="product_price">السعر</label><input type="email" id="product_price" class="form-control"
-                          aria-describedby="emailHelp" value="80 " placeholder="قم بداخال السعر الجديد">
-                        <label
-                          for="product_desc">الوصف</label><input type="email" id="product_desc" class="form-control"
-                            aria-describedby="emailHelp" value="وصف تجريبي للمنتج"
-                            placeholder="قم بادخال وصف تجريبي للمنتج"><label for="product_status"
-                            class="">الحالة</label><br><label class="switch" style="margin-bottom:25px"><input id="product_status" type="checkbox"> <span class="slider round"></span></label>
-                          <label
-                            for="product_pic">تعديل الصورة</label><img id="product_pic" src="https://img.talabat.com/MenuItems/Spicy-McChicken-Meal__636463433087547488.jpg"
-                              alt=""><br><input type="file" class="form-control-file"
-                              id="exampleFormControlFile1"></form>
-                </div>
-            </div>
-            <div class="modal-footer"><button type="button" class="btn btn-outline-secondary" data-dismiss="modal">إلغاء</button>              <button type="button" class="btn btn-info">تأكيد</button></div>
-          </div>
-  </div>
-  </div>
-  </td>
-  <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal"><i class="c-white-500 ti-trash"></i> حذف</button>
-    <div
-      class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-      aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">حذف منتج</h5><button type="button" class="close" data-dismiss="modal"
-              aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
-          <div
-            class="modal-body">
-            <h5>هل انت متاكد من حذف هذا المنتج</h5>
-        </div>
-        <div class="modal-footer"><button type="button" class="btn btn-outline-secondary" data-dismiss="modal">إلغاء</button>          <button type="button" class="btn btn-danger">تأكيد</button></div>
-      </div>
-      </div>
-      </div>
-  </td>
-  </tr>
-  <tr>
-    <td>منتج تجريبي</td>
-    <td>قسم تجريبي</td>
-    <td>80 SR</td>
-    <td>وصف تجريبي للمنتج</td>
-    <td>نشط</td>
-    <td><button type="button" class="btn btn-info" data-toggle="modal" data-target="#editModal"><i class="c-white-500 ti-pencil-alt"></i> تعديل</button>
-      <div
-        class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">تعديل منتج</h5><button type="button" class="close" data-dismiss="modal"
-                aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
-            <div
-              class="modal-body">
-              <div class="form-group">
-                <form class="" action="" method="post" style="text-align:right"><label for="product_name">اسم المنتج</label><input type="email" id="product_name"
-                    class="form-control" aria-describedby="emailHelp" value="منتج تجريبي"
-                    placeholder="قم بادخال الأسم الجديد"><label for="">اختار القسم</label>
-                  <select
-                    class="form-control" name="">
-                    <option value="">قسم الفطائر</option>
-                    <option value="">قسم الحلويات</option>
-                    <option value="">قسم الطواجن</option>
-                    <option value="">قسم المشروبات</option>
-                    <option value="">قسم المعجنات</option>
-                    </select><label for="product_price">السعر</label><input type="email" id="product_price"
-                      class="form-control" aria-describedby="emailHelp" value="80 "
-                      placeholder="قم بداخال السعر الجديد"><label for="product_desc">الوصف</label>
-                    <input
-                      type="email" id="product_desc" class="form-control" aria-describedby="emailHelp"
-                      value="وصف تجريبي للمنتج" placeholder="قم بادخال وصف تجريبي للمنتج"><label for="product_status" class="">الحالة</label><br>
-                      <label
-                        class="switch" style="margin-bottom:25px"><input id="product_status" type="checkbox" checked="checked">                        <span class="slider round"></span></label><label for="product_pic">تعديل الصورة</label>
-                        <img
-                          id="product_pic" src="https://img.talabat.com/MenuItems/Spicy-McChicken-Meal__636463433087547488.jpg"
-                          alt=""><br><input type="file" class="form-control-file" id="exampleFormControlFile1"></form>
-              </div>
-          </div>
-          <div class="modal-footer"><button type="button" class="btn btn-outline-secondary" data-dismiss="modal">إلغاء</button>            <button type="button" class="btn btn-info">تأكيد</button></div>
-        </div>
-        </div>
-        </div>
-    </td>
-    <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal"><i class="c-white-500 ti-trash"></i> حذف</button>
-      <div
-        class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">حذف منتج</h5><button type="button" class="close" data-dismiss="modal"
-                aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
-            <div
-              class="modal-body">
-              <h5>هل انت متاكد من حذف هذا المنتج</h5>
-          </div>
-          <div class="modal-footer"><button type="button" class="btn btn-outline-secondary" data-dismiss="modal">إلغاء</button>            <button type="button" class="btn btn-danger">تأكيد</button></div>
-        </div>
-        </div>
-        </div>
-    </td>
-  </tr>
-  <tr>
-    <td>منتج تجريبي</td>
-    <td>قسم تجريبي</td>
-    <td>80 SR</td>
-    <td>وصف تجريبي للمنتج</td>
-    <td>غير نشط</td>
-    <td><button type="button" class="btn btn-info" data-toggle="modal" data-target="#editModal"><i class="c-white-500 ti-pencil-alt"></i> تعديل</button>
-      <div
-        class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">تعديل منتج</h5><button type="button" class="close" data-dismiss="modal"
-                aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
-            <div
-              class="modal-body">
-              <div class="form-group">
-                <form class="" action="" method="post" style="text-align:right"><label for="product_name">اسم المنتج</label><input type="email" id="product_name"
-                    class="form-control" aria-describedby="emailHelp" value="منتج تجريبي"
-                    placeholder="قم بادخال الأسم الجديد"><label for="">اختار القسم</label>
-                  <select
-                    class="form-control" name="">
-                    <option value="">قسم الفطائر</option>
-                    <option value="">قسم الحلويات</option>
-                    <option value="">قسم الطواجن</option>
-                    <option value="">قسم المشروبات</option>
-                    <option value="">قسم المعجنات</option>
-                    </select><label for="product_price">السعر</label><input type="email" id="product_price"
-                      class="form-control" aria-describedby="emailHelp" value="80 "
-                      placeholder="قم بداخال السعر الجديد"><label for="product_desc">الوصف</label>
-                    <input
-                      type="email" id="product_desc" class="form-control" aria-describedby="emailHelp"
-                      value="وصف تجريبي للمنتج" placeholder="قم بادخال وصف تجريبي للمنتج"><label for="product_status" class="">الحالة</label><br>
-                      <label
-                        class="switch" style="margin-bottom:25px"><input id="product_status" type="checkbox"> <span class="slider round"></span></label>
-                        <label
-                          for="product_pic">تعديل الصورة</label><img id="product_pic" src="https://img.talabat.com/MenuItems/Spicy-McChicken-Meal__636463433087547488.jpg"
-                            alt=""><br><input type="file" class="form-control-file"
-                            id="exampleFormControlFile1"></form>
-              </div>
-          </div>
-          <div class="modal-footer"><button type="button" class="btn btn-outline-secondary" data-dismiss="modal">إلغاء</button>            <button type="button" class="btn btn-info">تأكيد</button></div>
-        </div>
-        </div>
-        </div>
-    </td>
-    <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal"><i class="c-white-500 ti-trash"></i> حذف</button>
-      <div
-        class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">حذف منتج</h5><button type="button" class="close" data-dismiss="modal"
-                aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
-            <div
-              class="modal-body">
-              <h5>هل انت متاكد من حذف هذا المنتج</h5>
-          </div>
-          <div class="modal-footer"><button type="button" class="btn btn-outline-secondary" data-dismiss="modal">إلغاء</button>            <button type="button" class="btn btn-danger">تأكيد</button></div>
-        </div>
-        </div>
-        </div>
-    </td>
-  </tr>
+                        </div>
+                        </div>
+                    </td>
+                    <td><button id="<%= product.id %>" type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete_<%= product.id %>"><i class="c-white-500 ti-trash"></i> حذف</button>
+                      <div
+                        class="modal fade" id="delete_<%= product.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel">حذف منتج</h5><button type="button" class="close" data-dismiss="modal"
+                                aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
+                            <div
+                              class="modal-body">
+                              <h5>هل انت متاكد من حذف هذا المنتج</h5>
+                          </div>
+                          <div class="modal-footer"><button type="button" class="btn btn-outline-secondary" data-dismiss="modal">إلغاء</button>            <a href="/delete-product?id=<%= product.id%>" type="button" class="btn btn-danger">تأكيد</a></div>
+                        </div>
+                        </div>
+                        </div>
+                    </td>
+                  </tr>
+
+                <% }) %>
   </tbody>
   </table>
   </div>
@@ -553,28 +367,45 @@
   </div>
   </div>
   </div><br><br>
-  <div class="col-md-12">
+  <div class="col-md-10" style="margin-left: 260px">
     <div class="layers bd bgc-white p-20">
       <div class="layer w-100 mB-10" style="text-align:center">
-        <form style="text-align:right">
+        <form encType="multipart/form-data" method="post" action="/add-product" data-parsley-validate style="text-align:right">
           <h5 class="c-grey-900 mB-20">: إضافة منتج</h5>
           <div class="form-row">
-            <div class="form-group col-md-6"><label for="inputPassword4">صورة المنتج</label><input type="file" class="form-control"
-                placeholder="قم بإدخال اسم الماركت"></div>
-            <div class="form-group col-md-6"><label for="inputPassword4">اسم المنتج</label><input type="text" class="form-control"
-                placeholder="قم بإدخال اسم الماركت"></div>
+            <div class="form-group col-md-6"><label for="inputPassword4">صورة المنتج</label>
+              <input name="image" type="file" class="form-control"
+                placeholder="قم بإدخال اسم الماركت">
+              </div>
+            <div class="form-group col-md-6"><label for="inputPassword4">اسم المنتج</label>
+              <input name="name" type="text" class="form-control"
+                placeholder="قم بإدخال اسم المنتج">
+              </div>
           </div>
-          <div class="form-group"><label for="inputAddress">وصف المنتج</label><input type="area" class="form-control"
-              id="inputAddress" placeholder="وصف قصير للمنتج" style="height:80px"></div>
+          <div class="form-group"><label for="inputAddress">وصف المنتج</label>
+            <input name="info" type="area" class="form-control"
+              id="inputAddress" placeholder="وصف قصير للمنتج" style="height:80px">
+            </div>
           <div
             class="form-row">
-            <div class="form-group col-md-6"><label for="inputZip">الحاله</label><select class="form-control" name=""><option value="">نشط</option><option value="">غير نشط</option></select></div>
+            <div class="form-group col-md-6"><label for="inputZip">الحاله</label>
+              <select name="status" class="form-control" >
+                <option value="1">نشط</option>
+                <option value="0">غير نشط</option>
+              </select></div>
             <div
-              class="form-group col-md-6"><label for="inputZip">اختار القسم</label><select class="form-control"
-                name=""><option value="">قسم الفطائر</option><option value="">قسم الحلويات</option><option value="">قسم الطواجن</option><option value="">قسم المشروبات</option><option value="">قسم المعجنات</option></select></div>
+              class="form-group col-md-6"><label for="inputZip">اختار القسم</label>
+              <select name="category_id" class="form-control" >
+                <% cats.forEach(function(cat) { %>
+                  <option value="<%= cat.id %>"><%= cat.name %></option>
+                <% }) %>
+              </select>
+            </div>
       <div
-        class="form-group col-md-12"><label for="inputPassword4">سعر المنتج</label><input type="number" class="form-control"
-          placeholder="قم بإدخال سعر المنتج "></div>
+        class="form-group col-md-12"><label for="inputPassword4">سعر المنتج</label>
+        <input name="price" type="number" class="form-control"
+          placeholder="قم بإدخال سعر المنتج ">
+        </div>
   </div><button type="submit" class="btn btn-primary">اضافه</button></form>
   </div>
   </div>

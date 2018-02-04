@@ -15,7 +15,7 @@ const fileUpload = require('express-fileupload');
 app.use(fileUpload());
 
 // Domain name (we prepend this to uploaded images)
-domain = "domainname.com";
+domain = 'http://localhost:3000';
 
 // localStorage
 if (typeof localStorage === 'undefined' || localStorage === null) {
@@ -51,12 +51,12 @@ const sales = require('./routes/sales');
 const markets = require('./routes/markets');
 const users = require('./routes/users');
 const tickets = require('./routes/tickets');
-const notifications = require('./routes/notifications')
+const notifications = require('./routes/notifications');
 const store_home = require('./routes/store_owner/home');
 const store_orders = require('./routes/store_owner/orders');
 const store_sales = require('./routes/store_owner/sales');
 const store_products = require('./routes/store_owner/products');
-const store_offers = require('./routes/store_owner/offers');
+const offers = require('./routes/offers');
 const store_login = require('./routes/store_owner/store_login');
 
 // routes
@@ -71,8 +71,8 @@ app.get('/store/:store_id', checkAuth, store_home);
 app.get('/store_orders/:store_id', checkAuth, store_orders);
 app.get('/store_sales/:store_id', checkAuth, store_sales);
 app.get('/store_products/:store_id', checkAuth, store_products);
-app.get('/store_offers/:store_id', checkAuth, store_offers);
 app.get('/store_login/', checkAuth, store_login);
+app.get('/offers', checkAuth, offers);
 
 // checking authentication session
 function checkAuth(req, res, next) {
@@ -102,3 +102,4 @@ require('./routes/api/user_location');
 require('./routes/api/requestnewpass');
 require('./routes/api/setnewpass');
 require('./routes/api/tickets');
+require('./routes/api/store_orders');
