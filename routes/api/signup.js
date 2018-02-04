@@ -1,6 +1,9 @@
-var crypto = require('crypto');
 
+
+var crypto = require('crypto');
 function SendCode(to, code) {
+  const fetch = require('node-fetch');
+
     var msg = 'هذا هو الكود الخاص بك ' + code;
     fetch('http://spread-co.com/s_sms?msg='+msg+'&pn='+to+'&tag=N-Test').then(function(res) {
 
