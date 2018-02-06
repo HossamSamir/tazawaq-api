@@ -161,44 +161,95 @@
         <table class="table table-bordered table-hover">
           <thead class="thead-dark">
             <tr>
-              <th scope="col">قبول</th>
+              <th scope="col">تم التوصيل</th>
+              <th scope="col">جاري التوصيل</th>
               <th scope="col">بيانات الزبون</th>
               <th scope="col">مكان التوصيل</th>
               <th scope="col">مجموع السعر</th>
               <th scope="col">تفاصيل الطلب</th>
+              <th scope="col">الحالة</th>
               <th scope="col">#</th>
             </tr>
           </thead>
           <tbody>
-              <% orders.forEach(function(order) { %>
+              <%
+              function getStatusAsStr(status) {
+                  switch(status)
+                  {
+                      case 0:
+                          return ("قيد القبول");
+                      case 1:
+                          return ("جاري التوصيل");
+                      case 2:
+                          return ("تم التوصيل");
+                  }
+              }
+
+              orders.forEach(function(order) { %>
             <tr>
               <td>
-                  <a href="#" data-toggle="modal" data-target="#delCat" class="mark-delivered col-6"><i class="c-pink-500 ti-check-box" style="font-size:15px"></i> <span>تم التوصيل</span></a>
+                  <a href="#" data-toggle="modal" data-target="#deliverOrder_<%= order.data.id %>" class="col-6">
+                      <i class="c-green-500 ti-check-box" style="font-size:15px"></i>
+                      <span>تم التوصيل</span>
+                  </a>
                 <div
-                  class="modal fade" id="delCat" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                  class="modal fade" id="deliverOrder_<%= order.data.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                   aria-hidden="true">
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">
                       <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">انهي الطلب</h5><button type="button" class="close" data-dismiss="modal"
-                          aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
+                        <h5 class="modal-title" id="exampleModalLabel">اتم توصيل الطلب</h5>
+                        <button type="button" class="close" data-dismiss="modal"
+                          aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                      </div>
                       <div
                         class="modal-body">
                         <h5>سيتم ازاله الطلب من صفحه الطلبات النشطة و وضعه فى صفحة المبيعات</h5>
                     </div>
-                    <div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">الغاء</button>
-                        <a class="mark-delivered-confirm" href="/delivered-order?store_id=<%= store_id %>&id=<%= order.data.id %>">
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">الغاء</button>
+                        <a href="/delivered-order?store_id=<%= store_id %>&id=<%= order.data.id %>">
                             <button type="button" class="btn btn-danger">موافق</button>
                         </a>
-                        </div>
+                    </div>
                   </div>
       </div>
   </div>
   </td>
+  <td>
+      <a href="#" data-toggle="modal" data-target="#deliveringOrder_<%= order.data.id %>" class="col-6">
+          <i class="c-orange-500 ti-check-box" style="font-size:15px"></i>
+          <span>جاري التوصيل</span>
+      </a>
+    <div
+      class="modal fade" id="deliveringOrder_<%= order.data.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">جاري توصيل الطلب</h5>
+            <button type="button" class="close" data-dismiss="modal"
+              aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          </div>
+          <div
+            class="modal-body">
+            <h5>سيظهر عند الزبون انه جاري توصيل طلبهم</h5>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">الغاء</button>
+            <a href="/delivering-order?store_id=<%= store_id %>&id=<%= order.data.id %>">
+                <button type="button" class="btn btn-danger">موافق</button>
+            </a>
+        </div>
+      </div>
+</div>
+</div>
+</td>
   <td><%= order.username %> - <%= order.phone %></td>
   <td><%= order.data.location %></td>
   <td><%= order.data.cost %></td>
   <td><%= order.data.info %></td>
+  <td><%= getStatusAsStr(order.data.status) %></td>
   <th
     scope="row"><%= order.data.id %></th>
     </tr>
@@ -213,12 +264,4 @@
     <script type="text/javascript" src="../assets/js/soVendor.js"></script>
     <script type="text/javascript" src="../assets/js/soBundle.js"></script>
 </body>
-<script type="text/javascript" src="../assets/js/jquery-3.3.1.min.js"></script>
-<script>
-$('.mark-delivered').click(function(event) {
-    var correct = $(this).parents("td").find(".mark-delivered-confirm").attr('href');
-    $(".mark-delivered-confirm:first").attr('href', correct);
-});
-</script>
-
 </html>
