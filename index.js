@@ -103,3 +103,5 @@ require('./routes/api/requestnewpass');
 require('./routes/api/setnewpass');
 require('./routes/api/tickets');
 require('./routes/api/store_orders');
+require('./routes/api/store_products');
+require('./routes/api/store_info');
