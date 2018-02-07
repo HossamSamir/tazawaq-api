@@ -1,4 +1,5 @@
 // For MealsScreen.js => Restaurant
+// For SingleMeal.js => Restaurant
 
 app.get('/api/store-info',function(req,res){
     var store_id = req.param("store_id");

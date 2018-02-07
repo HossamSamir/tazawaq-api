@@ -104,5 +104,6 @@ require('./routes/api/setnewpass');
 require('./routes/api/tickets');
 require('./routes/api/store_orders');
 require('./routes/api/store_products');
+require('./routes/api/product_info');
 require('./routes/api/store_info');
 require('./routes/api/rating');
