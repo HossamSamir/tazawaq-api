@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 07, 2018 at 01:04 AM
+-- Generation Time: Feb 07, 2018 at 11:09 PM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 7.1.7
 
@@ -148,6 +148,18 @@ CREATE TABLE `sales` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `seen_offers`
+--
+
+CREATE TABLE `seen_offers` (
+  `id` int(11) NOT NULL,
+  `offer_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `stores`
 --
 
@@ -263,6 +275,12 @@ ALTER TABLE `sales`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `seen_offers`
+--
+ALTER TABLE `seen_offers`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `stores`
 --
 ALTER TABLE `stores`
@@ -329,6 +347,11 @@ ALTER TABLE `ratings`
 -- AUTO_INCREMENT for table `sales`
 --
 ALTER TABLE `sales`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `seen_offers`
+--
+ALTER TABLE `seen_offers`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `stores`
