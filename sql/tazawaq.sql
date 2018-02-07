@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 07, 2018 at 11:09 PM
+-- Generation Time: Feb 08, 2018 at 12:07 AM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 7.1.7
 
@@ -65,6 +65,7 @@ CREATE TABLE `categories` (
 
 CREATE TABLE `expo_push_tokens` (
   `id` int(11) NOT NULL,
+  `store_id` int(11) NOT NULL,
   `token` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
