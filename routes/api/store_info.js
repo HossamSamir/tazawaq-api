@@ -20,6 +20,7 @@ app.get('/api/store-info',function(req,res){
                         else {
                             res.json({
                                 response: {...data[0], stars: -1}
+                                // stars = -1 means this has not been rated before
                             });
                         }
                     }
