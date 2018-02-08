@@ -1,6 +1,4 @@
 module.exports = (req, res) => {
-	localStorage.setItem('loggedIn', 'false');
-	res.render('login', { title: 'Express' });
+	req.session.forget('app_owner');
+	res.render('login', { });
 };
-
-// module.exports = travers;

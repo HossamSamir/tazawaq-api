@@ -31,7 +31,7 @@ app.get('/api/make-order',function(req,res){
 
 function SendPushNotifications(pushTokens)
 {
-    import Expo from 'expo-server-sdk';
+    const Expo = require('expo-server-sdk');
 
     // Create a new Expo SDK client
     let expo = new Expo();
