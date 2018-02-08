@@ -15,7 +15,20 @@ app.get('/delete-store', function(req, res) {
 		fs.unlink(
 			`client/views/assets/static/images/uploaded_images/store_images/store_${id}.jpg`
 		);
-		res.redirect('markets');
+		sql.qry(
+			'SELECT id FROM products WHERE store_id=?', [id]
+			function(products) {
+				products.forEach(function(product) {
+					fs.unlink(
+						`client/views/assets/static/images/uploaded_images/store_images/products/product_${product.id}.jpg`
+					);
+				});
+
+				sql.qry('DELETE FROM products WHERE store_id=?', [id], function() {
+					res.redirect('markets');
+				});
+			}
+		);
 	});
 });
 
