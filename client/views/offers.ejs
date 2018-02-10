@@ -170,13 +170,13 @@
                   <h5 class="lh-1"><%= offer.name %></h5>
                 </div>
                 <div class="container row bgc-white" style="text-align:center;border-top:1px solid #a2a6a8;padding:7px 0">
-                  <a href="#" data-toggle="modal" data-target="#editOffer" class="col-4"
+                  <a href="#" data-toggle="modal" data-target="#editOffer_<%=offer.id%>" class="col-4"
                   style=""><i class="c-pink-500 ti-pencil-alt" style="font-size:15px"></i> <span>تعديل</span></a>
 
                   <%if (offer.status == 1) { %>
-                    <div class="col-4" style="border-right:1px solid #a2a6a8;border-left:1px solid #a2a6a8"><label class="switch" style=""><input id="product_status" type="checkbox" checked> <span class="slider round"></span></label></div>
+                    <div class="col-4" style="border-right:1px solid #a2a6a8;border-left:1px solid #a2a6a8"><label class="switch" style=""><input id="product_status" type="checkbox" disabled checked> <span class="slider round"></span></label></div>
                   <% } else { %>
-                    <div class="col-4" style="border-right:1px solid #a2a6a8;border-left:1px solid #a2a6a8"><label class="switch" style=""><input id="product_status" type="checkbox"> <span class="slider round"></span></label></div>
+                    <div class="col-4" style="border-right:1px solid #a2a6a8;border-left:1px solid #a2a6a8"><label class="switch" style=""><input id="product_status" type="checkbox" disabled> <span class="slider round"></span></label></div>
                   <% } %>
                   <a href="#" data-toggle="modal" data-target="#delCat" class="col-4"><i class="c-pink-500 ti-trash" style="font-size:15px"></i> <span>حذف</span></a>
                 </div>
@@ -200,7 +200,7 @@
               <!-- del modal end -->
 
               <!-- edit modal end -->
-              <div class="modal fade" id="editOffer" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal fade" id="editOffer_<%=offer.id%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">
                     <div class="modal-header">
@@ -210,21 +210,32 @@
                       <div class="form-group">
                         <form class="" action="" method="post" style="text-align:right"><label for="product_name">اسم العرض</label><input type="email"
                             id="product_name" class="form-control" aria-describedby="emailHelp"
-                            value="منتج تجريبي" placeholder="قم بادخال الأسم الجديد">
+                            value="<%= offer.name %>" placeholder="قم بادخال الأسم الجديد">
                           <label
                             for="product_price">السعر بعد الخصم</label><input type="email" id="product_price"
                               class="form-control" aria-describedby="emailHelp"
-                              value="80 " placeholder="قم بداخال السعر الجديد">
+                              value="<%= offer.cost_after %>" placeholder="قم بداخال السعر الجديد">
                             <label
                               for="product_price">بدلا من</label><input type="email" id="product_price"
                                 class="form-control" aria-describedby="emailHelp"
-                                value="150 " placeholder="قم بداخال السعر الجديد">
+                                value="<%= offer.cost_before %>" placeholder="قم بداخال السعر الجديد">
                               <label
                                 for="product_desc">الوصف</label><input type="email" id="product_desc"
                                   class="form-control" aria-describedby="emailHelp"
-                                  value="وصف تجريبي للعرض" placeholder="قم بادخال وصف تجريبي للمنتج">
+                                  value="<%= offer.info %>" placeholder="قم بادخال وصف تجريبي للمنتج">
                                 <label
-                                  for="product_status" class="">الحالة</label><br><label class="switch" style="margin-bottom:25px"><input id="product_status" type="checkbox" checked="checked"> <span class="slider round"></span></label>
+                                  for="product_status" class="">الحالة</label><br>
+                                  <select
+                                    class="form-control" name="category_id" >
+                                    <%if (offer.status == 1) { %>
+                                      <option value="1" selected>نشط</option>
+                                      <option value="0">غير نشط</option>
+                                    <% } else { %>
+                                      <option value="1">نشط</option>
+                                      <option value="0" selected>غير نشط</option>
+                                      <% } %>
+                                  </select>
+
                                   <label
                                     for="product_pic">تعديل الصورة</label><img id="product_pic"
                                       src="https://img.talabat.com/MenuItems/Spicy-McChicken-Meal__636463433087547488.jpg"
