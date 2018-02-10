@@ -15,14 +15,9 @@ fetch('https://api.smsglobal.com/http-api.php?action=sendsms&user=f2yulf7m&passw
 
     });
 
-
-
-
-
-
 }
 
-app.get('/api/signup',function(req,res){
+app.get('//api/signup',function(req,res){
     var phone = req.param("phone");
     var email = req.param("email");
     var username = req.param("username");
