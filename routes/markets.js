@@ -15,7 +15,21 @@ app.get('/delete-store', function(req, res) {
 		fs.unlink(
 			`client/views/assets/static/images/uploaded_images/store_images/store_${id}.jpg`
 		);
-		res.redirect('markets');
+		sql.qry('SELECT id FROM products WHERE store_id=?', [id], function(
+			products
+		) {
+			products.forEach(function(product) {
+				fs.unlink(
+					`client/views/assets/static/images/uploaded_images/store_images/products/product_${
+						product.id
+					}.jpg`
+				);
+			});
+
+			sql.qry('DELETE FROM products WHERE store_id=?', [id], function() {
+				res.redirect('markets');
+			});
+		});
 	});
 });
 
@@ -69,20 +83,17 @@ app.post('/edit-store', function(req, res) {
 		}
 	}
 
-	if(password)
-	{
+	if (password) {
 		var hash = crypto
 			.createHash('md5')
 			.update(password)
 			.digest('hex');
 
-		sql.qry(
-			'UPDATE stores SET password=? WHERE id=?',
-			[hash, id],
-			function(stores) {
-				res.redirect('markets');
-			}
-		);
+		sql.qry('UPDATE stores SET password=? WHERE id=?', [hash, id], function(
+			stores
+		) {
+			res.redirect('markets');
+		});
 	}
 });
 
@@ -97,6 +108,8 @@ app.post('/add-store', function(req, res) {
 	var address = req.param('address');
 	var lat = req.param('lat');
 	var lng = req.param('lng');
+	var delivery_cost = req.param('delivery_cost');
+	var delivery_time = req.param('delivery_time');
 
 	if (
 		!display_name ||
@@ -105,7 +118,9 @@ app.post('/add-store', function(req, res) {
 		!region ||
 		!address ||
 		!lat ||
-		!lng
+		!lng ||
+		!delivery_cost ||
+		!delivery_time
 	) {
 		res.send('هناك مدخلات ناقصة او لم تُكتب بشكل صحيح من فضلك راجعها');
 		return;
@@ -122,9 +137,12 @@ app.post('/add-store', function(req, res) {
 				.update(password)
 				.digest('hex');
 			sql.qry(
-				'INSERT INTO stores(display_name,passname,password,address,latitude,longitude,region,img) VALUES(?,?,?,?,?,?,?,"")',
+				'INSERT INTO stores(display_name,delivery_cost,delivery_time,passname,password,address,latitude,longitude,region,img) ' +
+					'VALUES(?,?,?,?,?,?,?,?,?,"")',
 				[
 					display_name,
+					delivery_cost,
+					delivery_time,
 					passname.replace(/\s+/g, '_'),
 					hash,
 					address,

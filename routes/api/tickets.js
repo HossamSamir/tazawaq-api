@@ -8,7 +8,7 @@ app.get('/api/ticket-open',function(req,res){
         if(err) return res.json({response: 0});
 
         var ticket_id = tickets.insertId;
-        sql.qry('INSERT INTO ticket_messages(ticket_id,sender_type,message) VALUES(?,0,?)',
+        con.query('INSERT INTO ticket_messages(ticket_id,sender_type,message) VALUES(?,0,?)',
             [ticket_id, message], function(err,messages) {
             if(err) return res.json({response: 0});
 
@@ -29,7 +29,7 @@ app.get('/api/ticket-reply',function(req,res){
             return res.json({ response: 0 }); // لا يمكنك الرد على هذه التذكرة
 
         var message = req.param("message");
-        sql.qry('INSERT INTO ticket_messages(ticket_id,sender_type,message) VALUES(?,0,?)',
+        con.query('INSERT INTO ticket_messages(ticket_id,sender_type,message) VALUES(?,0,?)',
             [ticket_id, message], function(err,messages) {
             if(err) return res.json({response: -1});
 
