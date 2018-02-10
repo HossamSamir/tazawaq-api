@@ -1,9 +1,14 @@
+
+
 var crypto = require('crypto');
-
 function SendCode(to, code) {
-    var msg = 'هذا هو الكود الخاص بك ' + code;
-    fetch('http://spread-co.com/s_sms?msg='+msg+'&pn='+to+'&tag=N-Test').then(function(res) {
+    const fetch = require('node-fetch');
 
+    var msg = 'Tathouq | your verification code is: ' + code;
+    fetch('https://api.smsglobal.com/http-api.php?action=sendsms&user=f2yulf7m&password=2DiKaVq9&&from=tathouq&to=966'+
+    to+'&text='+msg+'',
+    {
+        method: 'POST',
     });
 }
 

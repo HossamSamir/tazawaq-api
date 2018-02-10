@@ -12,7 +12,10 @@ app.post('/store-login', function(req, res) {
 	var hash = crypto.createHash('md5').update(password).digest("hex");
 	sql.qry('SELECT id FROM stores WHERE passname=? AND password=? LIMIT 1', [passname, hash], function(store) {
 		if(!store.length) return res.send("هذا المحل التجاري غير متواجد او كلمة مرور غير صحيحة");
-		res.redirect('store/' + store[0].id);
+
+		var store_id = store[0].id;
+		req.session.put('store_id', String(store_id));
+		res.redirect('store/' + store_id);
 	});
 });
 

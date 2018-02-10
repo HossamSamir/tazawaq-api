@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 30, 2018 at 07:44 PM
+-- Generation Time: Feb 08, 2018 at 12:07 AM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 7.1.7
 
@@ -65,6 +65,7 @@ CREATE TABLE `categories` (
 
 CREATE TABLE `expo_push_tokens` (
   `id` int(11) NOT NULL,
+  `store_id` int(11) NOT NULL,
   `token` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -97,7 +98,8 @@ CREATE TABLE `orders` (
   `user_id` int(11) NOT NULL,
   `cost` decimal(8,3) NOT NULL,
   `info` varchar(512) CHARACTER SET utf8 NOT NULL,
-  `location` varchar(128) CHARACTER SET utf8 NOT NULL
+  `location` varchar(128) CHARACTER SET utf8 NOT NULL,
+  `status` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -120,6 +122,18 @@ CREATE TABLE `products` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `ratings`
+--
+
+CREATE TABLE `ratings` (
+  `id` int(11) NOT NULL,
+  `store_id` int(11) NOT NULL,
+  `rating` decimal(8,3) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `sales`
 --
 
@@ -135,6 +149,18 @@ CREATE TABLE `sales` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `seen_offers`
+--
+
+CREATE TABLE `seen_offers` (
+  `id` int(11) NOT NULL,
+  `offer_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `stores`
 --
 
@@ -143,6 +169,9 @@ CREATE TABLE `stores` (
   `passname` varchar(32) CHARACTER SET utf8 NOT NULL,
   `password` varchar(64) CHARACTER SET utf8 NOT NULL,
   `display_name` varchar(32) CHARACTER SET utf8 NOT NULL,
+  `info` varchar(512) CHARACTER SET utf8 NOT NULL,
+  `delivery_cost` decimal(8,3) NOT NULL,
+  `delivery_time` int(11) NOT NULL,
   `address` varchar(128) CHARACTER SET utf8 NOT NULL,
   `latitude` double NOT NULL,
   `longitude` double NOT NULL,
@@ -235,9 +264,21 @@ ALTER TABLE `products`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `ratings`
+--
+ALTER TABLE `ratings`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `sales`
 --
 ALTER TABLE `sales`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `seen_offers`
+--
+ALTER TABLE `seen_offers`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -299,9 +340,19 @@ ALTER TABLE `orders`
 ALTER TABLE `products`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT for table `ratings`
+--
+ALTER TABLE `ratings`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT for table `sales`
 --
 ALTER TABLE `sales`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `seen_offers`
+--
+ALTER TABLE `seen_offers`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `stores`
