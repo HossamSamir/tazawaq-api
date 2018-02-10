@@ -1,5 +1,3 @@
-
-
 var crypto = require('crypto');
 function SendCode(to, code) {
     const fetch = require('node-fetch');
@@ -12,7 +10,7 @@ function SendCode(to, code) {
     });
 }
 
-app.get('//api/signup',function(req,res){
+app.get('/api/signup',function(req,res){
     var phone = req.param("phone");
     var email = req.param("email");
     var username = req.param("username");
