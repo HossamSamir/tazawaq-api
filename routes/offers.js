@@ -1,6 +1,10 @@
 function travers(req, res) {
-	// var store_id = req.params.store_id;
-	res.render('offers');
+	sql.qry(
+		'SELECT id,store_id, name, info, cost_before, cost_after, status, img FROM offers',
+		offers => {
+			res.render('offers', { offers });
+		}
+	);
 }
 
 module.exports = travers;
