@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 08, 2018 at 12:07 AM
+-- Generation Time: Feb 10, 2018 at 09:57 PM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 7.1.7
 
@@ -127,6 +127,7 @@ CREATE TABLE `products` (
 
 CREATE TABLE `ratings` (
   `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
   `store_id` int(11) NOT NULL,
   `rating` decimal(8,3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

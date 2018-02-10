@@ -1,5 +1,3 @@
-
-
 var crypto = require('crypto');
 function SendCode(to, code) {
     const fetch = require('node-fetch');

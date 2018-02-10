@@ -42,19 +42,32 @@ app.get('/api/ticket-reply',function(req,res){
 app.get('/api/get-my-tickets',function(req,res){
     var user_id = req.param("user_id");
 
-    con.query('SELECT id AS ticket_id, title, status FROM tickets WHERE user_id=?', [user_id],function(err,tickets) {
-        if(err) return res.json({response: -1});
+    con.query('SELECT id AS ticket_id, title, status FROM tickets WHERE user_id=?',
+        [user_id],function(err,tickets_res) {
 
-        if(!tickets.length) return res.json({response: 0}); // User got no tickets
+        if(err) return res.json({response: -1}); // Error
+        if(!tickets_res.length) return res.json({response: 0}); // User got no tickets
 
-        res.json({ response: 1, tickets });
-        /*
-            tickets array of Objects, Object {
-                ticket_id,  // for navigation, pass this as a prop to SINGLE ticket screen
-                title,
-                status      // 1 means open, else it's closed and don't allow them to reply
-            }
-        */
+        var tickets = [];
+		async.forEachOf(tickets_res, function (ticket, i, callback) {
+			sql.qry('SELECT message FROM ticket_messages WHERE ticket_id=? ORDER BY id DESC LIMIT 1',
+            [ ticket.ticket_id ], function(recentMsg) {
+				tickets.push( { ...ticket, recent_msg: recentMsg[0].message } );
+				callback(null);
+			});
+		}, function(err) {
+			if(err) throw err;
+
+            res.json({ response: 1, tickets });
+            /*
+                tickets array of Objects, Object {
+                    ticket_id,  // for navigation, pass this as a prop to SINGLE ticket screen
+                    title,
+                    status,      // 1 means open, else it's closed and don't allow them to reply
+                    recent_msg      // most recent message
+                }
+            */
+		});
     });
 });
 
@@ -64,8 +77,6 @@ app.get('/api/get-ticket-messages',function(req,res){
 
     con.query('SELECT message,sender_type FROM ticket_messages WHERE ticket_id=?', [ticket_id],function(err,messages) {
         if(err) return res.json({response: -1});
-
-        // if(!messages.length) return res.json({response: 0}); // Ticket got no messages...will this ever happen? No..
 
         res.json({ response: 1, messages });
         // Note: sender_type | 0 means sent by user | 1 means sent by admin
