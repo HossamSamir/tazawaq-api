@@ -42,7 +42,7 @@ app.post('/add-offer', function(req, res) {
 			'INSERT INTO offers (name, cost_after, cost_before, info, status, store_id, img) VALUES(?,?,?,?,?,?,"")',
 			[name, cost_after, cost_before, info, status, store_id, image],
 			function(response) {
-				var img_path = `client/views/assets/static/images/uploaded_images/offers_images/offer${
+				var img_path = `client/views/assets/static/images/uploaded_images/offers_images/offer_${
 					response.insertId
 				}.jpg`;
 				image.mv(img_path, function(err) {
@@ -62,6 +62,16 @@ app.post('/add-offer', function(req, res) {
 			}
 		);
 	}
+});
+
+app.get('/delete-offer', (req, res) => {
+	let id = req.param('id');
+	sql.qry('DELETE FROM offers WHERE id = ?', [id], function(cats) {
+		fs.unlink(
+			`client/views/assets/static/images/uploaded_images/offers_images/offer_${id}.jpg`
+		);
+		res.redirect('/offers');
+	});
 });
 
 module.exports = travers;

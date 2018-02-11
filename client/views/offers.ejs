@@ -178,11 +178,11 @@
                   <% } else { %>
                     <div class="col-4" style="border-right:1px solid #a2a6a8;border-left:1px solid #a2a6a8"><label class="switch" style=""><input id="product_status" type="checkbox" disabled> <span class="slider round"></span></label></div>
                   <% } %>
-                  <a href="#" data-toggle="modal" data-target="#delCat" class="col-4"><i class="c-pink-500 ti-trash" style="font-size:15px"></i> <span>حذف</span></a>
+                  <a href="#" data-toggle="modal" data-target="#delCat<%=offer.id%>" class="col-4"><i class="c-pink-500 ti-trash" style="font-size:15px"></i> <span>حذف</span></a>
                 </div>
               </div>
               <!-- del modal start -->
-              <div class="modal fade" id="delCat" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+              <div class="modal fade" id="delCat<%=offer.id%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">
@@ -193,7 +193,9 @@
                       class="modal-body">
                       <h5>هل انت متأكد من حذف هذا العرض</h5>
                   </div>
-                  <div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">الغاء</button>                        <button type="button" class="btn btn-danger">نعم, احذف</button></div>
+                  <div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">الغاء</button>
+                    <a href="/delete-offer?id=<%= offer.id%>" type="button" class="btn btn-danger">نعم, احذف</a>
+                  </div>
                 </div>
               </div>
               </div>
