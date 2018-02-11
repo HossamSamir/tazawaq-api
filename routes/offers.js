@@ -64,6 +64,59 @@ app.post('/add-offer', function(req, res) {
 	}
 });
 
+
+
+app.post('/edit-product', function(req, res) {
+	var name = req.param('name');
+	var cost_after = req.param('cost_after');
+	var cost_before = req.param('cost_before');
+	var store_id = req.param('store_id');
+	var info = req.param('info');
+	var status = req.param('status');
+	var image = req.files.image || null;
+
+	if (
+		!name ||
+		image === null ||
+		!info ||
+		!status ||
+		!cost_after ||
+		!cost_before ||
+		!store_id
+	) {
+		res.send('هناك مدخلات ناقصة او لم تُكتب بشكل صحيح من فضلك راجعها');
+	} else {
+		sql.qry(
+			'UPDATE products SET name = ?, category_id = ?, cost = ?, info = ?, status = ? WHERE id = ?',
+			[name, category_id, price, info, status, product_id],
+			function(response) {
+				if (image != null) {
+					var img_path = `client/views/assets/static/images/uploaded_images/offers_images/offer_${}.jpg`;
+					image.mv(img_path, function(err) {
+						if (err) return res.status(500).send(err);
+
+						sql.qry(
+							'UPDATE products SET img=? WHERE id=?',
+							[
+								`${domain}/${img_path.replace('client/views/', '')}`,
+								product_id
+							],
+							function(stores) {
+								res.redirect(`/store_products/${_ID}`);
+							}
+						);
+					});
+				} else {
+					res.redirect(`/store_products/${_ID}`);
+				}
+			}
+		);
+	}
+});
+
+
+
+
 app.get('/delete-offer', (req, res) => {
 	let id = req.param('id');
 	sql.qry('DELETE FROM offers WHERE id = ?', [id], function(cats) {

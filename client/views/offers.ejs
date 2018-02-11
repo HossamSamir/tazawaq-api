@@ -210,7 +210,7 @@
                         aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
                     <div class="modal-body">
                       <div class="form-group">
-                        <form class="" action="" method="post" style="text-align:right"><label for="product_name">اسم العرض</label><input type="email"
+                        <form encType="multipart/form-data" method="post" action="/edit-offer" data-parsley-validate style="text-align:right"><label for="product_name">اسم العرض</label><input type="email"
                             id="product_name" class="form-control"
                             value="<%= offer.name %>" placeholder="قم بادخال الأسم الجديد">
                           <label
