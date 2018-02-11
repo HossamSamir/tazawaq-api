@@ -210,22 +210,22 @@
                         aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
                     <div class="modal-body">
                       <div class="form-group">
-                        <form encType="multipart/form-data" method="post" action="/edit-offer" data-parsley-validate style="text-align:right"><label for="product_name">اسم العرض</label><input type="email"
+                        <form encType="multipart/form-data" method="post" action="/edit-offer?offer_id=<%=offer.id%>" data-parsley-validate style="text-align:right"><label for="product_name">اسم العرض</label><input name="name" type="text"
                             id="product_name" class="form-control"
                             value="<%= offer.name %>" placeholder="قم بادخال الأسم الجديد">
                           <label
-                            for="product_price">السعر بعد الخصم</label><input type="email" id="product_price"
+                            for="product_price">السعر بعد الخصم</label><input name="cost_after" type="number" id="product_price"
                               class="form-control"
                               value="<%= offer.cost_after %>" placeholder="قم بداخال السعر الجديد">
                             <label
-                              for="product_price">بدلا من</label><input type="email" id="product_price"
+                              for="product_price">بدلا من</label><input name="cost_before" type="number" id="product_price"
                                 class="form-control"
                                 value="<%= offer.cost_before %>" placeholder="قم بداخال السعر الجديد">
 
                             <label
                               for="product_price">المحل التجاري</label>
                               <select
-                                class="form-control" name="stores" >
+                                class="form-control" name="store_id" >
                                 <% stores.forEach(function(store) { %>
                                 <% if(offer.store_id == store.id) { %>
                                     <option value="<%= store.id %>" selected><%= store.display_name %></option>
@@ -236,13 +236,13 @@
                               </select>
 
                               <label
-                                for="product_desc">الوصف</label><input type="email" id="product_desc"
+                                for="product_desc">الوصف</label><input name="info" type="text" id="product_desc"
                                   class="form-control"
                                   value="<%= offer.info %>" placeholder="قم بادخال وصف تجريبي للمنتج">
                                 <label
                                   for="product_status" class="">الحالة</label><br>
                                   <select
-                                    class="form-control" name="category_id" >
+                                    class="form-control" name="status" >
                                     <%if (offer.status == 1) { %>
                                       <option value="1" selected>نشط</option>
                                       <option value="0">غير نشط</option>
@@ -255,13 +255,13 @@
                                   <label
                                     for="product_pic">تعديل الصورة</label><img id="product_pic"
                                     src="<%= offer.img %>" style="width: 100%; height: 100%; max-height: 200px"
-                                      alt=""><br><input type="file" class="form-control-file"
-                                      id="exampleFormControlFile1"></form>
+                                      alt=""><br><input name="image" type="file" class="form-control-file"
+                                      id="exampleFormControlFile1">
                       </div>
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">إلغاء</button>
-                    <button type="button" class="btn btn-info">تأكيد</button>
+                    <button type="submit" class="btn btn-info">تأكيد</button></form>
                   </div>
                 </div>
               </div>
