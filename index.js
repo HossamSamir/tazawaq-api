@@ -8,7 +8,25 @@ const PORT = process.env.PORT || 3000;
 app.set('view engine', 'ejs');
 app.use(express.static(path.join(`${__dirname}/client`, 'views')));
 app.set('views', path.join(`${__dirname}/client`, 'views'));
-app.listen(PORT, () => console.log(`Listening on ${PORT}`));
+// app.listen(PORT, () => console.log(`Listening on ${PORT}`));
+
+// socketio
+// var app = require('express')();
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+
+io.on('connection', function(socket) {
+	// socket.on('chat message', function(msg) {
+	// 	io.emit('chat message', msg);
+	// });
+	console.log('connected');
+	io.emit('message');
+});
+
+http.listen(PORT, function() {
+	console.log('listening on *:' + PORT);
+});
+// socket end
 
 // File upload (for images)
 const fileUpload = require('express-fileupload');
@@ -51,18 +69,16 @@ nodeSession = new NodeSession({
 });
 
 // App use
-function session(req, res, next){
-    nodeSession.startSession(req, res, next);
+function session(req, res, next) {
+	nodeSession.startSession(req, res, next);
 }
 app.use(session);
 
 // Check if this session is of an app owner
-function isAppOwner(req, res, next)
-{
+function isAppOwner(req, res, next) {
 	if (req.session.has('app_owner')) {
 		next();
-	}
-	else {
+	} else {
 		var username = req.query.username;
 		var password = req.query.password;
 		if (
@@ -72,21 +88,21 @@ function isAppOwner(req, res, next)
 		) {
 			req.session.put('app_owner', 'true');
 			res.redirect('/');
-		}
-		else {
+		} else {
 			res.render('login', {});
 		}
 	}
 }
 
 // Check if this session is of a store owner
-function isStoreOwner(req, res, next)
-{
+function isStoreOwner(req, res, next) {
 	var store_id = req.params.store_id;
-	if (req.session.has('app_owner') || req.session.get('store_id') == String(store_id)) {
+	if (
+		req.session.has('app_owner') ||
+		req.session.get('store_id') == String(store_id)
+	) {
 		next();
-	}
-	else {
+	} else {
 		res.render('store_owner/store_login', {});
 	}
 }
