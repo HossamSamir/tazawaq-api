@@ -166,7 +166,7 @@
             <div class="col-4" style="background: transparent; height: 350px; margin: 10px 0px">
               <div class="layers bd bgc-white p-20" style="padding-bottom:0!important; margin: 20px">
                 <div class="layer w-100 mB-10" style="text-align:center;"><img id="product_pic" src="<%= offer.img %>"
-                    alt="" style="width:100%; height: 100%">
+                    alt="" style="width:100%; height: 100%; max-height: 200px">
                   <h5 class="lh-1"><%= offer.name %></h5>
                 </div>
                 <div class="container row bgc-white" style="text-align:center;border-top:1px solid #a2a6a8;padding:7px 0">
@@ -199,7 +199,7 @@
               </div>
               <!-- del modal end -->
 
-              <!-- edit modal end -->
+              <!-- edit modal start -->
               <div class="modal fade" id="editOffer_<%=offer.id%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">
@@ -209,19 +209,33 @@
                     <div class="modal-body">
                       <div class="form-group">
                         <form class="" action="" method="post" style="text-align:right"><label for="product_name">اسم العرض</label><input type="email"
-                            id="product_name" class="form-control" aria-describedby="emailHelp"
+                            id="product_name" class="form-control"
                             value="<%= offer.name %>" placeholder="قم بادخال الأسم الجديد">
                           <label
                             for="product_price">السعر بعد الخصم</label><input type="email" id="product_price"
-                              class="form-control" aria-describedby="emailHelp"
+                              class="form-control"
                               value="<%= offer.cost_after %>" placeholder="قم بداخال السعر الجديد">
                             <label
                               for="product_price">بدلا من</label><input type="email" id="product_price"
-                                class="form-control" aria-describedby="emailHelp"
+                                class="form-control"
                                 value="<%= offer.cost_before %>" placeholder="قم بداخال السعر الجديد">
+
+                            <label
+                              for="product_price">المحل التجاري</label>
+                              <select
+                                class="form-control" name="stores" >
+                                <% stores.forEach(function(store) { %>
+                                <% if(offer.store_id == store.id) { %>
+                                    <option value="<%= store.id %>" selected><%= store.display_name %></option>
+                                <% } else { %>
+                                    <option value="<%= store.id %>"><%= store.display_name %></option>
+                                <% } %>
+                                <% }) %>
+                              </select>
+
                               <label
                                 for="product_desc">الوصف</label><input type="email" id="product_desc"
-                                  class="form-control" aria-describedby="emailHelp"
+                                  class="form-control"
                                   value="<%= offer.info %>" placeholder="قم بادخال وصف تجريبي للمنتج">
                                 <label
                                   for="product_status" class="">الحالة</label><br>
@@ -238,7 +252,7 @@
 
                                   <label
                                     for="product_pic">تعديل الصورة</label><img id="product_pic"
-                                      src="https://img.talabat.com/MenuItems/Spicy-McChicken-Meal__636463433087547488.jpg"
+                                    src="<%= offer.img %>" style="width: 100%; height: 100%; max-height: 200px"
                                       alt=""><br><input type="file" class="form-control-file"
                                       id="exampleFormControlFile1"></form>
                       </div>
@@ -258,7 +272,7 @@
           <!-- box start -->
           <div class="col-4" style=" height: 350px; margin: 10px 0px">
             <div class="layers bd bgc-white p-20" style="margin: 20px">
-              <div class="layer w-100 mB-10" style="text-align:center"><i class="c-pink-500 ti-plus" style="font-size:40px"></i>
+              <div data-toggle="modal" data-target="#addOffer" class="layer w-100 mB-10" style="text-align:center"><i class="c-pink-500 ti-plus" style="font-size:40px"></i>
                 <h5 class="lh-1">اضافه عرض</h5>
               </div>
               <!-- modal start -->
@@ -272,24 +286,46 @@
                     <div
                       class="modal-body">
                       <div class="form-group">
-                        <form class="" action="" method="post" style="text-align:right"><label for="product_name">اسم العرض</label><input type="email" id="product_name"
-                            class="form-control" aria-describedby="emailHelp" value="منتج تجريبي"
-                            placeholder="قم بادخال الأسم الجديد"><label for="product_price">السعر بعد الخصم</label>
+                        <form encType="multipart/form-data" method="post" action="/add-offer" data-parsley-validate style="text-align:right"><label for="product_name">اسم العرض</label>
+                          <input type="text" id="product_name"
+                            class="form-control"
+                            name="name"
+                            placeholder="قم بادخال الأسم "><label for="product_price">السعر بعد الخصم</label>
                           <input
-                            type="email" id="product_price" class="form-control" aria-describedby="emailHelp"
-                            value="80 " placeholder="قم بداخال السعر الجديد"><label for="product_price">بدلا من</label><input type="email" id="product_price"
-                              class="form-control" aria-describedby="emailHelp" value="150 " placeholder="قم بداخال السعر الجديد">
-                            <label
-                              for="product_desc">الوصف</label><input type="email" id="product_desc" class="form-control"
-                                aria-describedby="emailHelp" value="وصف تجريبي للعرض" placeholder="قم بادخال وصف تجريبي للمنتج">
+                            type="number" id="product_price" class="form-control"  name="cost_after"
+                             placeholder="قم بداخال السعر ">
+                             <label for="product_price">بدلا من</label>
+                             <input type="number" name="cost_before" id="product_price"
+                              class="form-control"   placeholder="قم بداخال السعر ">
+
                               <label
-                                for="product_status" class="">الحالة</label><br><label class="switch" style="margin-bottom:25px"><input id="product_status" type="checkbox" checked="checked"> <span class="slider round"></span></label>
+                                for="product_price">المحل التجاري</label>
+                                <select
+                                  class="form-control" name="store_id" >
+                                  <% stores.forEach(function(store) { %>
+                                      <option value="<%= store.id %>"><%= store.display_name %></option>
+                                  <% }) %>
+                                </select>
+
+
+                              <label
+                                for="product_status" class="">الحالة</label><br>
+                                <select
+                                  class="form-control" name="status" >
+                                      <option value="1" selected>نشط</option>
+                                      <option value="0">غير نشط</option>
+                                </select>
+
                                 <label
-                                  for="product_pic">الصورة</label><br><input type="file" class="form-control-file"
-                                    id="exampleFormControlFile1"></form>
+                                  for="product_desc">الوصف</label><input type="text" name="info" id="product_desc" class="form-control" style="height: 100px"
+                                       placeholder="قسم بادخال وصف للمنتج">
+
+                                <label
+                                  for="product_pic">الصورة</label><br><input type="file" name="image" class="form-control-file"
+                                    id="exampleFormControlFile1">
                       </div>
                   </div>
-                  <div class="modal-footer"><button type="button" class="btn btn-outline-secondary" data-dismiss="modal">إلغاء</button>        <button type="button" class="btn btn-info">تأكيد</button></div>
+                  <div class="modal-footer"><button type="button" class="btn btn-outline-secondary" data-dismiss="modal">إلغاء</button>        <button type="submit" class="btn btn-info">تأكيد</button></div></form>
                 </div>
               </div>
               </div>
