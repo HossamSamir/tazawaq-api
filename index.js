@@ -152,3 +152,4 @@ require('./routes/api/rating');
 require('./routes/api/orders');
 require('./routes/api/offers');
 require('./routes/api/store_push_tokens');
+require('./routes/api/stores');
