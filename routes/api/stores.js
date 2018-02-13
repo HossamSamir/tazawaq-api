@@ -33,7 +33,7 @@ app.get('/api/stores',function(req,res){
 
     con.query('SELECT latitude,longitude,region FROM users WHERE id=? LIMIT 1',
         [user_id],function(err,user) {
-        if(err) return res.json({response: -1});
+        if(err) return res.json({response: -1, err});
         if(!user.length) return res.json({response: -2});
 
         var lat = user[0].latitude, lng = user[0].longitude, region = user[0].region;
