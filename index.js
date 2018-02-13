@@ -1,6 +1,6 @@
 async = require('async');
 const path = require('path');
-
+const config = require('./config');
 // express configs
 const express = require('express');
 app = express();
@@ -35,16 +35,6 @@ app.use(fileUpload());
 // Domain name (we prepend this to uploaded images)
 domain = 'http://localhost:3000';
 
-// MySQL database
-var mysql = require('mysql');
-
-// Config connection
-con = mysql.createConnection({
-	host: 'localhost',
-	user: 'root',
-	password: '',
-	database: 'tazawaq'
-});
 
 // Actually connect
 con.connect(function(err) {
@@ -108,6 +98,7 @@ function isStoreOwner(req, res, next) {
 }
 
 // importing routes
+
 const home = require('./routes/home');
 const logout = require('./routes/logout');
 const sales = require('./routes/sales');
