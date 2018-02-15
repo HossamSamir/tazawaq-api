@@ -32,6 +32,7 @@ app.get('/api/stores',function(req,res) {
     if(user_id == -1)
     {
         FetchStores(
+            res,
             parseFloat(req.param("maxcost")),
             parseInt(req.param("maxtime")),
             parseInt(req.param("sortby")),
@@ -47,6 +48,7 @@ app.get('/api/stores',function(req,res) {
             if(!user.length) return res.json({response: -2});
 
             FetchStores(
+                res,
                 parseFloat(req.param("maxcost")),
                 parseInt(req.param("maxtime")),
                 parseInt(req.param("sortby")),
@@ -57,7 +59,7 @@ app.get('/api/stores',function(req,res) {
     }
 });
 
-function FetchStores(maxcost, maxtime, sortby, lat, lng, region)
+function FetchStores(res, maxcost, maxtime, sortby, lat, lng, region)
 {
     var filteringClause = "";
     if(maxcost > 0.0 && maxtime > 0)
