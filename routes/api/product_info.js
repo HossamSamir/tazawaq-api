@@ -10,8 +10,8 @@ app.get('/api/product-info',function(req,res){
             else
             {
                 res.json({
-                    response: 1,
-                    data: data[0]
+                   
+                    response: data[0]
                 });
             }
         }
