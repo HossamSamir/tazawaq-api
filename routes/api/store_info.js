@@ -24,8 +24,8 @@ app.get('/api/store-info', function(req, res) {
 									});
 								} else {
 									res.json({
-										response: 1,
-                    								data: { ...data[0], stars: 0 }
+										
+                    								response: { ...data[0], stars: 0 }
 										
 									});
 								}
