@@ -79,9 +79,13 @@ app.get('/api/get-ticket-messages',function(req,res){
         if(err) return res.json({response: -1});
         for(let i in messages){
           data.push({
+            _id: i,
+            createdAt: new Date(),
             text: messages[i].message,
             user:{
               _id: messages[i].sender_type+1,
+              name: 'React Native',
+              avatar: 'https://facebook.github.io/react/img/logo_og.png',
             }
           })
           if(i == messages.length-1){
