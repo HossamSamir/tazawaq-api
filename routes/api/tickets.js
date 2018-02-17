@@ -75,7 +75,7 @@ app.get('/api/get-my-tickets',function(req,res){
 app.get('/api/get-ticket-messages',function(req,res){
     var ticket_id = req.param("ticket_id");
     var data = [];
-    con.query('SELECT message,sender_type FROM ticket_messages WHERE ticket_id=?', [ticket_id],function(err,messages) {
+    con.query('SELECT message,sender_type FROM ticket_messages WHERE ticket_id=? order by id desc', [ticket_id],function(err,messages) {
         if(err) return res.json({response: -1});
         for(let i in messages){
           var id = i;
