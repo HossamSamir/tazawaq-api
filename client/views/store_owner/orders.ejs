@@ -168,7 +168,6 @@
               <th scope="col">#</th>
             </tr>
           </thead>
-          <tbody>
               <%
               function getStatusAsStr(status) {
                   switch(status)
@@ -180,9 +179,10 @@
                       case 2:
                           return ("تم التوصيل");
                   }
-              }
+              } %>
 
-              orders.forEach(function(order) { %>
+          <tbody id="ordersContainer">
+            <% orders.forEach(function(order) { %>
             <tr>
               <td>
                   <a href="#" data-toggle="modal" data-target="#deliverOrder_<%= order.data.id %>" class="col-6">
@@ -242,11 +242,11 @@
 </div>
 </div>
 </td>
-  <td><%= order.username %> - <%= order.phone %></td>
-  <td><%= order.data.location %></td>
-  <td><%= order.data.cost %></td>
-  <td><%= order.data.info %></td>
-  <td><%= getStatusAsStr(order.data.status) %></td>
+    <td><%= order.username %> - <%= order.phone %></td>
+    <td><%= order.data.location %></td>
+    <td><%= order.data.cost %></td>
+    <td><%= order.data.info %></td>
+    <td><%= getStatusAsStr(order.data.status) %></td>
   <th
     scope="row"><%= order.data.id %></th>
     </tr>
@@ -260,15 +260,48 @@
     </div>
     <script type="text/javascript" src="../assets/js/soVendor.js"></script>
     <script type="text/javascript" src="../assets/js/soBundle.js"></script>
-    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
-    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script type="text/javascript" src="../assets/js/jquery-3.3.1.min.js"></script>
     <script>
-    $(function() {
-  var socket = io();
-  socket.on('message', function() {
-    console.log('done');
+function fetchOrders(arr, callback) {
+  fetch('http://localhost:3000/api/get-store-orders?store_id=1')
+    .then(res => (newRes = res.json()))
+    .then(newRes => {
+      newRes.orders.forEach(el => {
+        arr.push(el);
+      });
+    })
+    .then(() => {
+      if (callback) {
+        callback();
+      }
+    })
+}
+
+// fetching old orders
+var oldOrders = [];
+fetchOrders(oldOrders);
+
+// check after 5secs
+setInterval(() => {
+  var newOrders = [];
+  fetchOrders(newOrders, () => {
+    if (oldOrders.length != newOrders.length) {
+      var audio = new Audio('../assets/static/sounds/new_order.mp3').play();
+      setTimeout(() => {
+        location.reload();
+      }, 1000)
+    } else {
+      for (var i = 0; i < oldOrders.length; i++) {
+        if (oldOrders[i][4] != newOrders[i][4]) {
+          var audio = new Audio('../assets/static/sounds/new_order.mp3').play();
+          setTimeout(() => {
+            location.reload();
+          }, 1000)
+        }
+      }
+    }
   });
-});
+}, 5000);
 </script>
 </body>
 </html>

@@ -1,5 +1,3 @@
-var socketio = require('socket.io');
-
 function travers(req, res) {
 	var store_id = req.params.store_id;
 	sql.qry(

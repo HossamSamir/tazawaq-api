@@ -8,25 +8,7 @@ const PORT = process.env.PORT || 3000;
 app.set('view engine', 'ejs');
 app.use(express.static(path.join(`${__dirname}/client`, 'views')));
 app.set('views', path.join(`${__dirname}/client`, 'views'));
-// app.listen(PORT, () => console.log(`Listening on ${PORT}`));
-
-// socketio
-// var app = require('express')();
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
-
-io.on('connection', function(socket) {
-	// socket.on('chat message', function(msg) {
-	// 	io.emit('chat message', msg);
-	// });
-	console.log('connected');
-	io.emit('message');
-});
-
-http.listen(PORT, function() {
-	console.log('listening on *:' + PORT);
-});
-// socket end
+app.listen(PORT, () => console.log(`Listening on ${PORT}`));
 
 // File upload (for images)
 const fileUpload = require('express-fileupload');
@@ -34,7 +16,6 @@ app.use(fileUpload());
 
 // Domain name (we prepend this to uploaded images)
 domain = 'http://localhost:3000';
-
 
 // Actually connect
 con.connect(function(err) {
