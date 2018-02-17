@@ -74,11 +74,21 @@ app.get('/api/get-my-tickets',function(req,res){
 // This returns the messages of this ticket
 app.get('/api/get-ticket-messages',function(req,res){
     var ticket_id = req.param("ticket_id");
-
+    var data = [];
     con.query('SELECT message,sender_type FROM ticket_messages WHERE ticket_id=?', [ticket_id],function(err,messages) {
         if(err) return res.json({response: -1});
+        for(let i in messages){
+          data.push({
+            text: messages[i].message,
+            user:{
+              _id: messages[i].sender_type+1,
+            }
+          })
+          if(i == messages.length-1){
+            res.json({ response: 1, data });
+          }
+        }
 
-        res.json({ response: 1, messages });
         // Note: sender_type | 0 means sent by user | 1 means sent by admin
     });
 });
