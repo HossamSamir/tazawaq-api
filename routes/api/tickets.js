@@ -79,7 +79,7 @@ app.get('/api/get-ticket-messages',function(req,res){
         if(err) return res.json({response: -1});
         for(let i in messages){
           data.push({
-            _id: i,
+            _id: i+1,
             createdAt: new Date(),
             text: messages[i].message,
             user:{
