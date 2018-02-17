@@ -7,11 +7,9 @@ app.get('/api/meals-by-ids',function(req,res){
     for(let i in ids){
       con.query('SELECT id AS `key`, name, img AS image, cost AS price, info AS `desc` '+
            'FROM products WHERE id=? LIMIT 1', [ids[i]], function(err,data) {
-
           if(!err) {
             var data = data[0];
-            meals.push({data})
-
+            meals.push(data)
           }
           else {
               res.json({ response:0, err });
@@ -19,7 +17,7 @@ app.get('/api/meals-by-ids',function(req,res){
           if(i == ids.length-1){
             console.log(meals)
             res.json({
-                response: meals
+                 meals
             });
           }
       });
