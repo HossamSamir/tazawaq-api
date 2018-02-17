@@ -5,6 +5,7 @@ app.get('/api/meals-by-ids',function(req,res){
     var ids = ids.split(",");
     var meals = [];
     for(let i in ids){
+      if(ids[i] != null || ids[i] != 'null'){
       con.query('SELECT id AS `key`, name, img AS image, cost AS price, info AS `desc` '+
            'FROM products WHERE id=? LIMIT 1', [ids[i]], function(err,data) {
           if(!err) {
@@ -21,7 +22,7 @@ app.get('/api/meals-by-ids',function(req,res){
             });
           }
       });
-
+    }
     }
 
 });
