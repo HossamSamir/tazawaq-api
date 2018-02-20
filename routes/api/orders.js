@@ -29,11 +29,11 @@ app.get('/api/make-order',function(req,res){
     });
 });
 
-app.get('/api/show-orders',function(req,res){
+app.get('/api/show-orders-current',function(req,res){
     var user_id = req.param("user_id");
 
     con.query('SELECT id AS `key`,  info AS title, cost AS price, status '+
-         'FROM orders WHERE user_id=? ', [user_id], function(err,data) {
+         'FROM orders WHERE user_id=? and status < 2 ', [user_id], function(err,data) {
         if(!err) {
             if(data.length == 0) return res.json({ response: 0 });
             else
