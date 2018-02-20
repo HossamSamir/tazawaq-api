@@ -29,6 +29,30 @@ app.get('/api/make-order',function(req,res){
     });
 });
 
+app.get('/api/show-orders',function(req,res){
+    var user_id = req.param("user_id");
+
+    con.query('SELECT id AS `key`,  info AS title, cost AS price, status '+
+         'FROM orders WHERE user_id=? ', [user_id], function(err,data) {
+        if(!err) {
+            if(data.length == 0) return res.json({ response: 0 });
+            else
+            {
+                res.json({
+
+                    response: data[0]
+                });
+            }
+        }
+        else {
+            res.json({ response:0, err });
+        }
+    });
+});
+
+
+
+
 function SendPushNotifications(pushTokens)
 {
     const Expo = require('expo-server-sdk');
