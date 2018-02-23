@@ -76,15 +76,18 @@ app.get('/api/order-price',function(req,res){
     var ids = req.param("ids");
     var price = 0;
     var ids = ids.split(",");
+    var store_id = 0;
     for(let i in ids){
       if(ids[i] != null || ids[i] != 'null'){
         con.query('SELECT cost,store_id '+
              'FROM products WHERE id=? LIMIT 1', [ids[i]], function(err,data) {
             if(!err) {
               var data = data[0];
-              var store_id = data.store_id;
+            
+                var store_id = data.store_id;
+
               if(data != null){
-                console.log(data)
+                console.log(store_id)
                 price = price + data.cost
               }
 
@@ -95,12 +98,11 @@ app.get('/api/order-price',function(req,res){
             if(i == ids.length-1){
               con.query('SELECT delivery_cost '+
                    'FROM stores WHERE id=? LIMIT 1', [store_id], function(err,deliver_price) {
-                     console.log(deliver_price.delivery_cost)
                      res.json({
                           before:price+deliver_price[0].delivery_cost,
                           after:(price+deliver_price[0].delivery_cost)+(.03*(price+deliver_price[0].delivery_cost)),
                           store_id,
-                          
+
                      });
                   });
 
