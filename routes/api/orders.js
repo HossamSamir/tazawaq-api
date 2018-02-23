@@ -89,7 +89,7 @@ app.get('/api/order-price',function(req,res){
 
     var store_id = 0;
     if(ids == 'null' || ids == 'null,'){
-
+      res.json({response:0})
     }
     else{
         var ids = ids.split(",");
