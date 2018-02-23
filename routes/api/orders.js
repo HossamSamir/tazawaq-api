@@ -52,7 +52,7 @@ app.get('/api/show-orders-current',function(req,res){
             {
                 res.json({
 
-                    response: data[0]
+                    response: data
                 });
             }
         }
@@ -73,7 +73,7 @@ app.get('/api/show-orders-past',function(req,res){
             {
                 res.json({
 
-                    response: data[0]
+                    response: data
                 });
             }
         }
