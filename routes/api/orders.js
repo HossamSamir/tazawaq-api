@@ -4,6 +4,8 @@ app.get('/api/make-order',function(req,res){
     var user_id = req.param("user_id");
     var cost = req.param("cost");
     var info = req.param("info");
+    var ids = req.param("ids");
+    var ids = ids.split(",");
     var address = req.param("address");
     var address_hint = req.param("address_hint");
     var full_location = address + " - " + address_hint;
@@ -12,7 +14,17 @@ app.get('/api/make-order',function(req,res){
     [store_id,user_id,cost,info,full_location],
     function(err,orders) {
         if(err) return res.json({response: 0});
-
+        //add products ---->
+              for(let i in ids){
+                if(ids[i] != null || ids[i] != 'null'){
+                  con.query("INSERT INTO `orders_products`( `product_id`, `order_id`) VALUES (?,?)", [ids[i],orders.insertId], function(err,data2) {
+                    if(err){
+                      console.log(err)
+                    }
+                    })
+                  }
+                }
+        //end add products
         con.query('SELECT token FROM expo_push_tokens WHERE store_id=? LIMIT 100',
         [store_id], function(err,tokens) {
             if(tokens.length)
