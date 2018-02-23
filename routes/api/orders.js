@@ -86,8 +86,13 @@ app.get('/api/show-orders-past',function(req,res){
 app.get('/api/order-price',function(req,res){
     var ids = req.param("ids");
     var price = 0;
-    var ids = ids.split(",");
+
     var store_id = 0;
+    if(ids == 'null' || ids == 'null,'){
+
+    }
+    else{
+        var ids = ids.split(",");
     for(let i in ids){
       if(ids[i] != null || ids[i] != 'null'){
         con.query('SELECT cost,store_id '+
@@ -110,6 +115,7 @@ app.get('/api/order-price',function(req,res){
             if(i == ids.length-1){
               con.query('SELECT delivery_cost '+
                    'FROM stores WHERE id=? LIMIT 1', [store_id], function(err,deliver_price) {
+                     console.log(deliver_price);
                      res.json({
                           before:price+deliver_price[0].delivery_cost,
                           after:(price+deliver_price[0].delivery_cost)+(.03*(price+deliver_price[0].delivery_cost)),
@@ -122,6 +128,7 @@ app.get('/api/order-price',function(req,res){
             })
       }
     }
+  }
 });
 
 
