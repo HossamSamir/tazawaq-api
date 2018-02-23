@@ -72,7 +72,6 @@ app.get('/api/show-orders-past',function(req,res){
             else
             {
                 res.json({
-
                     response: data
                 });
             }
