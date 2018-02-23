@@ -83,8 +83,9 @@ app.get('/api/order-price',function(req,res){
              'FROM products WHERE id=? LIMIT 1', [ids[i]], function(err,data) {
             if(!err) {
               var data = data[0];
-            
-                var store_id = data.store_id;
+            if(data != null){
+              var store_id = data.store_id;
+            }
 
               if(data != null){
                 console.log(store_id)
