@@ -263,7 +263,7 @@
     <script type="text/javascript" src="../assets/js/jquery-3.3.1.min.js"></script>
     <script>
 function fetchOrders(arr, callback) {
-  fetch('http://tathouq.herokuapp.com:3000/api/get-store-orders?store_id=1')
+  fetch(`http://tathouq.herokuapp.com/api/get-store-orders?store_id=${<%= store_id %>}`)
     .then(res => (newRes = res.json()))
     .then(newRes => {
       newRes.orders.forEach(el => {

@@ -95,7 +95,60 @@
     <main class="main-content bgc-grey-100">
       <div id="mainContent"><a href="/store_orders" class="alert alert-danger" role="alert" style="position:fixed;z-index:1;display:none;right:35px;bottom:18px">! تنبيه : وصلك اوردر جديد أضغط للمزيد</a>
         <script
-          type="text/javascript">function gotAnOrder(){new Audio("../assets/static/sounds/new_order.mp3").play();document.getElementsByClassName("alert")[0].style.display="block",setTimeout(function(){document.getElementsByClassName("alert")[0].style.display="none"},8e3)}setInterval(function(){gotAnOrder()},3e4)</script>
+        type =
+  'text/javascript' >
+  function fetchOrders(arr, callback) {
+    fetch(`http://tathouq.herokuapp.com/api/get-store-orders?store_id=${<%= store_id %>}`)
+      .then(res => (newRes = res.json()))
+      .then(newRes => {
+        newRes.orders.forEach(el => {
+          arr.push(el);
+        });
+      })
+      .then(() => {
+        if (callback) {
+          callback();
+        }
+      });
+  };
+
+// fetching old orders
+var oldOrders = [];
+fetchOrders(oldOrders);
+
+// check after 5secs
+setInterval(() => {
+  var newOrders = [];
+  fetchOrders(newOrders, () => {
+    if (oldOrders.length != newOrders.length) {
+      // var audio = new Audio('../assets/static/sounds/new_order.mp3').play();
+      // setTimeout(() => {
+      //   location.reload();
+      // }, 1000)
+      gotAnOrder();
+    } else {
+      for (var i = 0; i < oldOrders.length; i++) {
+        if (oldOrders[i][4] != newOrders[i][4]) {
+          // var audio = new Audio('../assets/static/sounds/new_order.mp3').play();
+          // setTimeout(() => {
+          //   location.reload();
+          // }, 1000)
+          gotAnOrder();
+        }
+      }
+    }
+  });
+}, 5000);
+
+function gotAnOrder() {
+  new Audio('../assets/static/sounds/new_order.mp3').play();
+  (document.getElementsByClassName('alert')[0].style.display = 'block'),
+    setTimeout(function() {
+      document.getElementsByClassName('alert')[0].style.display = 'none';
+    }, 8e3);
+}
+// setInterval(function(){gotAnOrder()},3e4)
+</script>
           <div
             class="row gap-20 masonry pos-r">
             <div class="masonry-sizer col-lg-1"></div>
