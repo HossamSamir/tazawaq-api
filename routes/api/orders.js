@@ -44,7 +44,7 @@ app.get('/api/make-order',function(req,res){
 app.get('/api/show-orders-current',function(req,res){
     var user_id = req.param("user_id");
 
-    con.query('SELECT id AS `key`,  info AS title, cost AS price, status '+
+    con.query('SELECT id AS `key`,  info AS title, cost AS price, status,store_id '+
          'FROM orders WHERE user_id=? and status < 2 ', [user_id], function(err,data) {
         if(!err) {
             if(data.length == 0) return res.json({ response: 0 });
@@ -71,9 +71,16 @@ app.get('/api/show-orders-past',function(req,res){
             if(data.length == 0) return res.json({ response: 0 });
             else
             {
-                res.json({
-                    response: data
-                });
+              con.query('SELECT delivery_cost,delivery_time '+
+                   'FROM stores WHERE id=? LIMIT 1', [store_id], function(err,deliver_price) {
+                     console.log(deliver_price);
+                     res.json({
+                         response: data,
+                         deliveryTime:deliver_price[0].delivery_time
+                     });
+                     
+                  });
+
             }
         }
         else {
