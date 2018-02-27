@@ -113,14 +113,14 @@ app.get('/api/order-price',function(req,res){
                 res.json({ response:0, err });
             }
             if(i == ids.length-1){
-              con.query('SELECT delivery_cost '+
+              con.query('SELECT delivery_cost,delivery_time '+
                    'FROM stores WHERE id=? LIMIT 1', [store_id], function(err,deliver_price) {
                      console.log(deliver_price);
                      res.json({
                           before:price+deliver_price[0].delivery_cost,
                           after:(price+deliver_price[0].delivery_cost)+(.03*(price+deliver_price[0].delivery_cost)),
                           store_id,
-
+                          deliveryTime:deliver_price[0].delivery_time
                      });
                   });
 
