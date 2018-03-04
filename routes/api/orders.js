@@ -53,7 +53,7 @@ app.get('/api/show-orders-current',function(req,res){
               con.query('SELECT delivery_time AS `deliveryTime` '+
                    'FROM stores WHERE id=?  ', [data[0].store_id], function(err,deliveryTime) {
 
-                   
+
                 res.json({
                   deliveryTime: deliveryTime[0].deliveryTime,
                     response: data
@@ -128,9 +128,10 @@ app.get('/api/order-price',function(req,res){
               con.query('SELECT delivery_cost,delivery_time '+
                    'FROM stores WHERE id=? LIMIT 1', [store_id], function(err,deliver_price) {
                      console.log(deliver_price);
+                     // 1- before : delevery price 2 - after : price with delivery
                      res.json({
-                          before:price+deliver_price[0].delivery_cost,
-                          after:(price+deliver_price[0].delivery_cost)+(.03*(price+deliver_price[0].delivery_cost)),
+                          before:deliver_price[0].delivery_cost,
+                          after:price+deliver_price[0].delivery_cost,
                           store_id,
                           deliveryTime:deliver_price[0].delivery_time
                      });
