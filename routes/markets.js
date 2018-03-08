@@ -123,6 +123,7 @@ app.post('/add-store', function(req, res) {
 	var lat = req.param('lat');
 	var lng = req.param('lng');
 	var delivery_cost = req.param('delivery_cost');
+	var min_delivery_cost = req.param('min_delivery_cost');
 	var delivery_time = req.param('delivery_time');
 
 	if (
@@ -134,6 +135,7 @@ app.post('/add-store', function(req, res) {
 		!lat ||
 		!lng ||
 		!delivery_cost ||
+		!min_delivery_cost ||
 		!delivery_time
 	) {
 		res.send('هناك مدخلات ناقصة او لم تُكتب بشكل صحيح من فضلك راجعها');
@@ -151,10 +153,11 @@ app.post('/add-store', function(req, res) {
 				.update(password)
 				.digest('hex');
 			sql.qry(
-				'INSERT INTO stores(display_name,delivery_cost,delivery_time,passname,password,address,latitude,longitude,region,img) ' +
-					'VALUES(?,?,?,?,?,?,?,?,?,"")',
+				'INSERT INTO stores(display_name,min_delivery_cost,delivery_cost,delivery_time,passname,password,address,latitude,longitude,region,img) ' +
+					'VALUES(?,?,?,?,?,?,?,?,?,?,"")',
 				[
 					display_name,
+					min_delivery_cost,
 					delivery_cost,
 					delivery_time,
 					passname.replace(/\s+/g, '_'),
