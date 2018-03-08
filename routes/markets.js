@@ -16,11 +16,12 @@ app.get('/delete-store', function(req, res) {
 			`client/views/assets/static/images/uploaded_images/store_images/store_${id}.jpg`,
 			(err) => {
 				if (err) {
-					alert(err);
 					throw err;
 				}
 			}
 		);
+
+		res.redirect('markets');
 		sql.qry('SELECT id FROM products WHERE store_id=?', [id], function(
 			products
 		) {
@@ -33,7 +34,6 @@ app.get('/delete-store', function(req, res) {
 					}.jpg`,
 					(err) => {
 		  				if (err) {
-							alert(err);
 							throw err;
 						}
 					}

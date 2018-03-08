@@ -5,7 +5,10 @@ exports.qry = function qry(query, arr = [], callback) {
 	}
 
 	con.query(query, arr, function(err,result) {
-		if(err) console.log(err);
+		if(err) {
+			console.log(err)
+			throw err;
+		};
 		else callback(result);
 	});
 }
