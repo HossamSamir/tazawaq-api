@@ -8,7 +8,7 @@ exports.qry = function qry(query, arr = [], callback) {
 		if(err) {
 			console.log(err)
 			throw err;
-		};
+		}
 		else callback(result);
 	});
 }
