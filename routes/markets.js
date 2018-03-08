@@ -18,6 +18,8 @@ app.get('/delete-store', function(req, res) {
 		sql.qry('SELECT id FROM products WHERE store_id=?', [id], function(
 			products
 		) {
+			if(!products.length) return res.redirect('markets');
+			
 			products.forEach(function(product) {
 				fs.unlink(
 					`client/views/assets/static/images/uploaded_images/store_images/products/product_${
