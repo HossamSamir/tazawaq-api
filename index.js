@@ -15,7 +15,7 @@ const fileUpload = require('express-fileupload');
 app.use(fileUpload());
 
 // Domain name (we prepend this to uploaded images)
-domain = 'http://localhost:3000';
+domain = 'http://138.197.98.186:3000';
 
 // Actually connect
 con.connect(function(err) {
