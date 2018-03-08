@@ -13,18 +13,30 @@ app.get('/delete-store', function(req, res) {
 	var id = req.param('id');
 	sql.qry('DELETE FROM stores WHERE id=?', [id], function() {
 		fs.unlink(
-			`client/views/assets/static/images/uploaded_images/store_images/store_${id}.jpg`
+			`client/views/assets/static/images/uploaded_images/store_images/store_${id}.jpg`,
+			(err) => {
+				if (err) {
+					alert(err);
+					throw err;
+				}
+			}
 		);
 		sql.qry('SELECT id FROM products WHERE store_id=?', [id], function(
 			products
 		) {
 			if(!products.length) return res.redirect('markets');
-			
+
 			products.forEach(function(product) {
 				fs.unlink(
 					`client/views/assets/static/images/uploaded_images/store_images/products/product_${
 						product.id
-					}.jpg`
+					}.jpg`,
+					(err) => {
+		  				if (err) {
+							alert(err);
+							throw err;
+						}
+					}
 				);
 			});
 
