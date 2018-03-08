@@ -90,7 +90,7 @@ function FetchStores(res, maxcost, maxtime, sortby, lat, lng, region)
                 if(!err) {
                     if(!stores_res.length) {
                         con.query('SELECT id AS `key`, display_name AS name, img AS image, info AS `desc`,'+
-                            'delivery_cost AS deliver_price, delivery_time AS time '+
+                            'delivery_cost AS deliver_price, delivery_time AS time, min_delivery_cost '+
                              'FROM stores' + filteringClause, function(err,stores) {
                             if(!err) {
                                 if(stores.length == 0) return res.json({ response: 0 });
@@ -110,7 +110,7 @@ function FetchStores(res, maxcost, maxtime, sortby, lat, lng, region)
                     var stores = [], fetchedStoreIDs = "";
                     async.forEachOf(stores_res, function (store, i, callback) {
                         sql.qry('SELECT id AS `key`, display_name AS name, img AS image, info AS `desc`,'+
-                            'delivery_cost AS deliver_price, delivery_time AS time '+
+                            'delivery_cost AS deliver_price, delivery_time AS time, min_delivery_cost '+
                              'FROM stores' +
                              `${filteringClause} AND id=${store.store_id} LIMIT 1`,
                             function(storesFull) {
@@ -126,7 +126,7 @@ function FetchStores(res, maxcost, maxtime, sortby, lat, lng, region)
                         if(!fetchedStoreIDs) return res.json({ response: 1, stores });
 
                         con.query('SELECT id AS `key`, display_name AS name, img AS image, info AS `desc`,'+
-                            'delivery_cost AS deliver_price, delivery_time AS time '+
+                            'delivery_cost AS deliver_price, delivery_time AS time, min_delivery_cost '+
                              'FROM stores' +
                              `${filteringClause} AND id NOT IN (${fetchedStoreIDs})`,
                              function(err,other_stores) {
@@ -162,7 +162,7 @@ function FetchStores(res, maxcost, maxtime, sortby, lat, lng, region)
     }
 
     con.query('SELECT id AS `key`, display_name AS name, img AS image, info AS `desc`,'+
-        'delivery_cost AS deliver_price, delivery_time AS time '+
+        'delivery_cost AS deliver_price, delivery_time AS time, min_delivery_cost '+
          'FROM stores' + filteringClause + sortingClause, function(err,stores_res) {
         if(!err) {
             if(stores_res.length == 0) return res.json({ response: 0 });

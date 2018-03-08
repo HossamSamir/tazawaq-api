@@ -6,7 +6,7 @@ app.get('/api/store-info', function(req, res) {
 
 	con.query(
 		'SELECT id AS `key`, display_name AS name, img AS image, info AS `desc`,' +
-			'delivery_cost AS deliver_price, delivery_time AS time ' +
+			'delivery_cost AS deliver_price, delivery_time AS time, min_delivery_cost ' +
 			'FROM stores WHERE id=? LIMIT 1',
 		[store_id],
 		function(err, data) {
@@ -24,9 +24,9 @@ app.get('/api/store-info', function(req, res) {
 									});
 								} else {
 									res.json({
-										
+
                     								response: { ...data[0], stars: 0 }
-										
+
 									});
 								}
 							} else {
