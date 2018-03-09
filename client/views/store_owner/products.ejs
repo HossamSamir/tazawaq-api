@@ -169,14 +169,18 @@
                           class="lh-1"><%= cat.name %>
                         </h5>
 
-                        <p
-                          class="lh-1">
-                          <% if (cat.status) { %>
-                              نشط
-                          <% } else { %>
+                        <% if (cat.status) { %>
+                              <p
+                                class="lh-1" style="font-weight:bold; color:#0AC943">
+                                نشط
+                            </p>
+                        <% } else { %>
+                            <p
+                              class="lh-1" style="font-weight:bold; color:#F51142">
                               غير نشط
-                          <% } %>
-                        </p>
+                          </p>
+                        <% } %>
+
                       </div>
                       <div class="layer row w-100 mB-10" style="text-align:center;border-top:1px solid #a2a6a8;padding:7px 0">
                         <a href="#" data-toggle="modal" data-target="#editCat_<%= cat.id %>" class="col-6"
