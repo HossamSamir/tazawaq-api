@@ -8,7 +8,7 @@ app.get('/api/make-order',function(req,res){
     var ids = ids.split(",");
     var address = req.param("address");
     var address_hint = req.param("address_hint");
-    var full_location = address + " - " + address_hint;
+    var full_location = (!address_hint) ? (address) : (address + " - " + address_hint);
 
     con.query('INSERT INTO orders(store_id,user_id,cost,info,location) VALUES(?,?,?,?,?)',
     [store_id,user_id,cost,info,full_location],
