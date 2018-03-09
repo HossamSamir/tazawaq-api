@@ -158,13 +158,12 @@
         <table class="table table-bordered table-hover">
           <thead class="thead-dark">
             <tr>
-              <th scope="col">تم التوصيل</th>
-              <th scope="col">جاري التوصيل</th>
+              <th scope="col">تغيير الحالة</th>
+              <th scope="col">الحالة</th>
               <th scope="col">بيانات الزبون</th>
               <th scope="col">مكان التوصيل</th>
               <th scope="col">مجموع السعر</th>
               <th scope="col">تفاصيل الطلب</th>
-              <th scope="col">الحالة</th>
               <th scope="col">#</th>
             </tr>
           </thead>
@@ -185,8 +184,39 @@
             <% orders.forEach(function(order) { %>
             <tr>
               <td>
+                  <div>
+                    <a href="#" data-toggle="modal" data-target="#deliveringOrder_<%= order.data.id %>" class="col-6">
+                        <i class="c-orange-500 ti-truck" style="font-size:15px"></i>
+                        <span>جاري التوصيل</span>
+                    </a>
+                  <div
+                    class="modal fade" id="deliveringOrder_<%= order.data.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">جاري توصيل الطلب</h5>
+                          <button type="button" class="close" data-dismiss="modal"
+                            aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        </div>
+                        <div
+                          class="modal-body">
+                          <h5>سيظهر عند الزبون انه جاري توصيل طلبهم</h5>
+                      </div>
+                      <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">الغاء</button>
+                          <a href="/delivering-order?store_id=<%= store_id %>&id=<%= order.data.id %>">
+                              <button type="button" class="btn btn-danger">موافق</button>
+                          </a>
+                      </div>
+                    </div>
+                  </div>
+                  </div>
+                  </div>
+
+                  <div>
                   <a href="#" data-toggle="modal" data-target="#deliverOrder_<%= order.data.id %>" class="col-6">
-                      <i class="c-green-500 ti-check-box" style="font-size:15px"></i>
+                      <i class="c-green-500 ti-thumb-up" style="font-size:15px"></i>
                       <span>تم التوصيل</span>
                   </a>
                 <div
@@ -212,41 +242,14 @@
                   </div>
       </div>
   </div>
+</div>
   </td>
-  <td>
-      <a href="#" data-toggle="modal" data-target="#deliveringOrder_<%= order.data.id %>" class="col-6">
-          <i class="c-orange-500 ti-check-box" style="font-size:15px"></i>
-          <span>جاري التوصيل</span>
-      </a>
-    <div
-      class="modal fade" id="deliveringOrder_<%= order.data.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-      aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">جاري توصيل الطلب</h5>
-            <button type="button" class="close" data-dismiss="modal"
-              aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          </div>
-          <div
-            class="modal-body">
-            <h5>سيظهر عند الزبون انه جاري توصيل طلبهم</h5>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">الغاء</button>
-            <a href="/delivering-order?store_id=<%= store_id %>&id=<%= order.data.id %>">
-                <button type="button" class="btn btn-danger">موافق</button>
-            </a>
-        </div>
-      </div>
-</div>
-</div>
-</td>
+
+    <td><%= getStatusAsStr(order.data.status) %></td>
     <td><%= order.username %> - <%= order.phone %></td>
     <td><%= order.data.location %></td>
     <td><%= order.data.cost %></td>
     <td><%= order.data.info %></td>
-    <td><%= getStatusAsStr(order.data.status) %></td>
   <th
     scope="row"><%= order.data.id %></th>
     </tr>
