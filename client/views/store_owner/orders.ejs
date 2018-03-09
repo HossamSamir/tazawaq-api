@@ -184,7 +184,7 @@
             <% orders.forEach(function(order) { %>
             <tr>
               <td>
-                  <% if(order.data.status != 10) { %>
+                  <% if(order.data.status != 1) { %>
                   <div style="margin-bottom:5%;">
                     <a href="#" data-toggle="modal" data-target="#deliveringOrder_<%= order.data.id %>" class="col-6">
                         <i class="c-orange-500 ti-truck" style="font-size:18px"></i>
