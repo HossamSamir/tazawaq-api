@@ -1,4 +1,5 @@
 const fs = require('fs');
+const crypto = require('crypto');
 
 function travers(req, res) {
 	sql.qry(
@@ -52,66 +53,57 @@ app.post('/edit-store', function(req, res) {
 	var password = req.param('newPassword');
 	var image = req.files.newImage || null;
 	var id = req.param('id');
+	var region = req.param('region');
+	var delivery_cost = req.param('delivery_cost');
+	var min_delivery_cost = req.param('min_delivery_cost');
+	var delivery_time = req.param('delivery_time');
 
-	if (image !== null && name !== '') {
-		var img_path =
-			'client/views/assets/static/images/uploaded_images/store_images/store_' +
-			id +
-			'.jpg';
-		image.mv(img_path, function(err) {
-			if (err) return res.status(500).send(err);
+	var fields = [];
 
-			sql.qry(
-				'UPDATE stores SET img=?,display_name=? WHERE id=?',
-				[`${domain}/${img_path.replace('client/views/', '')}`, name, id],
-				function(stores) {
-					res.redirect('markets');
-				}
-			);
-		});
-	} else {
-		if (image === null) {
-			sql.qry(
-				'UPDATE stores SET display_name=? WHERE id=?',
-				[name, id],
-				function(stores) {
-					res.redirect('markets');
-				}
-			);
-		} else {
-			var img_path =
-				'client/views/assets/static/images/uploaded_images/store_images/store_' +
-				id +
-				'.jpg';
-			image.mv(img_path, function(err) {
-				if (err) return res.status(500).send(err);
+	if(name) fields.push({ name: 'display_name', value: name });
+	if(password) fields.push({ name: 'password', value: crypto
+		.createHash('md5')
+		.update(password)
+		.digest('hex') });
+	if(region) fields.push({ name: 'region', value: region });
+	if(delivery_cost) fields.push({ name: 'delivery_cost', value: delivery_cost });
+	if(delivery_time) fields.push({ name: 'delivery_time', value: delivery_time });
+	if(min_delivery_cost) fields.push({ name: 'min_delivery_cost', value: min_delivery_cost });
+	if(image) fields.push({ name: 'img', value: 'client/views/assets/static/images/uploaded_images/store_images/store_' +
+		id +
+		'.jpg' });
 
+	async.forEachOf(
+		fields,
+		function(field, i, callback) {
+			if(field.name === 'img') {
+				image.mv(field.value, function(err) {
+					if (err) return res.status(500).send(err);
+
+					sql.qry(
+						'UPDATE stores SET img=? WHERE id=?',
+						[`${domain}/${img_path.replace('client/views/', '')}`, id],
+						function(stores) {
+							callback(null)
+						}
+					);
+				});
+			} else {
 				sql.qry(
-					'UPDATE stores SET img=? WHERE id=?',
-					[`${domain}/${img_path.replace('client/views/', '')}`, id],
+					'UPDATE stores SET '+field.name+'=? WHERE id=?',
+					[field.value, id],
 					function(stores) {
-						res.redirect('markets');
+						callback(null);
 					}
 				);
-			});
-		}
-	}
-
-	if (password) {
-		var hash = crypto
-			.createHash('md5')
-			.update(password)
-			.digest('hex');
-
-		sql.qry('UPDATE stores SET password=? WHERE id=?', [hash, id], function(
-			stores
-		) {
+			}
+		},
+		function(err) {
+			if (err) throw err;
 			res.redirect('markets');
-		});
-	}
+		}
+	);
 });
-
-var crypto = require('crypto');
 
 app.post('/add-store', function(req, res) {
 	var display_name = req.param('name');
