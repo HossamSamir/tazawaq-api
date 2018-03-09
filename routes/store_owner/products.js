@@ -4,7 +4,7 @@ function travers(req, res) {
 	var store_id = req.params.store_id;
 	_ID = store_id;
 	sql.qry(
-		'SELECT name, id FROM categories WHERE store_id = ?',
+		'SELECT name, id, status FROM categories WHERE store_id = ?',
 		[store_id],
 		function(cats) {
 			sql.qry(
@@ -50,7 +50,8 @@ app.get('/delete-cat', (req, res) => {
 app.get('/edit-cat', (req, res) => {
 	let id = req.param('id');
 	let name = req.param('name');
-	sql.qry('UPDATE categories SET name = ? WHERE id = ?', [name, id], function(
+	let status = req.param('status');
+	sql.qry('UPDATE categories SET name = ?, status = ? WHERE id = ?', [name, status, id], function(
 		cats
 	) {
 		res.redirect(`/store_products/${_ID}`);
