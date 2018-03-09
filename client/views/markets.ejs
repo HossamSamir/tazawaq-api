@@ -213,7 +213,7 @@
                         <div class="modal fade" id="editModal" role="dialog" aria-labelledby="exampleModalLabel"
                           aria-hidden="true">
                           <div class="modal-dialog" role="document">
-                        <form encType="multipart/form-data" method="post" action="/edit-store" data-parsley-validate autocomplete="nope">
+                        <form encType="multipart/form-data" method="post" action="/edit-store" data-parsley-validate autocomplete="new-password">
                             <div class="modal-content">
                               <div class="modal-header">
                                 <h5 class="modal-title" id="exampleModalLabel">تعديل ماركت</h5><button type="button" class="close"
@@ -224,9 +224,9 @@
                                     <input type="hidden" class="id_holder" name="id" value="<%= store.id %>">
                                     <input type="text" style="display:none">
                                     <input type="password" style="display:none">
-                                    <input autocomplete="nope" type="text" name="newName" class="form-control"
+                                    <input autocomplete="new-password" type="text" name="newName" class="form-control"
                                     placeholder="اسم جديد ليعرض فى التطبيق" >
-                                    <input autocomplete="nope" type="password" name="newPassword" class="form-control"
+                                    <input autocomplete="new-password" type="password" name="newPassword" class="form-control"
                                     placeholder="قم بادخال كلمة مرور جديدة" >
 
                                     <div class="form-row">
