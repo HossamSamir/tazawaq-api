@@ -3,7 +3,8 @@ function travers(req, res) {
 		var sales = [];
 		async.forEachOf(sales_res, function (sale, i, callback) {
 			sql.qry('SELECT display_name FROM stores WHERE id=? LIMIT 1', [ sale.store_id ], function(storeName) {
-				sales.push( { name: storeName[0].display_name, data: sale } );
+				if(storeName.length) sales.push( { name: storeName[0].display_name, data: sale } );
+				else sales.push( { name: 'غير متوفر الآن', data: sale } );
 				callback(null);
 			});
 		}, function(err) {
