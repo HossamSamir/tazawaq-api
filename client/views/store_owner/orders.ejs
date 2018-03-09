@@ -184,9 +184,9 @@
             <% orders.forEach(function(order) { %>
             <tr>
               <td>
-                  <div style="margin-bottom:2%;" class="change-status-buttons">
+                  <div>
                     <a href="#" data-toggle="modal" data-target="#deliveringOrder_<%= order.data.id %>" class="col-6">
-                        <i class="c-orange-500 ti-truck" style="font-size:18px"></i>
+                        <i class="c-orange-500 ti-truck" style="font-size:15px"></i>
                         <span>جاري التوصيل</span>
                     </a>
                   <div
@@ -214,9 +214,9 @@
                   </div>
                   </div>
 
-                  <div class="change-status-buttons">
+                  <div>
                   <a href="#" data-toggle="modal" data-target="#deliverOrder_<%= order.data.id %>" class="col-6">
-                      <i class="c-green-500 ti-check-box" style="font-size:18px"></i>
+                      <i class="c-green-500 ti-thumb-up" style="font-size:15px"></i>
                       <span>تم التوصيل</span>
                   </a>
                 <div
@@ -305,16 +305,6 @@ setInterval(() => {
     }
   });
 }, 5000);
-
-$('change-status-buttons').click(function(event) {
-    $(this).css('cursor', 'not-allowed');
-    $(this).find("a").addClass('noclick');
-    $(this).find("a").removeAttr('data-target');
-});
-
-$(".noclick").click(function(e) {
-    e.preventDefault();
-});
 </script>
 </body>
 </html>
