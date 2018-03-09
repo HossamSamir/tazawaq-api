@@ -221,12 +221,11 @@
                               <div class="modal-body">
 
                                 <div class="form-group">
-                                    <input type="hidden" class="id_holder" name="id" value="<%= store.id %>">
-                                    <input type="text" value="" name="newName" class="form-control" aria-describedby="emailHelp"
+                                    <input autocomplete="off" type="hidden" class="id_holder" name="id" value="<%= store.id %>">
+                                    <input autocomplete="off" type="text" value="" name="newName" class="form-control"
                                     placeholder="قم بادخال الأسم الجديد" >
-                                    <input type="password" value="" name="newPassword" class="form-control" aria-describedby="emailHelp"
+                                    <input type="password" value="" name="newPassword" class="form-control"
                                     placeholder="قم بادخال كلمة مرور جديدة" >
-                                    <label for="exampleFormControlFile1">قم باختيار الصورة الجديدة</label>
 
                                     <div class="form-row">
                                         <div class="form-group col-md-4"><label>اقل تكلفة توصيل</label>
@@ -242,10 +241,11 @@
 
                                     <div class="form-group">
                                     <label>المنطقة</label>
-                                    <select id="list-of-regions" class="form-control" name="region">
+                                    <select class="list-of-regions" class="form-control" name="region">
                                       </select>
                                       </div>
 
+                                <label for="exampleFormControlFile1">قم باختيار الصورة الجديدة</label>
                                   <input name="newImage" type="file" class="form-control-file">
                               </div>
 
@@ -318,7 +318,7 @@
 
         <div class="form-group">
         <label>المنطقة</label>
-        <select id="list-of-regions" class="form-control" name="region">
+        <select class="list-of-regions" class="form-control" name="region">
           </select>
           </div>
 
@@ -409,7 +409,7 @@
     ];
 
     $.each(regions, function (i, region) {
-        $('#list-of-regions').append($('<option>', {
+        $('.list-of-regions').append($('<option>', {
             value: region,
             text: region
         }));
