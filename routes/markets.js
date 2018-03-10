@@ -100,7 +100,9 @@ app.post('/edit-store', function(req, res) {
 		},
 		function(err) {
 			if (err) throw err;
-			res.redirect('markets');
+
+			if(req.param('store_admin') == 1) else res.redirect(`store/${id}`);
+			else res.redirect('markets');
 		}
 	);
 });

@@ -144,7 +144,7 @@ function gotAnOrder() {
 // setInterval(function(){gotAnOrder()},3e4)
 </script>
 <button type="button" class="edit btn btn-info" data-toggle="modal"
-    data-target="#editModal" style="width:70%;">تعديل المحل</button>
+    data-target="#editModal" style="width:100%; margin-bottom:4%">تعديل المحل</button>
   <div class="modal fade" id="editModal" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -157,6 +157,7 @@ function gotAnOrder() {
 
           <div class="form-group">
               <input type="hidden" class="id_holder" name="id" value="<%= store_id %>">
+              <input type="hidden" name="store_admin" value="1">
               <input type="text" style="display:none">
               <input type="password" style="display:none">
               <input autocomplete="new-password" type="text" name="newName" class="form-control"
@@ -277,6 +278,7 @@ function gotAnOrder() {
   <script type="text/javascript" src="../assets/js/soVendor.js"></script>
   <script type="text/javascript" src="../assets/js/soBundle.js"></script>
 </body>
+<script type="text/javascript" src="./assets/js/jquery-3.3.1.min.js"></script>
 <script>
 var regions = [
     "الرياض",
