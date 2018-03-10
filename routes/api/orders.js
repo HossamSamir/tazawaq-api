@@ -10,7 +10,7 @@ app.get('/api/make-order',function(req,res){
     var address_hint = req.param("address_hint");
     var full_location = (!address_hint) ? (address) : (address + " - " + address_hint);
 
-    con.query('INSERT INTO orders(store_id,user_id,cost,info,location) VALUES(?,?,?,?,?)',
+    con.query('INSERT INTO orders(store_id,user_id,cost,info,location,time_ordered) VALUES(?,?,?,?,?, NOW())',
     [store_id,user_id,cost,info,full_location],
     function(err,orders) {
         if(err) return res.json({response: 0});
@@ -94,7 +94,6 @@ app.get('/api/show-orders-past',function(req,res){
     });
 });
 
-
 app.get('/api/order-price',function(req,res){
     var ids = req.param("ids");
     var price = 0;
@@ -143,8 +142,6 @@ app.get('/api/order-price',function(req,res){
     }
   }
 });
-
-
 
 function SendPushNotifications(pushTokens)
 {

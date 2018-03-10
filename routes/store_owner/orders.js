@@ -1,7 +1,7 @@
 function travers(req, res) {
 	var store_id = req.params.store_id;
 	sql.qry(
-		'SELECT id,cost,info,location,user_id,status FROM orders WHERE store_id=? ORDER BY id DESC',
+		'SELECT id,cost,info,location,user_id,status,TIMESTAMPDIFF(MINUTE,time_ordered,NOW()) AS elapsed_time FROM orders WHERE store_id=? ORDER BY id DESC',
 		[store_id],
 		function(orders_res) {
 			var orders = [];
