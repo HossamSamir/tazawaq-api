@@ -101,7 +101,7 @@ app.post('/edit-store', function(req, res) {
 		function(err) {
 			if (err) throw err;
 
-			if(req.param('store_admin') == 1) else res.redirect(`store/${id}`);
+			if(req.param('store_admin') == 1) res.redirect(`store/${id}`);
 			else res.redirect('markets');
 		}
 	);
