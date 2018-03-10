@@ -79,10 +79,10 @@ function isStoreOwner(req, res, next) {
 }
 
 // importing routes
-
 const home = require('./routes/home');
 const logout = require('./routes/logout');
 const sales = require('./routes/sales');
+const all_orders = require('./routes/all_orders');
 const markets = require('./routes/markets');
 const users = require('./routes/users');
 const tickets = require('./routes/tickets');
@@ -97,6 +97,7 @@ const store_login = require('./routes/store_owner/store_login');
 app.get('/', isAppOwner, home);
 app.get('/logout', isAppOwner, logout);
 app.get('/sales', isAppOwner, sales);
+app.get('/all_orders', isAppOwner, sales);
 app.get('/markets', isAppOwner, markets);
 app.get('/users', isAppOwner, users);
 app.get('/tickets', isAppOwner, tickets);
