@@ -97,7 +97,7 @@ const store_login = require('./routes/store_owner/store_login');
 app.get('/', isAppOwner, home);
 app.get('/logout', isAppOwner, logout);
 app.get('/sales', isAppOwner, sales);
-app.get('/all_orders', isAppOwner, sales);
+app.get('/all_orders', isAppOwner, all_orders);
 app.get('/markets', isAppOwner, markets);
 app.get('/users', isAppOwner, users);
 app.get('/tickets', isAppOwner, tickets);
