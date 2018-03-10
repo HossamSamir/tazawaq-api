@@ -14,19 +14,19 @@ function travers(req, res) {
 								'SELECT display_name, passname FROM stores WHERE id=? LIMIT 1',
 								[order.store_id],
 								function(storeData) {
-									if (userData.length)
-										orders.push({
+
+									if (userData.length) orders.push({
 											username: userData[0].username,
 											phone: userData[0].phone,
 											data: order,
 											store_display_name: storeData[0].display_name,
 											store_passname: storeData[0].passname
 										});
-									else
-										orders.push({ username: 'غير متاح', phone: '', data: order, store_display_name: storeData[0].display_name,
+									else orders.push({ username: 'غير متاح', phone: '', data: order, store_display_name: storeData[0].display_name,
 										store_passname: storeData[0].passname });
+
+									callback(null);
 							});
-							callback(null);
 						}
 					);
 				},
