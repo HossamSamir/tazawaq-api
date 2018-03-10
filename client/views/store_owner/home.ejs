@@ -145,6 +145,60 @@ function gotAnOrder() {
 </script>
           <div
             class="row gap-20 masonry pos-r">
+            <div class="layer w-100 p-20" style="text-align:center">
+
+            <button type="button" class="edit btn btn-info" data-toggle="modal"
+                data-target="#editModal">تعديل</button>
+              <div class="modal fade" id="editModal" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+              <form encType="multipart/form-data" method="post" action="/edit-store" data-parsley-validate autocomplete="new-password">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">تعديل المحل</h5><button type="button" class="close"
+                        data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
+                    <div class="modal-body">
+
+                      <div class="form-group">
+                          <input type="hidden" class="id_holder" name="id" value="<%= store_id %>">
+                          <input type="text" style="display:none">
+                          <input type="password" style="display:none">
+                          <input autocomplete="new-password" type="text" name="newName" class="form-control"
+                          placeholder="اسم جديد ليعرض فى التطبيق" >
+                          <input autocomplete="new-password" type="password" name="newPassword" class="form-control"
+                          placeholder="قم بادخال كلمة مرور جديدة" >
+
+                          <div class="form-row">
+                              <div class="form-group col-md-4"><label>اقل تكلفة توصيل</label>
+                                  <input name="min_delivery_cost" type="number" step="0.01" min="0" class="form-control">
+                              </div>
+                              <div class="form-group col-md-4"><label>سعر التوصيل</label>
+                                  <input name="delivery_cost" type="number" step="0.01" min="0" class="form-control">
+                              </div>
+                              <div class="form-group col-md-4"><label>مدة التوصيل</label>
+                                  <input name="delivery_time" type="number" step="0.01" min="0" class="form-control">
+                              </div>
+                          </div>
+
+                      <label for="exampleFormControlFile1">قم باختيار الصورة الجديدة</label>
+                        <input name="newImage" type="file" class="form-control-file">
+
+                        <div class="form-group">
+                        <label>المنطقة</label>
+                        <select class="list-of-regions" class="form-control" name="region">
+                          </select>
+                          </div>
+                    </div>
+
+                  </div>
+                  <div class="modal-footer"><button type="button" class="btn btn-outline-secondary"
+                      data-dismiss="modal">إلغاء</button>
+                      <button type="submit" class="btn btn-info">تأكيد</button></div>
+                </div>
+            </form>
+              </div>
+    </div></div>
+
             <div class="masonry-sizer col-lg-1"></div>
             <div class="masonry-item w-100">
               <div class="row gap-20">
@@ -226,14 +280,28 @@ function gotAnOrder() {
   <script type="text/javascript" src="../assets/js/soBundle.js"></script>
 </body>
 <script>
-function togglePw() {
-  for (
-    var e = document.getElementsByClassName('marketpw'), t = 0;
-    t < e.length;
-    t++
-  )
-    'password' === e[t].type ? (e[t].type = 'text') : (e[t].type = 'password');
-}
+var regions = [
+    "الرياض",
+    "مكة المكرمة",
+    "المدينة المنورة",
+    "القصيم",
+    "الشرقية",
+    "عسير",
+    "تبوك",
+    "حائل",
+    "الحدود الشمالية",
+    "جازان",
+    "نجران",
+    "الباحة",
+    "الجوف"
+];
+
+$.each(regions, function (i, region) {
+    $('.list-of-regions').append($('<option>', {
+        value: region,
+        text: region
+    }));
+});
 </script>
 
 </html>
