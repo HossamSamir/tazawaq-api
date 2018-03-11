@@ -146,9 +146,11 @@
       </div>
     </div>
     <main class="main-content bgc-grey-100">
-        <span class="badge badge-primary" style="margin:10%;">تذاكر مفتوحة <%= open %></span>
-        <span class="badge badge-danger" style="margin:10%;">تذاكر مغلقة <%= closed %></span>
       <div class="tab">
+          <div>
+              <span class="badge badge-primary" style="margin:10%;">تذاكر مفتوحة <%= open %></span>
+              <span class="badge badge-danger" style="margin:10%;">تذاكر مغلقة <%= closed %></span>
+          </div>
           <% tickets.forEach(function(ticket) { %>
               <button class="tablinks" onclick='loadTicket(<%= ticket.id %>, <%= ticket.status %>)'>
                   <% if(ticket.status == 0) { %>
