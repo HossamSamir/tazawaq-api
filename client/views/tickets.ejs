@@ -179,8 +179,10 @@
             style="border-color:#f1f1f1">
         </div>
 
-        <button type="button" style="margin-top:14px" class="close-ticket btn btn-danger" data-toggle="tooltip"
+        <button type="button" style="margin-top:14px" class="close-ticket btn btn-warning" data-toggle="tooltip"
         data-placement="left" title="اغلاق التذكرة"><i class="ti-close"></i> اغلاق التذكرة</button>
+        <button type="button" style="margin-top:14px" class="delete-ticket btn btn-danger" data-toggle="tooltip"
+        data-placement="left" title="حذف التذكرة"><i class="ti-close"></i> حذف التذكرة</button>
   </div>
   </div>
   </main>
@@ -252,7 +254,19 @@
                 window.location = '/tickets';
             }
         });
+    });
 
+    $(".delete-ticket").click(function(event) {
+        if(currTicketID == -1) return;
+        fetch(`/delete-ticket?id=${currTicketID}`, {headers: {'Cache-Control': 'no-cache'}}).
+        then((res) => res.json()).then((resJson) => {
+
+            if(resJson.response == 1)
+            {
+                $(".input-group, .delete-ticket, .close-ticket").hide();
+                window.location = '/tickets';
+            }
+        });
     });
 
     function loadTicket(ticket_id, status)

@@ -41,3 +41,11 @@ app.get('/close-ticket',function(req,res){
         res.json({ response: 1 });
     });
 });
+
+app.get('/delete-ticket',function(req,res){
+    var ticket_id = req.param("id");
+
+    sql.qry('DELETE FROM tickets WHERE id=?', [ticket_id], function(tickets) {
+        res.json({ response: 1 });
+    });
+});
