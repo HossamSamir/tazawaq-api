@@ -148,8 +148,8 @@
     <main class="main-content bgc-grey-100">
       <div class="tab">
           <div>
-              <span class="badge badge-primary" style="padding:3%; font-weight:bold; margin:10%;">تذاكر مفتوحة • <%= open %></span>
-              <span class="badge badge-danger" style="padding:3%; font-weight:bold; margin:10%;">تذاكر مغلقة • <%= closed %></span>
+              <span class="badge badge-primary" style="padding:10px; font-weight:bold; margin:10%;">تذاكر مفتوحة • <%= open %></span>
+              <span class="badge badge-danger" style="padding:10px; font-weight:bold; margin:10%;">تذاكر مغلقة • <%= closed %></span>
           </div>
           <% tickets.forEach(function(ticket) { %>
               <button class="tablinks" onclick='loadTicket(<%= ticket.id %>, <%= ticket.status %>)'>
@@ -180,7 +180,7 @@
         </div>
 
         <button type="button" style="margin-top:14px" class="close-ticket btn btn-warning" data-toggle="tooltip"
-        data-placement="left" title="اغلاق التذكرة"><i class="ti-close"></i> اغلاق التذكرة</button>
+        data-placement="left" title="اغلاق التذكرة"><i class="ti-lock"></i> اغلاق التذكرة</button>
         <button type="button" style="margin-top:14px" class="delete-ticket btn btn-danger" data-toggle="tooltip"
         data-placement="left" title="حذف التذكرة"><i class="ti-close"></i> حذف التذكرة</button>
   </div>
