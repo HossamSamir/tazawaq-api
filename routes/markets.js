@@ -57,6 +57,7 @@ app.post('/edit-store', function(req, res) {
 	var delivery_cost = req.param('delivery_cost');
 	var min_delivery_cost = req.param('min_delivery_cost');
 	var delivery_time = req.param('delivery_time');
+	var status = req.param('status');
 
 	var fields = [];
 
@@ -68,6 +69,7 @@ app.post('/edit-store', function(req, res) {
 	if(region) fields.push({ name: 'region', value: region });
 	if(delivery_cost) fields.push({ name: 'delivery_cost', value: delivery_cost });
 	if(delivery_time) fields.push({ name: 'delivery_time', value: delivery_time });
+	if(status) fields.push({ name: 'status', value: status });
 	if(min_delivery_cost) fields.push({ name: 'min_delivery_cost', value: min_delivery_cost });
 	if(image) fields.push({ name: 'img', value: 'client/views/assets/static/images/uploaded_images/store_images/store_' +
 		id +
