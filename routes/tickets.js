@@ -1,7 +1,11 @@
 function travers(req, res) {
-	sql.qry('SELECT id, title, status FROM tickets ORDER BY status DESC, id DESC', function(tickets) {
-    	res.render('tickets', { tickets });
-    });
+	sql.qry('SELECT COUNT(id) AS cnt FROM tickets WHERE status = 0', function(closedCount) {
+		sql.qry('SELECT COUNT(id) AS cnt FROM tickets WHERE status = 1', function(openCount) {
+			sql.qry('SELECT id, title, status FROM tickets ORDER BY status DESC, id DESC', function(tickets) {
+		    	res.render('tickets', { tickets, closed:closedCount[0].cnt,open:openCount[0].cnt });
+		    });
+		})
+	});
 }
 
 module.exports = travers;
