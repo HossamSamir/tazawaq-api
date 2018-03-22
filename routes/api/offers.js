@@ -3,7 +3,7 @@ app.get('/api/offers-for-me', function(req, res) {
 	var user_id = req.param('user_id');
 
 	con.query(
-		'SELECT id,store_id,name,info,cost_before,cost_after,img ' +
+		'SELECT id,store_id,name,info,img ' +
 			'FROM offers WHERE status=1 ORDER BY id DESC LIMIT 1',
 		function(err, data) {
 			if (!err) {
