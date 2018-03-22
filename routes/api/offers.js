@@ -49,7 +49,7 @@ app.get('/api/offers-for-me', function(req, res) {
 // Fetch all available offers (for Offers screen maybe)
 app.get('/api/all-offers', function(req, res) {
 	con.query(
-		'SELECT id,store_id,name,info,cost_before,cost_after,img ' +
+		'SELECT id,store_id,name,info,img ' +
 			'FROM offers WHERE status=1 ORDER BY id DESC',
 		function(err, data) {
 			if (!err) {
@@ -70,7 +70,7 @@ app.get('/api/all-offers', function(req, res) {
 app.get('/api/offer', function(req, res) {
 	var offer_id = req.param('offer_id');
 	con.query(
-		'SELECT id,store_id,name,info,cost_before,cost_after,img ' +
+		'SELECT id,store_id,name,info,img ' +
 			'FROM offers WHERE status=1 AND id = ? ORDER BY id DESC',
 		[offer_id],
 		function(err, data) {
