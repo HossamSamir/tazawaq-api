@@ -58,13 +58,12 @@ app.get('/api/meals-by-ids',function(req,res){
                 })
                 stored_ids.push(ids[i]);
               }
-
-
             }
             else {
                 res.json({ response:0, err });
             }
             if(i == ids.length-1){
+              //you data coud be here ----------------->
               res.json({
                    meals:removeDuplicates(meals,'key')
               });
@@ -73,6 +72,7 @@ app.get('/api/meals-by-ids',function(req,res){
       }
       else{
         if(i == ids.length-1){
+          //you data coud be here ----------------->
           res.json({
                meals:removeDuplicates(meals,'key')
           });
