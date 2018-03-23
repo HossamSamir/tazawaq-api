@@ -1,4 +1,14 @@
 // User makes an order
+
+function removeDuplicates( arr, prop ) {
+  var obj = {};
+  for ( var i = 0, len = arr.length; i < len; i++ ){
+    if(!obj[arr[i][prop]]) obj[arr[i][prop]] = arr[i];
+  }
+  var newArr = [];
+  for ( var key in obj ) newArr.push(obj[key]);
+  return newArr;
+}
 var count = (ids,id)=>{
   var num  = 0;
   for(let i in ids){
@@ -9,15 +19,6 @@ var count = (ids,id)=>{
       return num;
     }
   }
-}
-function removeDuplicates( arr, prop ) {
-  var obj = {};
-  for ( var i = 0, len = arr.length; i < len; i++ ){
-    if(!obj[arr[i][prop]]) obj[arr[i][prop]] = arr[i];
-  }
-  var newArr = [];
-  for ( var key in obj ) newArr.push(obj[key]);
-  return newArr;
 }
 var search = (ids,id) =>{
   var result  = false;
