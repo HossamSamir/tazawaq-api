@@ -1,4 +1,4 @@
-// User makes an order
+// we use that function to don't dopilcate orders in cart screen
 
 function removeDuplicates( arr, prop ) {
   var obj = {};
