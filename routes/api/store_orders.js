@@ -119,7 +119,7 @@ app.get('/api/get-store-orders', function(req, res) {
 				if(userData.length)
 					orders.push( [ userData[0].phone, order.location, order.cost, order.info, getStatusAsStr(order.status),order.id ] );
 				else
-					orders.push( [ 'غير متاح', order.location, order.cost, order.info, getStatusAsStr(order.status) ] );
+					orders.push( [ 'غير متاح', order.location, order.cost, order.info, getStatusAsStr(order.status),order.id ] );
 				callback(null);
 			});
 		}, function(err) {
