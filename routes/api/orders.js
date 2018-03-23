@@ -153,7 +153,8 @@ app.get('/api/make-order',function(req,res){
                       }
                   });
 
-                  res.json({ response: 1 });
+
+                res.json({ response: 1 });
               });
 
 
@@ -189,7 +190,7 @@ app.get('/api/make-order',function(req,res){
 
 
 });
-
+//show current orders api
 app.get('/api/show-orders-current',function(req,res){
     var user_id = req.param("user_id");
 
