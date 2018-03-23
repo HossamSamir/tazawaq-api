@@ -20,6 +20,7 @@ var count = (ids,id)=>{
     }
   }
 }
+//search for id inside library logic function
 var search = (ids,id) =>{
   var result  = false;
   if(ids.length != 0 ){
@@ -37,6 +38,7 @@ var search = (ids,id) =>{
   }
 
 }
+
 app.get('/api/make-order',function(req,res){
     var store_id = req.param("store_id");
     var user_id = req.param("user_id");
