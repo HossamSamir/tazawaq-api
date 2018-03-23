@@ -46,9 +46,9 @@ app.get('/api/get-store-orders', function(req, res) {
 		async.forEachOf(orders_res, function (order, i, callback) {
 			sql.qry('SELECT phone FROM users WHERE id=? LIMIT 1', [ order.user_id ], function(userData) {
 				if(userData.length)
-					orders.push( [ userData[0].phone, order.location, order.cost, order.info, getStatusAsStr(order.status) ] );
+					orders.push( [ userData[0].phone, 'location('+order.location+')', order.cost, order.info, getStatusAsStr(order.status) ] );
 				else
-					orders.push( [ 'غير متاح', order.location, order.cost, order.info, getStatusAsStr(order.status) ] );
+					orders.push( [ 'غير متاح', 'location('+order.location+')', order.cost, order.info, getStatusAsStr(order.status) ] );
 				callback(null);
 			});
 		}, function(err) {
