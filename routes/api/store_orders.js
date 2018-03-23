@@ -7,6 +7,7 @@ app.get('/api/delivered-order', function(req, res) {
 
 	var id = req.param('id');
 
+	var store_id = req.param('store_id');
 
 	sql.qry(
 
