@@ -1,5 +1,75 @@
 var crypto = require('crypto');
 
+
+
+
+app.get('/api/delivered-order', function(req, res) {
+
+	var id = req.param('id');
+
+
+	sql.qry(
+
+		'SELECT id,cost,info,location FROM orders WHERE id=? LIMIT 1',
+
+		[id],
+
+		function(orders) {
+
+			var order = orders[0];
+
+			sql.qry(
+
+				'INSERT INTO sales(store_id,info,location,cost,date) VALUES(?,?,?,?, NOW() )',
+
+				[store_id, order.info, order.location, order.cost],
+
+				function(insert) {
+
+					sql.qry('DELETE FROM orders WHERE id=?', [id], function(del) {
+
+            res.json({ response:1 });
+
+					});
+
+				}
+
+			);
+
+		}
+
+	);
+
+});
+
+
+
+app.get('/api/delivering-order', function(req, res) {
+
+	var id = req.param('id');
+
+
+	sql.qry('UPDATE orders SET status=1 WHERE id=?', [id], function(orders) {
+
+		  res.json({ response:1 });
+
+	});
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 app.get('/api/store-owner-login',function(req,res){
     var passname = req.param("passname");
     var password = req.param("password");
