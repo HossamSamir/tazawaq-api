@@ -10,13 +10,7 @@ function travers(req, res) {
 
 module.exports = travers;
 
-app.get('/fetch-ticket-messages',function(req,res){
-    var ticket_id = req.param("id");
 
-    sql.qry('SELECT message,sender_type FROM ticket_messages WHERE ticket_id=? ORDER BY id ASC', [ticket_id],function(messages) {
-        res.json({ messages });
-    });
-});
 
 app.get('/send-ticket-message',function(req,res){
     var ticket_id = req.param("ticket_id");
@@ -31,6 +25,13 @@ app.get('/send-ticket-message',function(req,res){
 
             res.json({ response: 1 }); // Added message
         });
+    });
+});
+app.get('/fetch-ticket-messages',function(req,res){
+    var ticket_id = req.param("id");
+
+    sql.qry('SELECT message,sender_type FROM ticket_messages WHERE ticket_id=? ORDER BY id ASC', [ticket_id],function(messages) {
+        res.json({ messages });
     });
 });
 
