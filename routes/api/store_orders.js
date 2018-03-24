@@ -27,7 +27,7 @@ app.get('/api/delivered-order', function(req, res) {
 
 				function(insert) {
 
-					sql.qry("UPDATE orders SET status=1 WHERE id=?", [id], function(del) {
+					sql.qry("UPDATE orders SET status=2 WHERE id=?", [id], function(del) {
 
             res.json({ response:1 });
 
