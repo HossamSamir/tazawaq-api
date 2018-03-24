@@ -220,30 +220,29 @@ app.get('/api/show-orders-current',function(req,res){
 });
 
 app.get('/api/show-orders-past',function(req,res){
-    var user_id = req.param("user_id");
+  var user_id = req.param("user_id");
 
-    con.query('SELECT id AS `key`,  info AS title, cost AS price, status '+
-         'FROM orders WHERE user_id=? and status = 2 ', [user_id], function(err,data) {
-        if(!err) {
-            if(data.length == 0) return res.json({ response: 0 });
-            else
-            {
-              con.query('SELECT delivery_cost,delivery_time '+
-                   'FROM stores WHERE id=? LIMIT 1', [store_id], function(err,deliver_price) {
-                     console.log(deliver_price);
-                     res.json({
-                         response: data,
-                         deliveryTime:deliver_price[0].delivery_time
-                     });
+  con.query('SELECT id AS `key`,  info AS title, cost AS price, status,store_id '+
+       'FROM orders WHERE user_id=? and status = 2 ', [user_id], function(err,data) {
+      if(!err) {
+          if(data.length == 0) return res.json({ response: 0 });
+          else
+          {
+            con.query('SELECT delivery_time AS `deliveryTime` '+
+                 'FROM stores WHERE id=?  ', [data[0].store_id], function(err,deliveryTime) {
 
-                  });
 
-            }
-        }
-        else {
-            res.json({ response:0, err });
-        }
-    });
+              res.json({
+                deliveryTime: deliveryTime[0].deliveryTime,
+                  response: data
+              });
+            });
+          }
+      }
+      else {
+          res.json({ response:0, err });
+      }
+  });
 });
 
 app.get('/api/order-price',function(req,res){
