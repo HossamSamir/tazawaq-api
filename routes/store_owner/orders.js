@@ -45,7 +45,7 @@ app.get('/delivered-order', function(req, res) {
 				'INSERT INTO sales(store_id,info,location,cost,date) VALUES(?,?,?,?, NOW() )',
 				[store_id, order.info, order.location, order.cost],
 				function(insert) {
-					sql.qry('DELETE FROM orders WHERE id=?', [id], function(del) {
+					sql.qry("UPDATE orders SET status=2 WHERE id=?", [id], function(del) {
 						res.redirect('store_orders/' + store_id);
 					});
 				}
