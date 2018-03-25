@@ -50,10 +50,10 @@ app.get('/api/delivering-order', function(req, res) {
 	var id = req.param('id');
 
 
-	sql.qry('UPDATE orders SET status=1 and time_accepted=now() WHERE id=? ', [id], function(orders) {
-
-		  res.json({ response:1 });
-
+	sql.qry('UPDATE orders SET status=1  WHERE id=? ', [id], function(orders,err) {
+		sql.qry('UPDATE orders SET time_accepted=NOW()  WHERE id=? ', [id], function(order,err) {
+		  res.json({ response:order,err:err });
+		});
 	});
 
 });
