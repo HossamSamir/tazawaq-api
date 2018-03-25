@@ -55,7 +55,7 @@ var time_now = dateFormat(now, "isoDateTime");
                 deliver_time =
 
                  time_left = Number(restaurant[0]['delivery_time']) - Number(time_passed.minutes);
-                res.send({time:time_left});
+                res.json({time:time_left});
               });
 
        });
