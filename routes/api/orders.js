@@ -39,6 +39,28 @@ var search = (ids,id) =>{
 
 }
 
+
+app.get('/api/order-time',function(req,res){
+  var order_id = req.param("id");
+  var dateFormat = require('dateformat');
+var now = new Date();
+var timediff = require('timediff');
+
+var time_now = dateFormat(now, "isoDateTime");
+  con.query('SELECT store_id,time_accepted '+
+       'FROM orders WHERE id=? LIMIT 1', [order_id], function(err,order) {
+         var time_passed = timediff(order[0]['time_accepted'], time_now, 'YDHms');
+         con.query('SELECT delivery_time '+
+              'FROM stores WHERE id=? LIMIT 1', [order[0]['store_id']], function(err,restaurant) {
+                deliver_time =
+
+                 time_left = Number(restaurant[0]['delivery_time']) - Number(time_passed.minutes);
+                res.send({time:time_left});
+              });
+
+       });
+})
+
 app.get('/api/make-order',function(req,res){
     var store_id = req.param("store_id");
     var user_id = req.param("user_id");
