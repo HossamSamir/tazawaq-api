@@ -58,7 +58,10 @@ app.get('/delivering-order', function(req, res) {
 	var id = req.param('id');
 	var store_id = req.param('store_id');
 	sql.qry('UPDATE orders SET status=1 WHERE id=?', [id], function(orders) {
-		res.redirect('store_orders/' + store_id);
+		sql.qry('UPDATE orders SET time_accepted=NOW()  WHERE id=? ', [id], function(order,err) {
+		  res.redirect('store_orders/' + store_id);
+		});
+
 	});
 });
 
