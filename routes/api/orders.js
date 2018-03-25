@@ -40,26 +40,7 @@ var search = (ids,id) =>{
 }
 
 
-app.get('/api/order-time',function(req,res){
-  var order_id = req.param("id");
-  var dateFormat = require('dateformat');
-var now = new Date();
-var timediff = require('timediff');
 
-var time_now = dateFormat(now, "isoDateTime");
-  con.query('SELECT store_id,time_accepted '+
-       'FROM orders WHERE id=? LIMIT 1', [order_id], function(err,order) {
-         var time_passed = timediff(order[0]['time_accepted'], time_now, 'YDHms');
-         con.query('SELECT delivery_time '+
-              'FROM stores WHERE id=? LIMIT 1', [order[0]['store_id']], function(err,restaurant) {
-                deliver_time =
-
-                 time_left = Number(restaurant[0]['delivery_time']) - Number(time_passed.minutes);
-                res.json({time:time_left});
-              });
-
-       });
-})
 
 app.get('/api/make-order',function(req,res){
     var store_id = req.param("store_id");
@@ -201,7 +182,26 @@ app.get('/api/make-order',function(req,res){
 
 
 
+    app.get('/api/order-time',function(req,res){
+      var order_id = req.param("id");
+      var dateFormat = require('dateformat');
+    var now = new Date();
+    var timediff = require('timediff');
 
+    var time_now = dateFormat(now, "isoDateTime");
+      con.query('SELECT store_id,time_accepted '+
+           'FROM orders WHERE id=? LIMIT 1', [order_id], function(err,order) {
+             var time_passed = timediff(order[0]['time_accepted'], time_now, 'YDHms');
+             con.query('SELECT delivery_time '+
+                  'FROM stores WHERE id=? LIMIT 1', [order[0]['store_id']], function(err,restaurant) {
+                    deliver_time =
+
+                     time_left = Number(restaurant[0]['delivery_time']) - Number(time_passed.minutes);
+                    res.json({time:time_left});
+                  });
+
+           });
+    })
 
 
 
@@ -217,8 +217,12 @@ app.get('/api/make-order',function(req,res){
 //show current orders api
 app.get('/api/show-orders-current',function(req,res){
     var user_id = req.param("user_id");
+    var dateFormat = require('dateformat');
+  var now = new Date();
+  var timediff = require('timediff');
+  var time_now = dateFormat(now, "isoDateTime");
 
-    con.query('SELECT id AS `key`,  info AS title, cost AS price, status,store_id '+
+    con.query('SELECT id AS `key`,  info AS title, cost AS price,time_accepted, status,store_id '+
          'FROM orders WHERE user_id=? and status < 2 ', [user_id], function(err,data) {
         if(!err) {
             if(data.length == 0) return res.json({ response: 0 });
@@ -226,12 +230,44 @@ app.get('/api/show-orders-current',function(req,res){
             {
               con.query('SELECT delivery_time AS `deliveryTime` '+
                    'FROM stores WHERE id=?  ', [data[0].store_id], function(err,deliveryTime) {
+                     var new_data = [];
+                  for(let i in data){
+                    var timediff = require('timediff');
 
+                    if(data[i].status == 1){
+                      console.log(data[i])
+                      var time_now = dateFormat(now, "isoDateTime");
+                      var time_accepted = dateFormat(data[i].time_accepted,"isoDateTime");
+                       var time_passed = timediff(time_accepted, time_now, 'YDHms');
+                      console.log('time now :'+time_now +'time accepted : '+time_accepted);
+                      time_left = Number(deliveryTime[0].deliveryTime) - Number(time_passed.minutes);
+                      new_data.push({
+                        key:data[i].key,
+                        title:data[i].title,
+                        price:data[i].price,
+                        status:data[i].status,
+                        store_id:data[i].store_id,
+                        time:time_left
+                      })
+                    }
+                    else{
+                      new_data.push({
+                        key:data[i].key,
+                        title:data[i].title,
+                        price:data[i].price,
+                        status:data[i].status,
+                        store_id:data[i].store_id,
+                        time:time_left
+                      })
+                    }
+                    if(i == data.length-1){
+                      res.json({
+                        deliveryTime: deliveryTime[0].deliveryTime,
+                          response: new_data
+                      });
+                    }
+                  }
 
-                res.json({
-                  deliveryTime: deliveryTime[0].deliveryTime,
-                    response: data
-                });
               });
             }
         }
