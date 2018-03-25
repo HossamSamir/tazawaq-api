@@ -257,7 +257,7 @@ app.get('/api/show-orders-current',function(req,res){
                         price:data[i].price,
                         status:data[i].status,
                         store_id:data[i].store_id,
-                        time:time_left
+                        
                       })
                     }
                     if(i == data.length-1){
