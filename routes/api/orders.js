@@ -54,125 +54,130 @@ app.get('/api/make-order',function(req,res){
     var full_location = (!address_hint) ? (address) : (address + " - " + address_hint);
     var stored_ids = [];
 
+    con.query('SELECT delivery_cost FROM stores WHERE id=? LIMIT 1', [store_id], function(err,storeDeliveryCost) {
+        if(!err) {
+            var dCost = storeDeliveryCost[0].delivery_cost;
+            var meals = [];
+            for(let i in ids){
+              if(ids[i] != null || ids[i] != 'null'){
+                if(search(meals,ids[i]) == false){
+                con.query('SELECT id AS `key`, name, img AS image, cost AS price, info AS `desc` '+
+                     'FROM products WHERE id=? LIMIT 1', [ids[i]], function(err,data) {
+                    if(!err) {
+                      var data = data[0];
+                      if(data != null){
+                        meals.push({
+                          key:data.key,
+                          name: data.name,
+                          desc:data.desc,
+                          count:count(ids,ids[i])
+                        })
+                        stored_ids.push(ids[i]);
+                      }
+                    }
+                    else {
+                        res.json({ response:0, err });
+                    }
+                    if(i == ids.length-1){
+                      //you data coud be here ----------------->
+                      meals = removeDuplicates(meals,'key');
+
+                      for(let k in meals){
+                        if(info){
+                          var info = info + '-'+' عدد'+meals[k].count+' وجبه'+ ' '+meals[k].name;
+                        }
+                        else{
+                          var info =  '-'+' عدد'+meals[k].count+' وجبه'+ ' '+meals[k].name;
+                        }
+                        if(k == meals.length-1){
+                          //here it goes to play ---------->
 
 
+                          con.query('INSERT INTO orders(store_id,user_id,cost,info,location,delivery_cost,time_ordered) VALUES(?,?,?,?,?,?, NOW())',
+                          [store_id,user_id,cost,info,full_location,dCost],
+                          function(err,orders) {
+                              if(err) return res.json({response: 0});
+                              //add products ---->
 
-    var meals = [];
-    for(let i in ids){
-      if(ids[i] != null || ids[i] != 'null'){
-        if(search(meals,ids[i]) == false){
-        con.query('SELECT id AS `key`, name, img AS image, cost AS price, info AS `desc` '+
-             'FROM products WHERE id=? LIMIT 1', [ids[i]], function(err,data) {
-            if(!err) {
-              var data = data[0];
-              if(data != null){
-                meals.push({
-                  key:data.key,
-                  name: data.name,
-                  desc:data.desc,
-                  count:count(ids,ids[i])
-                })
-                stored_ids.push(ids[i]);
-              }
-            }
-            else {
-                res.json({ response:0, err });
-            }
-            if(i == ids.length-1){
-              //you data coud be here ----------------->
-              meals = removeDuplicates(meals,'key');
-
-              for(let k in meals){
-                if(info){
-                  var info = info + '-'+' عدد'+meals[k].count+' وجبه'+ ' '+meals[k].name;
-                }
-                else{
-                  var info =  '-'+' عدد'+meals[k].count+' وجبه'+ ' '+meals[k].name;
-                }
-                if(k == meals.length-1){
-                  //here it goes to play ---------->
-
-
-                  con.query('INSERT INTO orders(store_id,user_id,cost,info,location,time_ordered) VALUES(?,?,?,?,?, NOW())',
-                  [store_id,user_id,cost,info,full_location],
-                  function(err,orders) {
-                      if(err) return res.json({response: 0});
-                      //add products ---->
-
-                      //end add products
-                      con.query('SELECT token FROM expo_push_tokens WHERE store_id=? LIMIT 100',
-                      [store_id], function(err,tokens) {
-                          if(tokens.length)
-                          {
-                              var pushTokensArr = [];
-                              tokens.forEach(function(tok) {
-                                  pushTokensArr.push(tok.token);
+                              //end add products
+                              con.query('SELECT token FROM expo_push_tokens WHERE store_id=? LIMIT 100',
+                              [store_id], function(err,tokens) {
+                                  if(tokens.length)
+                                  {
+                                      var pushTokensArr = [];
+                                      tokens.forEach(function(tok) {
+                                          pushTokensArr.push(tok.token);
+                                      });
+                                      SendPushNotifications(pushTokensArr);
+                                  }
                               });
-                              SendPushNotifications(pushTokensArr);
-                          }
+
+                              res.json({ response: 1 });
+                          });
+
+
+
+
+                          //end of game
+                        }
+                      }
+                    }
+                });
+              }
+              else{
+                if(i == ids.length-1){
+                  //you data coud be here ----------------->
+                  meals = removeDuplicates(meals,'key');
+                  for(let k in meals){
+                    if(info){
+                      var info = info + '-'+' عدد'+meals[k].count+' وجبه'+ ' '+meals[k].name;
+                    }
+                    else{
+                      var info =  '-'+' عدد'+meals[k].count+' وجبه'+ ' '+meals[k].name;
+                    }
+                    if(k == meals.length-1){
+                      //here it goes to play ---------->
+
+
+                      con.query('INSERT INTO orders(store_id,user_id,cost,info,location,delivery_cost,time_ordered) VALUES(?,?,?,?,?,?, NOW())',
+                      [store_id,user_id,cost,info,full_location,dCost],
+                      function(err,orders) {
+                          if(err) return res.json({response: 0});
+                          //add products ---->
+
+                          //end add products
+                          con.query('SELECT token FROM expo_push_tokens WHERE store_id=? LIMIT 100',
+                          [store_id], function(err,tokens) {
+                              if(tokens.length)
+                              {
+                                  var pushTokensArr = [];
+                                  tokens.forEach(function(tok) {
+                                      pushTokensArr.push(tok.token);
+                                  });
+                                  SendPushNotifications(pushTokensArr);
+                              }
+                          });
+
+
+                        res.json({ response: 1 });
                       });
 
-                      res.json({ response: 1 });
-                  });
 
 
 
+                      //end of game
+                    }
+                  }
 
-                  //end of game
+                }
                 }
               }
             }
-        });
-      }
-      else{
-        if(i == ids.length-1){
-          //you data coud be here ----------------->
-          meals = removeDuplicates(meals,'key');
-          for(let k in meals){
-            if(info){
-              var info = info + '-'+' عدد'+meals[k].count+' وجبه'+ ' '+meals[k].name;
-            }
-            else{
-              var info =  '-'+' عدد'+meals[k].count+' وجبه'+ ' '+meals[k].name;
-            }
-            if(k == meals.length-1){
-              //here it goes to play ---------->
-
-
-              con.query('INSERT INTO orders(store_id,user_id,cost,info,location,time_ordered) VALUES(?,?,?,?,?, NOW())',
-              [store_id,user_id,cost,info,full_location],
-              function(err,orders) {
-                  if(err) return res.json({response: 0});
-                  //add products ---->
-
-                  //end add products
-                  con.query('SELECT token FROM expo_push_tokens WHERE store_id=? LIMIT 100',
-                  [store_id], function(err,tokens) {
-                      if(tokens.length)
-                      {
-                          var pushTokensArr = [];
-                          tokens.forEach(function(tok) {
-                              pushTokensArr.push(tok.token);
-                          });
-                          SendPushNotifications(pushTokensArr);
-                      }
-                  });
-
-
-                res.json({ response: 1 });
-              });
-
-
-
-
-              //end of game
-            }
-          }
-
         }
-        }
-      }
-    }
+        else res.json({ response:0, err });
+    })
+
+
 
 
 
@@ -257,7 +262,7 @@ app.get('/api/show-orders-current',function(req,res){
                         price:data[i].price,
                         status:data[i].status,
                         store_id:data[i].store_id,
-                        
+
                       })
                     }
                     if(i == data.length-1){

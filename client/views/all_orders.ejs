@@ -167,6 +167,7 @@
               <th scope="col">بيانات الزبون</th>
               <th scope="col">مكان التوصيل</th>
               <th scope="col">مجموع السعر</th>
+              <th scope="col">سعر التوصيل</th>
               <th scope="col">تفاصيل الطلب</th>
               <th scope="col">اسم المحل</th>
               <th scope="col">#</th>
@@ -201,6 +202,7 @@
     <td><%= order.username %> - <%= order.phone %></td>
     <td><%= order.data.location %></td>
     <td><%= order.data.cost %></td>
+    <td><%= order.data.delivery_cost %></td>
     <td><%= order.data.info %></td>
     <td><a href="/store/<%= order.data.store_id %>" target="_blank" class="badge badge-success"
         style="padding:8px;font-size:13px;letter-spacing:1.5px">
