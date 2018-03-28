@@ -3,7 +3,7 @@ const crypto = require('crypto');
 
 function travers(req, res) {
 	sql.qry(
-		'SELECT id,display_name,passname,region FROM stores ORDER BY id DESC',
+		'SELECT status,id,display_name,passname,region FROM stores ORDER BY id DESC',
 		function(stores) {
 			res.render('markets', { stores });
 		}

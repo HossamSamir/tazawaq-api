@@ -209,19 +209,19 @@
                       <td><a href="/store/<%= store.id %>" target="_blank" class="badge badge-success"
                           style="padding:8px;font-size:13px;letter-spacing:1.5px"><i class="c-white-500 ti-share"></i>/<%= store.passname %></a></td>
                       <td><button type="button" class="edit btn btn-info" data-toggle="modal"
-                          data-target="#editModal">تعديل</button>
-                        <div class="modal fade" id="editModal" role="dialog" aria-labelledby="exampleModalLabel"
+                          data-target="#editModal<%= store.id %>">تعديل </button>
+                        <div class="modal fade" id="editModal<%= store.id %>" role="dialog" aria-labelledby="exampleModalLabel"
                           aria-hidden="true">
                           <div class="modal-dialog" role="document">
                         <form encType="multipart/form-data" method="post" action="/edit-store" data-parsley-validate autocomplete="new-password">
                             <div class="modal-content">
                               <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">تعديل ماركت</h5><button type="button" class="close"
+                                <h5 class="modal-title" id="exampleModalLabel"> <%= store.status %>تعديل ماركت</h5><button type="button" class="close"
                                   data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
                               <div class="modal-body">
 
                                 <div class="form-group">
-                                    <input type="hidden" class="id_holder" name="id" value="<%= store.id %>">
+                                    <input type="hidden" class="id_holder" name="id"  value="<%= store.id %>">
                                     <input type="hidden" name="store_admin" value="0">
                                     <input type="text" style="display:none">
                                     <input type="password" style="display:none">
@@ -251,9 +251,9 @@
                                     </select>
 
                                     <label>الحالة</label>
-                                    <select class="form-control" name="status">
-                                        <option value="1" selected>مفتوح</option>
-                                        <option value="0">مُغلق</option>
+                                    <select class="form-control" name="status" id="<%= store.id %>">
+                                        <option value="1" <% if(store.status == 1){ %>selected <% }%>>مفتوح</option>
+                                        <option value="0" <% if(store.status == 0){ %>selected <% }%>>مُغلق</option>
                                       </select>
                                     </div>
                               </div>
@@ -386,10 +386,10 @@
 </body>
 <script type="text/javascript" src="./assets/js/jquery-3.3.1.min.js"></script>
 <script>
-    $('.edit').click(function(event) {
-        var correct_id = $(this).parents("td").find(".id_holder").val();
-        $(".id_holder:first").val(correct_id);
-    });
+    // $('.edit').click(function(event) {
+    //     var correct_id = $(this).parents("td").find(".id_holder").val();
+    //     $(".id_holder:first").val(correct_id);
+    // });
 
     $('.delete').click(function(event) {
         var correct = $(this).parents("td").find(".delete-confirm-btn").attr('href');
