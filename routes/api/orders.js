@@ -84,10 +84,10 @@ app.get('/api/make-order',function(req,res){
 
                       for(let k in meals){
                         if(info){
-                          var info = info + '-'+' عدد'+meals[k].count+' وجبه'+ ' '+meals[k].name;
+                          var info = info + '-'+' عدد'+meals[k].count+''+ ' '+meals[k].name;
                         }
                         else{
-                          var info =  '-'+' عدد'+meals[k].count+' وجبه'+ ' '+meals[k].name;
+                          var info =  '-'+' عدد'+meals[k].count+''+ ' '+meals[k].name;
                         }
                         if(k == meals.length-1){
                           //here it goes to play ---------->
