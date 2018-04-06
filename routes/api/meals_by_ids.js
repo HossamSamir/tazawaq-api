@@ -54,7 +54,7 @@ app.get('/api/meals-by-ids',function(req,res){
                   key:data.key,
                   name: data.name,
                   desc:data.desc,
-                  price,
+                  price:data.price,
                   count:count(ids,ids[i])
                 })
                 stored_ids.push(ids[i]);
