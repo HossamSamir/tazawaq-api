@@ -39,4 +39,11 @@ function travers(req, res) {
 	);
 }
 
+app.get('/delete-order',function(req,res) {
+	var id = req.param("id");
+	sql.qry('DELETE FROM orders WHERE id=?', [id], function() {
+		res.redirect('all_orders');
+	});
+});
+
 module.exports = travers;
