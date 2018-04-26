@@ -117,7 +117,7 @@
                       <th>العنوان</th>
                       <th>المنطقة</th>
                       <th>حذف</th>
-                      <th>حذر</th>
+                      <th>حظر</th>
                     </tr>
                   </thead>
                   <tfoot>
@@ -128,7 +128,7 @@
                         <th>العنوان</th>
                         <th>المنطقة</th>
                         <th>حذف</th>
-                        <th>حذر</th>
+                        <th>حظر</th>
                     </tr>
                   </tfoot>
                   <tbody>
@@ -163,18 +163,18 @@
                       </div>
                       </td>
                       <td><button type="button" class="btn btn-<%= user.is_banned ? 'primary' : 'warning' %>" data-toggle="modal"
-                                  data-target="#banModal<%= user.id %>"><%= user.is_banned ? 'فك الحذر' : 'حذر' %></button>
+                                  data-target="#banModal<%= user.id %>"><%= user.is_banned ? 'فك الحظر' : 'حظر' %></button>
                                 <div class="modal fade"
                                   id="banModal<%= user.id %>" tabindex="-1" role="dialog" aria-labelledby="banModalLabel"
                                   aria-hidden="true">
                                   <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                       <div class="modal-header">
-                                        <h5 class="modal-title" id="banModalLabel">تغيير حالة حذر المستخدم</h5><button type="button" class="close"
+                                        <h5 class="modal-title" id="banModalLabel">تغيير حالة حظر المستخدم</h5><button type="button" class="close"
                                           data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
                                       <div
                                         class="modal-body">
-                                        <h5>هل انت متاكد من تغيير حالة الحذر لـهذا المستخدم</h5>
+                                        <h5>هل انت متاكد من تغيير حالة الحظر لـهذا المستخدم</h5>
                                     </div>
                                     <div class="modal-footer"><button type="button" class="btn btn-outline-secondary"
                                         data-dismiss="modal">إلغاء</button>
