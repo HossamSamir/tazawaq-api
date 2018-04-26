@@ -379,7 +379,7 @@ function SendPushNotifications(pushTokens)
         messages.push({
             to: pushToken,
             sound: 'default',
-            body: 'هناك طلب جديد على مطعمك. تفحص صفحة طلبات المطعم',
+            body: 'هناك طلب جديد على متجرك، تفحص صفحة طلبات المتجر',
             data: { },
         })
     }
