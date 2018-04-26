@@ -46,7 +46,7 @@ app.get('/delivered-order', function(req, res) {
 				'INSERT INTO sales(store_id,info,location,cost,date) VALUES(?,?,?,?, NOW() )',
 				[store_id, order.info, order.location, order.cost],
 				function(insert) {
-					sql.qry("UPDATE orders SET status=2 WHERE id=?", [id], function(del) {
+					sql.qry("DELETE FROM orders SET WHERE id=?", [id], function(del) {
 						con.query('SELECT token FROM user_push_tokens WHERE user_id=? LIMIT 10',
 						[user_id], function(err,tokens) {
 							if(tokens.length)
