@@ -129,3 +129,4 @@ require('./routes/api/stores');
 require('./routes/api/meals_by_ids');
 require('./routes/api/user_by_id');
 require('./routes/api/is_user_banned');
+require('./routes/api/add_user_token');
