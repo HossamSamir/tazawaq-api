@@ -3,8 +3,8 @@ function SendCode(to, code) {
     const fetch = require('node-fetch');
 
     var msg = 'هلا وغلا بك في تطبيق طلباتك : رمز التحقق الخاص بك   ' + code;
-    fetch('https://api.smsglobal.com/http-api.php?action=sendsms&user=f2yulf7m&password=2DiKaVq9&&from=+966503212099&to=+966'+
-    to+'&text='+msg+'',
+    fetch('http://api.unifonic.com/wrapper/sendSMS.php?userid=med_st99@hotmail.com&password=WZthPuBN&sender=Talbatk&encoding=UTF8&to=+966'+
+    to+'&msg='+msg+'',
     {
         method: 'POST',
     });
