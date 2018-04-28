@@ -216,7 +216,7 @@
                       </div>
                       <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-dismiss="modal">الغاء</button>
-                          <a href="/delivering-order?store_id=<%= store_id %>&id=<%= order.data.id %>">
+                          <a href="/delivering-order?store_id=<%= store_id %>&id=<%= order.data.id %>&user_id=<%= order.data.user_id %>">
                               <button type="button" class="btn btn-danger">موافق</button>
                           </a>
                       </div>
@@ -246,7 +246,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">الغاء</button>
-                        <a href="/delivered-order?store_id=<%= store_id %>&id=<%= order.data.id %>">
+                        <a href="/delivered-order?store_id=<%= store_id %>&id=<%= order.data.id %>&user_id=<%= order.data.user_id %>">
                             <button type="button" class="btn btn-danger">موافق</button>
                         </a>
                     </div>
