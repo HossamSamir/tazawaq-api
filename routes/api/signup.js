@@ -2,14 +2,23 @@ var crypto = require('crypto');
 function SendCode(to, code) {
     const fetch = require('node-fetch');
 
-    var msg = 'هلا وغلا بك في تطبيق طلباتك : رمز التحقق الخاص بك   ' + code;
+    var msg = 'Welcome in Talbatk | Your verification code is : ' + code;
 
     fetch('http://api.unifonic.com/wrapper/sendSMS.php?userid=med_st99@hotmail.com&password=WZthPuBN&msg='+msg+'&sender=Talbatk&to=+966'+to+'&encoding=UTF8',
     {
         method: 'POST',
     });
 }
-
+app.get('/test',function(req,res){
+  const fetch = require('node-fetch');
+  code = 123;
+var msg = 'Welcome in Talbatk | Your verification code is : ' + code;
+  fetch('http://api.unifonic.com/wrapper/sendSMS.php?userid=med_st99@hotmail.com&password=WZthPuBN&msg='+msg+'&sender=Talbatk&to=+201270290279&encoding=UTF8',
+  {
+      method: 'POST',
+  });
+  res.send('done')
+})
 app.get('/api/signup',function(req,res){
     var phone = req.param("phone");
     var email = req.param("email");
