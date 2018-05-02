@@ -9,6 +9,11 @@ function SendCode(to, code) {
         method: 'POST',
     });
 }
+
+
+app.get('/terms-and-policy',function(req,res){
+  res.redirect('https://drive.google.com/file/d/17RyuCco1h7XDyDCSLBV6xgzIZC5nzmVY/view?usp=sharing');
+})
 app.get('/test',function(req,res){
   const fetch = require('node-fetch');
   code = 123;
