@@ -335,7 +335,7 @@
                                     <% cats.forEach(function(cat) { %>
                                       <option value="<%= cat.id %>"><%= cat.name %></option>
                                     <% }) %>
-                                  </select><label for="product_price">السعر</label><input type="number" name="price" id="product_price"
+                                  </select><label for="product_price">السعر</label><input type="text" name="price" id="product_price"
                                       class="form-control" aria-describedby="emailHelp" value="<%= product.cost %>"
                                       placeholder="قم بداخال السعر الجديد"><label for="product_desc">الوصف</label>
                                     <input
@@ -425,7 +425,7 @@
             </div>
       <div
         class="form-group col-md-12"><label for="inputPassword4">سعر المنتج</label>
-        <input name="price" type="number" class="form-control"
+        <input name="price" type="text" class="form-control"
           placeholder="قم بإدخال سعر المنتج ">
         </div>
   </div><button type="submit" class="btn btn-primary">اضافه</button></form>
