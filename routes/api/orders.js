@@ -76,7 +76,7 @@ app.get('/api/make-order',function(req,res){
                       }
                     }
                     else {
-                        res.json({ response:0, err });
+                        res.json({ response:"here", err });
                     }
                     if(i == ids.length-1){
                       //you data coud be here ----------------->
@@ -93,10 +93,10 @@ app.get('/api/make-order',function(req,res){
                           //here it goes to play ---------->
 
 
-                          con.query('INSERT INTO orders(store_id,user_id,cost,info,location,delivery_cost,time_ordered) VALUES(?,?,?,?,?,?, NOW())',
+                          con.query('INSERT INTO orders(store_id,user_id,cost,info,location,delivery_cost,time_ordered,time_accepted) VALUES(?,?,?,?,?,?, NOW(),NOW())',
                           [store_id,user_id,cost,info,full_location,dCost],
                           function(err,orders) {
-                              if(err) return res.json({response: 0});
+                              if(err) return res.json({response: err});
                               //add products ---->
 
                               //end add products
@@ -142,7 +142,7 @@ app.get('/api/make-order',function(req,res){
                       con.query('INSERT INTO orders(store_id,user_id,cost,info,location,delivery_cost,time_ordered) VALUES(?,?,?,?,?,?, NOW())',
                       [store_id,user_id,cost,info,full_location,dCost],
                       function(err,orders) {
-                          if(err) return res.json({response: 0});
+                          if(err) return res.json({response: err});
                           //add products ---->
 
                           //end add products
