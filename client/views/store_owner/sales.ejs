@@ -103,27 +103,65 @@
                   cellspacing="0" width="100%">
                   <thead>
                     <tr>
-                      <th>المنتج</th>
-                      <th>مكان التوصيل</th>
-                      <th>التاريخ</th>
-                      <th>السعر</th>
+                      <th scope="col">الحالة</th>
+                      <th scope="col">الوقت المنقضي</th>
+                      <th scope="col">الوقت منذ القبول</th>
+                      <th scope="col">ملاحظات العميل</th>
+                      <th scope="col">بيانات الزبون</th>
+                      <th scope="col">مكان التوصيل</th>
+                      <th scope="col">مجموع السعر</th>
+                      <th scope="col">سعر التوصيل</th>
+                      <th scope="col">تفاصيل الطلب</th>
+
                     </tr>
                   </thead>
                   <tfoot>
                     <tr>
-                      <th>المنتج</th>
-                      <th>مكان التوصيل</th>
-                      <th>التاريخ</th>
-                      <th>السعر</th>
+                      <th scope="col">الحالة</th>
+                      <th scope="col">الوقت المنقضي</th>
+                      <th scope="col">الوقت منذ القبول</th>
+                      <th scope="col">ملاحظات العميل</th>
+                      <th scope="col">بيانات الزبون</th>
+                      <th scope="col">مكان التوصيل</th>
+                      <th scope="col">مجموع السعر</th>
+                      <th scope="col">سعر التوصيل</th>
+                      <th scope="col">تفاصيل الطلب</th>
+
                     </tr>
                   </tfoot>
+                  <%
+                  function getStatusAsStr(status) {
+                      switch(status)
+                      {
+                          case 0:
+                              return ("قيد القبول");
+                          case 1:
+                              return ("جاري التوصيل");
+                          case 2:
+                              return ("تم التوصيل");
+                      }
+                  }
+
+                  function convertMinsToHrsMins(mins) {
+                    let h = Math.floor(mins / 60);
+                    let m = mins % 60;
+                    h = h < 10 ? '0' + h : h;
+                    m = m < 10 ? '0' + m : m;
+                    return `مضي ${h} ساعة و ${m} دقيقة`;
+                  } %>
                   <tbody>
-                      <% sales.forEach(function(sale) { %>
+                      <% sales.forEach(function(order) { %>
                     <tr>
-                      <td><%= sale.info %></td>
-                      <td><%= sale.location %></td>
-                      <td><%= sale.date %></td>
-                      <td><%= sale.cost %></td>
+                      <td><%= getStatusAsStr(order.data.status) %></td>
+                      <td><%= convertMinsToHrsMins(order.data.elapsed_time) %></td>
+                      <td><%= convertMinsToHrsMins(order.data.accepted_time_passed) %></td>
+
+                      <td><%= order.data.note %></td>
+                      <td><%= order.username %> - <%= order.phone %></td>
+                      <td><%= order.data.location %></td>
+                      <td><%= order.data.cost %></td>
+                      <td><%= order.data.delivery_cost %></td>
+                      <td><%= order.data.info %></td>
                     </tr>
                     <% }) %>
                   </tbody>
