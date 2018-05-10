@@ -120,6 +120,7 @@
                       <th scope="col">الحالة</th>
                       <th scope="col">الوقت المنقضي</th>
                       <th scope="col">الوقت منذ القبول</th>
+                      <th scope="col" >اسم المحل</th>
                       <th scope="col">ملاحظات العميل</th>
                       <th scope="col">بيانات الزبون</th>
                       <th scope="col">مكان التوصيل</th>
@@ -155,7 +156,6 @@
                       <td><%= getStatusAsStr(order.data.status) %></td>
                       <td><%= convertMinsToHrsMins(order.data.elapsed_time) %></td>
                       <td><%= convertMinsToHrsMins(order.data.accepted_time_passed) %></td>
-
                       <td><%= order.data.note %></td>
                       <td><%= order.username %> - <%= order.phone %></td>
                       <td><%= order.data.location %></td>
