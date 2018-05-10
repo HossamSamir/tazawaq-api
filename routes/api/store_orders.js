@@ -112,14 +112,14 @@ function getStatusAsStr(status) {
 
 app.get('/api/get-store-orders', function(req, res) {
 	var store_id = req.param("store_id");
-	sql.qry('SELECT id,cost,info,location,status,user_id FROM orders WHERE store_id=? and status <= 1 ORDER BY status ASC, id DESC', [store_id], function(orders_res) {
+	sql.qry('SELECT id,cost,info,location,status,user_id,note FROM orders WHERE store_id=? and status <= 1 ORDER BY status ASC, id DESC', [store_id], function(orders_res) {
 		var orders = [];
 		async.forEachOf(orders_res, function (order, i, callback) {
 			sql.qry('SELECT phone FROM users WHERE id=? LIMIT 1', [ order.user_id ], function(userData) {
 				if(userData.length)
-					orders.push( [ userData[0].phone, order.location, order.cost, order.info, order.status,order.id ] );
+					orders.push( [ userData[0].phone, order.location, order.cost, order.info, order.status,order.id,order.note ] );
 				else
-					orders.push( [ 'غير متاح', order.location, order.cost, order.info, order.status,order.id ] );
+					orders.push( [ 'غير متاح', order.location, order.cost, order.info, order.status,order.id,order.note ] );
 				callback(null);
 			});
 		}, function(err) {
