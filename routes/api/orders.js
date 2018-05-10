@@ -46,6 +46,7 @@ app.get('/api/make-order',function(req,res){
     var store_id = req.param("store_id");
     var user_id = req.param("user_id");
     var cost = req.param("cost");
+    var note = req.param("note");
     var info = req.param("info");
     var ids = req.param("ids");
     var ids = ids.split(",");
@@ -93,8 +94,8 @@ app.get('/api/make-order',function(req,res){
                           //here it goes to play ---------->
 
 
-                          con.query('INSERT INTO orders(store_id,user_id,cost,info,location,delivery_cost,time_ordered,time_accepted) VALUES(?,?,?,?,?,?, NOW(),NOW())',
-                          [store_id,user_id,cost,info,full_location,dCost],
+                          con.query('INSERT INTO orders(store_id,user_id,cost,info,location,delivery_cost,time_ordered,note) VALUES(?,?,?,?,?,?, NOW(),?)',
+                          [store_id,user_id,cost,info,full_location,dCost,note],
                           function(err,orders) {
                               if(err) return res.json({response: err});
                               //add products ---->

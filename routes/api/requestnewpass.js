@@ -1,9 +1,10 @@
+
 function SendCode(to, code) {
     const fetch = require('node-fetch');
 
-    var msg = 'Tathouq | your verification code is: ' + code;
-    fetch('https://api.smsglobal.com/http-api.php?action=sendsms&user=f2yulf7m&password=2DiKaVq9&&from=tathouq&to=966'+
-    to+'&text='+msg+'',
+    var msg = 'Welcome in Talbatk | Your verification code is : ' + code;
+
+    fetch('http://api.unifonic.com/wrapper/sendSMS.php?userid=med_st99@hotmail.com&password=WZthPuBN&msg='+msg+'&sender=Talbatk&to=+966'+to+'&encoding=UTF8',
     {
         method: 'POST',
     });

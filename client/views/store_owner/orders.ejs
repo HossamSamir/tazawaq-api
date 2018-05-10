@@ -161,6 +161,7 @@
               <th scope="col">تغيير الحالة</th>
               <th scope="col">الحالة</th>
               <th scope="col">الوقت المنقضي</th>
+              <th scope="col">ملاحظات العميل</th>
               <th scope="col">بيانات الزبون</th>
               <th scope="col">مكان التوصيل</th>
               <th scope="col">مجموع السعر</th>
@@ -258,6 +259,7 @@
 
     <td><%= getStatusAsStr(order.data.status) %></td>
     <td><%= convertMinsToHrsMins(order.data.elapsed_time) %></td>
+    <td><%= order.data.note %></td>
     <td><%= order.username %> - <%= order.phone %></td>
     <td><%= order.data.location %></td>
     <td><%= order.data.cost %></td>

@@ -165,8 +165,10 @@
                 <th scope="col">حذف</th>
               <th scope="col">الحالة</th>
               <th scope="col">الوقت المنقضي</th>
+              <th scope="col">الوقت منذ القبول</th>
               <th scope="col">بيانات الزبون</th>
               <th scope="col">مكان التوصيل</th>
+              <th scope="col">معلومات اضافيه</th>
               <th scope="col">مجموع السعر</th>
               <th scope="col">سعر التوصيل</th>
               <th scope="col">تفاصيل الطلب</th>
@@ -223,8 +225,10 @@
         </td>
     <td><%= getStatusAsStr(order.data.status) %></td>
     <td><%= convertMinsToHrsMins(order.data.elapsed_time) %></td>
+    <td><%= convertMinsToHrsMins(order.data.accepted_time_passed) %></td>
     <td><%= order.username %> - <%= order.phone %></td>
     <td><%= order.data.location %></td>
+    <td><%= order.data.note %></td>
     <td><%= order.data.cost %></td>
     <td><%= order.data.delivery_cost %></td>
     <td><%= order.data.info %></td>
