@@ -59,6 +59,15 @@ app.get('/api/make-special-order',function(req,res){
 
 })
 
+app.get('/api/special_orders_status',function(req,res){
+sql.qry("select * from meta_data where name = 'special_orders_status'",function(status,err){
+  res.json({status:status[0].value});
+})
+})
+
+
+
+
 app.get('/api/make-order',function(req,res){
     var store_id = req.param("store_id");
     var user_id = req.param("user_id");
