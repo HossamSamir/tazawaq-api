@@ -159,6 +159,14 @@
     </div>
     <main class="main-content bgc-grey-100">
       <div id="mainContent col-12">
+        <form action="special_orders_status_action" >
+          <h1 style="text-align:center">حاله الخدمه</h1>
+          <select class="form-control" name="status" id="19">
+            <option value="1" <% if(status == 1){ %>selected="" <% } %>>مفتوح</option>
+            <option value="0" <% if(status == 0){ %>selected="" <% } %>>مُغلق</option>
+        </select>
+        <button style="text-align:center" type="submit" class="btn btn-info center-block pull-right">تأكيد</button>
+        </form>
         <table class="table table-bordered table-hover">
           <thead class="thead-dark">
             <tr>

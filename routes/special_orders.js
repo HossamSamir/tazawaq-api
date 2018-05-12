@@ -26,7 +26,9 @@ function travers(req, res) {
 				},
 				function(err) {
 					if (err) throw err;
-					res.render('special_orders', { orders });
+					sql.qry("select * from meta_data where name = 'special_orders_status' ",function(status,err){
+						res.render('special_orders', { orders,status:status[0].value });
+					})
 				}
 			);
 		}
@@ -40,4 +42,16 @@ app.get('/delete-special-order',function(req,res) {
 	});
 });
 
+
+app.get('/special_orders_status_action',function(req,res){
+	var status = req.param("status");
+	sql.qry("update meta_data set value = ? where name = 'special_orders_status'",[status],function(data,err){
+		if(!err){
+			res.redirect('special_orders');
+		}
+		else{
+			res.send(err);
+		}
+	})
+})
 module.exports = travers;
