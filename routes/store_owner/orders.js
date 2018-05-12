@@ -46,7 +46,7 @@ app.get('/delivered-order', function(req, res) {
 				'INSERT INTO sales(store_id,info,location,cost,date) VALUES(?,?,?,?, NOW() )',
 				[store_id, order.info, order.location, order.cost],
 				function(insert) {
-					sql.qry("DELETE FROM orders WHERE id=?", [id], function(del) {
+					sql.qry("update orders set status = 2 where id = ?", [id], function(del) {
 						con.query('SELECT token FROM user_push_tokens WHERE user_id=? LIMIT 10',
 						[user_id], function(err,tokens) {
 							if(tokens.length)
@@ -56,10 +56,22 @@ app.get('/delivered-order', function(req, res) {
 									pushTokensArr.push(tok.token);
 								});
 								SendPushNotifications(pushTokensArr, 'عميلنا الكريم : تم توصيل طلبك بنجاح و لا تنسى تقييم مستوى الخدمة و بانتظار طلبك القادم', () => {
-									res.redirect('store_orders/' + store_id);
+									if(store_id == -1){
+										res.redirect('special_orders');
+									}
+									else {
+										res.redirect('store_orders/' + store_id);
+									}
 								});
 							}
-							else res.redirect('store_orders/' + store_id);
+							else {
+								if(store_id == -1){
+									res.redirect('special_orders');
+								}
+								else {
+									res.redirect('store_orders/' + store_id);
+								}
+							}
 						});
 						//res.redirect('store_orders/' + store_id);
 					});
@@ -84,10 +96,22 @@ app.get('/delivering-order', function(req, res) {
 						pushTokensArr.push(tok.token);
 					});
 					SendPushNotifications(pushTokensArr, 'عميلنا الكريم : تم قبول طلبك و جاري اعداد الطلب و التوصيل', () => {
-						res.redirect('store_orders/' + store_id);
+						if(store_id == -1){
+							res.redirect('special_orders');
+						}
+						else {
+							res.redirect('store_orders/' + store_id);
+						}
 					});
 				}
-				else res.redirect('store_orders/' + store_id);
+				else{
+					if(store_id == -1){
+						res.redirect('special_orders');
+					}
+					else {
+						res.redirect('store_orders/' + store_id);
+					}
+				}
 			});
 		  //res.redirect('store_orders/' + store_id);
 		});

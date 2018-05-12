@@ -1,6 +1,6 @@
 function travers(req, res) {
 	sql.qry(
-		'SELECT id,cost,delivery_cost,info,location,user_id,status,store_id,TIMESTAMPDIFF(MINUTE,time_ordered,NOW()) AS elapsed_time,TIMESTAMPDIFF(MINUTE,time_accepted,NOW()) AS accepted_time_passed,note FROM orders ORDER BY id DESC',
+		'SELECT id,cost,delivery_cost,info,location,user_id,status,store_id,TIMESTAMPDIFF(MINUTE,time_ordered,NOW()) AS elapsed_time,TIMESTAMPDIFF(MINUTE,time_accepted,NOW()) AS accepted_time_passed,note FROM orders where store_id > 0 ORDER BY id DESC',
 		function(orders_res) {
 			var orders = [];
 			async.forEachOf(

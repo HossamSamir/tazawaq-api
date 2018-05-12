@@ -40,7 +40,24 @@ var search = (ids,id) =>{
 }
 
 
+app.get('/api/make-special-order',function(req,res){
+  var user_id = req.param("user_id");
+  var cost = req.param("cost");
+  var note = req.param("note");
+  var restaurant = req.param("restaurant");
+  var info = restaurant+' - '+req.param("info");
+  var address = req.param("address");
+  con.query('INSERT INTO orders(store_id,user_id,cost,info,location,delivery_cost,time_ordered,note) VALUES(-1,?,?,?,?,0, NOW(),?)',  [user_id,cost,info,address,note],
+    function(err,orders) {
+      if(!err){
+        res.json({response:1})
+      }
+      else {
+        res.json({response:err})
+      }
+    });
 
+})
 
 app.get('/api/make-order',function(req,res){
     var store_id = req.param("store_id");
