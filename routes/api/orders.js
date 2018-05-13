@@ -318,15 +318,12 @@ app.get('/api/show-orders-past',function(req,res){
           if(data.length == 0) return res.json({ response: 0 });
           else
           {
-            con.query('SELECT delivery_time AS `deliveryTime` '+
-                 'FROM stores WHERE id=?  ', [data[0].store_id], function(err,deliveryTime) {
 
 
               res.json({
-                deliveryTime: deliveryTime[0].deliveryTime,
                   response: data
               });
-            });
+
           }
       }
       else {
