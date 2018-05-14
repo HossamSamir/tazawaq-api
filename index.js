@@ -109,7 +109,10 @@ app.get('/store_orders/:store_id', isStoreOwner, store_orders);
 app.get('/store_sales/:store_id', isStoreOwner, store_sales);
 app.get('/store_products/:store_id', isStoreOwner, store_products);
 app.get('/store_login/', isStoreOwner, store_login);
-
+// Landing page route
+app.get('/landing', (req, res) => {
+	res.render('landing')
+})
 // API
 require('./routes/api/signin');
 require('./routes/api/signup');

@@ -1,3 +1,4 @@
 *.jpg
 sessions/*
 tazawaq server @powershell.lnk
+node_modules/
