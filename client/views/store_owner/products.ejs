@@ -333,7 +333,7 @@
                                   <select
                                     class="form-control" name="category_id" >
                                     <% cats.forEach(function(cat) { %>
-                                      <option value="<%= cat.id %>"><%= cat.name %></option>
+                                      <option value="<%= cat.id %>" <% if (cat.id == product.category_id ) %>selected<% }%>><%= cat.name %></option>
                                     <% }) %>
                                   </select><label for="product_price">السعر</label><input type="text" name="price" id="product_price"
                                       class="form-control" aria-describedby="emailHelp" value="<%= product.cost %>"
