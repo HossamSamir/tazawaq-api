@@ -4,7 +4,7 @@ const config = require('./config');
 // express configs
 const express = require('express');
 app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 80;
 app.set('view engine', 'ejs');
 app.use(express.static(path.join(`${__dirname}/client`, 'views')));
 app.set('views', path.join(`${__dirname}/client`, 'views'));
@@ -15,7 +15,7 @@ const fileUpload = require('express-fileupload');
 app.use(fileUpload());
 
 // Domain name (we prepend this to uploaded images)
-domain = 'http://138.197.98.186:3000';
+domain = 'http://138.197.98.186:80';
 
 // Actually connect
 con.connect(function(err) {
