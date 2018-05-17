@@ -293,10 +293,18 @@ app.get('/api/show-orders-current',function(req,res){
                       })
                     }
                     if(i == data.length-1){
-                      res.json({
-                        deliveryTime: deliveryTime[0].deliveryTime,
-                          response: new_data
-                      });
+                      if(data[0].store_id == -1){
+                        res.json({
+                          deliveryTime: 60,
+                            response: new_data
+                        });
+                      }else {
+                        res.json({
+                          deliveryTime: deliveryTime[0].deliveryTime,
+                            response: new_data
+                        });
+                      }
+
                     }
                   }
 
