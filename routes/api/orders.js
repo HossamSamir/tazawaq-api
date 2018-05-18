@@ -272,7 +272,12 @@ app.get('/api/show-orders-current',function(req,res){
                       var time_accepted = dateFormat(data[i].time_accepted,"isoDateTime");
                        var time_passed = timediff(time_accepted, time_now, 'YDHms');
                       console.log('time now :'+time_now +'time accepted : '+time_accepted);
-                      time_left = Number(deliveryTime[0].deliveryTime) - Number(time_passed.minutes);
+                      if(data[0].store_id == -1){
+                        time_left = Number(60) - Number(time_passed.minutes);
+                      }
+                      else{
+                        time_left = Number(deliveryTime[0].deliveryTime) - Number(time_passed.minutes);
+                      }
                       new_data.push({
                         key:data[i].key,
                         title:data[i].title,
