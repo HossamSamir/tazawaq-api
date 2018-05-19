@@ -43,7 +43,7 @@ app.get('/api/requestnewpass',function(req,res){
                         var code = Math.floor(Math.random()*(89998)+10000); // from 10,000 to 99,999
                         SendCode(phone, code);
                         con.query(
-                            "INSERT INTO awaiting_verification(code,phone,password,location,latitude,longitude,region) VALUES(?,?,'','','','','')",
+                            "INSERT INTO awaiting_verification(code,phone,password,location,latitude,longitude,region) VALUES('?',?,'','5','5','5','5')",
                             [code,phone], function(err,data) {
                             if(!err) {
                                 res.json({
