@@ -3,8 +3,8 @@ var mysql = require('mysql');
 
 // Config connection
 con = mysql.createConnection({
-	host: '159.89.95.28',
+	host: '138.197.98.186',
 	user: 'amr',
-	password: 'a33304454',
-	database: 'tazawq'
+	password: 'amr',
+	database: 'talbatk'
 });
