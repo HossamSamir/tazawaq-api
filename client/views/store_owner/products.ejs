@@ -160,7 +160,8 @@
 
 
           <div class="gap-20 row">
-            <% cats.forEach(function(cat) { %>
+            <%
+             cats.forEach(function(cat) { %>
                   <div class="col-md-3 masonry-item w-100">
                     <div class="layers bd bgc-white p-20" style="padding-bottom:0!important">
                       <div class="layer w-100 mB-10" style="text-align:center">
@@ -226,12 +227,14 @@
                         <div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">الغاء</button>
                           <a href="/delete-cat?id=<%= cat.id%>" type="button" class="btn btn-danger">نعم, احذف</a></div>
                       </div>
+
                   </div>
                 </div>
               </div>
             </div>
           </div>
-            <% }) %>
+
+            <%  }) %>
 
 
 
@@ -282,16 +285,10 @@
           <h6 class="lh-1">جميع المنتجات</h6>
         </div>
         <div class="layer w-100">
-
           <div class="table-responsive p-20">
-            <!--
             <table id="marketsTable" class="table table-striped table-bordered" cellspacing="0"
               width="100%" style="text-align:center">
-            -->
-            <table id="dataTable" class="table table-striped table-bordered"
-              cellspacing="0" width="100%">
               <thead>
-
                 <tr>
                   <th>اسم المنتج</th>
                   <th>اسم القسم</th>
@@ -314,7 +311,8 @@
                 </tr>
               </tfoot>
               <tbody>
-                <% products.forEach(function(product) { %>
+                <% var bigger = 0;
+                 products.forEach(function(product,index) { %>
                   <tr>
                     <td><%= product.name %></td>
                     <td><%= product.category_name %></td>
@@ -366,7 +364,14 @@
                         </div>
                         </div>
                     </td>
-                    <td><button id="<%= product.id %>" type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete_<%= product.id %>"><i class="c-white-500 ti-trash"></i> حذف</button>
+                    <td>  <button id="<%= product.id %>" type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete_<%= product.id %>"><i class="c-white-500 ti-trash"></i> حذف
+                       <% if(product.id > bigger){
+                         bigger = product.id;
+                       } %>
+                        <!-- <a href="?last_product_id=<%= product.id %>">الصفحه التاليه</a> -->
+                        </button>
+
+
                       <div
                         class="modal fade" id="delete_<%= product.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                         aria-hidden="true">
@@ -386,9 +391,12 @@
                     </td>
                   </tr>
 
-                <% }) %>
+                <% // counter = counter + 1
+              }) %>
+
   </tbody>
   </table>
+  <a href="?last_product_id=<%= bigger %>">الصفحه التاليه</a>
   </div>
   </div>
   </div>

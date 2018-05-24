@@ -2,14 +2,15 @@ const fs = require('fs');
 var _ID;
 function travers(req, res) {
 	var store_id = req.params.store_id;
+	var last_product_id = req.query.last_product_id;
 	_ID = store_id;
 	sql.qry(
 		'SELECT name, id, status FROM categories WHERE store_id = ?',
 		[store_id],
 		function(cats) {
 			sql.qry(
-				'SELECT id, category_id, name, info, cost, status, img FROM products WHERE store_id = ?',
-				[store_id],
+				'SELECT id, category_id, name, info, cost, status, img FROM products WHERE store_id = ? and id > ? limit 10',
+				[store_id,last_product_id],
 				function(products) {
 					products.forEach((product, i) => {
 						product.status = product.status == 0 ? 'غير نشط' : 'نشط';

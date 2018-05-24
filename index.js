@@ -55,7 +55,7 @@ function isAppOwner(req, res, next) {
 		if (
 			typeof username != 'undefined' &&
 			username == 'super_admin' || username == 'admin' &&
-			password == 'h5?bxt!7qF*?8OZ9' 
+			password == 'h5?bxt!7qF*?8OZ9'
 		) {
 			req.session.put('app_owner', 'true');
 			res.redirect('/');
