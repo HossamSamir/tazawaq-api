@@ -9,7 +9,9 @@
     input {
       text-align: right
     }
-
+#marketsTable_filter{
+  display: none;
+}
     #loader {
       transition: all .3s ease-in-out;
       opacity: 1;
@@ -288,6 +290,12 @@
           <div class="table-responsive p-20">
             <table id="marketsTable" class="table table-striped table-bordered" cellspacing="0"
               width="100%" style="text-align:center">
+              <form action="?" method="get" >
+              <input type="search" placeholder="ابحث عن المنتج " id="search" name="search" class="form-control" />
+              <script>
+
+              </script>
+            </form>
               <thead>
                 <tr>
                   <th>اسم المنتج</th>
@@ -396,7 +404,10 @@
 
   </tbody>
   </table>
+  <a href="?last_product_id=0">الصفحه الاولى </a> |
   <a href="?last_product_id=<%= bigger %>">الصفحه التاليه</a>
+
+
   </div>
   </div>
   </div>
@@ -472,6 +483,18 @@ fetch(`/edit-cat?name=${nameValue}&id=${id}&status=${statusValue}`).then(functio
   window.location = '/store_products/<%= store_id %>';
 });
 });
+
+$(document).ready(function(){
+
+    $('#search').keypress(function(e){
+        if(e.which == 13){//Enter key pressed
+          var search = $('#search').val();
+          var url = window.location.pathname;
+          window.location.replace(url+'?last_product_id=0&search='+search)
+        }
+      });
+
+})
 
 $('.addNewCat').click(function() {
   var name = $('#addNewCat').val();
