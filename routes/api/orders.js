@@ -120,8 +120,8 @@ app.get('/api/make-order',function(req,res){
                           //here it goes to play ---------->
 
 
-                          con.query('INSERT INTO orders(store_id,user_id,cost,info,location,delivery_cost,time_ordered,note) VALUES(?,?,?,?,?,?, NOW(),?)',
-                          [store_id,user_id,cost,info,full_location,dCost,note],
+                          con.query('INSERT INTO orders(store_id,user_id,cost,info,location,delivery_cost,time_ordered,note,ids) VALUES(?,?,?,?,?,?, NOW(),?)',
+                          [store_id,user_id,cost,info,full_location,dCost,note,ids],
                           function(err,orders) {
                               if(err) return res.json({response: err});
                               //add products ---->
