@@ -29,6 +29,20 @@ app.get('/api/delivered-order', function(req, res) {
 
 					sql.qry("UPDATE orders SET status=2 WHERE id=?", [id], function(del) {
 
+						sql.qry('select * from orders  WHERE id=? ', [id], function(order,err) {
+						//client push notification ----------->
+						con.query('SELECT token FROM user_push_tokens WHERE user_id=? LIMIT 100',
+						[order[0].user_id], function(err,tokens) {
+								if(tokens.length)
+								{
+										var pushTokensArr = [];
+										tokens.forEach(function(tok) {
+												pushTokensArr.push(tok.token);
+										});
+										SendPushNotifications(pushTokensArr,'عزيزى العميل تم توصيل طلبك ');
+								}
+						});
+					});
             res.json({ response:1 });
 
 					});
@@ -53,6 +67,24 @@ app.get('/api/delivering-order', function(req, res) {
 	sql.qry('UPDATE orders SET status=1  WHERE id=? ', [id], function(orders,err) {
 		sql.qry('UPDATE orders SET time_accepted=NOW()  WHERE id=? ', [id], function(order,err) {
 		  res.json({ response:1 });
+
+			sql.qry('select * from orders  WHERE id=? ', [id], function(order,err) {
+			//client push notification ----------->
+			con.query('SELECT token FROM user_push_tokens WHERE user_id=? LIMIT 100',
+			[order[0].user_id], function(err,tokens) {
+					if(tokens.length)
+					{
+							var pushTokensArr = [];
+							tokens.forEach(function(tok) {
+									pushTokensArr.push(tok.token);
+							});
+							SendPushNotifications(pushTokensArr,'عزيزى العميل تم قبول طلبك و جارى التوصيل');
+					}
+			});
+		});
+
+
+
 		});
 	});
 
@@ -128,3 +160,54 @@ app.get('/api/get-store-orders', function(req, res) {
 		});
 	});
 });
+
+
+
+function SendPushNotifications(pushTokens,message_body)
+{
+    const Expo = require('expo-server-sdk');
+
+    // Create a new Expo SDK client
+    let expo = new Expo();
+
+    // Create the messages that you want to send to clents
+    let messages = [];
+    for (let pushToken of pushTokens) {
+        // Each push token looks like ExponentPushToken[xxxxxxxxxxxxxxxxxxxxxx]
+
+        // Check that all your push tokens appear to be valid Expo push tokens
+        if (!Expo.isExpoPushToken(pushToken)) {
+            console.error(`Push token ${pushToken} is not a valid Expo push token`);
+            continue;
+        }
+
+        // Construct a message (see https://docs.expo.io/versions/latest/guides/push-notifications.html)
+        messages.push({
+            to: pushToken,
+            sound: 'default',
+            body: message_body,
+            data: { },
+        })
+    }
+
+    // The Expo push notification service accepts batches of notifications so
+    // that you don't need to send 1000 requests to send 1000 notifications. We
+    // recommend you batch your notifications to reduce the number of requests
+    // and to compress them (notifications with similar content will get
+    // compressed).
+    let chunks = expo.chunkPushNotifications(messages);
+
+    (async () => {
+        // Send the chunks to the Expo push notification service. There are
+        // different strategies you could use. A simple one is to send one chunk at a
+        // time, which nicely spreads the load out over time:
+        for (let chunk of chunks) {
+            try {
+                let receipts = await expo.sendPushNotificationsAsync(chunk);
+                console.log(receipts);
+            } catch (error) {
+                console.error(error);
+            }
+        }
+    })();
+}
