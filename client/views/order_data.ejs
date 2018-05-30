@@ -152,20 +152,11 @@
         <table class="table table-bordered table-hover">
           <thead class="thead-dark">
             <tr>
-                <th scope="col">حذف</th>
-              <th scope="col">الحالة</th>
-              <th scope="col">الوقت المنقضي</th>
-              <th scope="col">الوقت منذ القبول</th>
-              <th scope="col">بيانات الزبون</th>
-              <th scope="col">مكان التوصيل</th>
-              <th scope="col">معلومات اضافيه</th>
-              <th scope="col">السعر بعد الخصم</th>
-              <th scope="col">السعر المخصوم</th>
-              <th scope="col">مجموع السعر</th>
-              <th scope="col">سعر التوصيل</th>
-              <th scope="col">تفاصيل الطلب</th>
-              <th scope="col">اسم المحل</th>
-              <th scope="col">المزيد من التفاصيل<th>
+              <th scope="col">السعر الاجمالى </th>
+              <th scope="col">السعر</th>
+              <th scope="col">العدد</th>
+              <th scope="col">الاسم</th>
+              <th scope="col">الصوره</th>
               <th scope="col">#</th>
             </tr>
           </thead>
@@ -191,50 +182,15 @@
               } %>
 
           <tbody id="ordersContainer">
-            <% orders.forEach(function(order) { %>
-            <tr>
-                <td><button type="button" class="btn btn-danger" data-toggle="modal"
-                    data-target="#exampleModal<%= order.data.id %>">حذف</button>
-                  <div class="modal fade"
-                    id="exampleModal<%= order.data.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                    aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title" id="exampleModalLabel">حذف الطلب</h5><button type="button" class="close"
-                            data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
-                        <div
-                          class="modal-body">
-                          <h5>هل انت متاكد من حذف هذا الطلب</h5>
-                      </div>
-                      <div class="modal-footer"><button type="button" class="btn btn-outline-secondary"
-                          data-dismiss="modal">إلغاء</button>
-                          <a href="/delete-order?id=<%= order.data.id %>">
-                              <button type="button" class="btn btn-danger">تأكيد</button></a>
-                          </div>
-                    </div>
-                  </div>
-        </div>
-        </td>
-    <td><%= getStatusAsStr(order.data.status) %></td>
-    <td><%= convertMinsToHrsMins(order.data.elapsed_time) %></td>
-    <td><%= convertMinsToHrsMins(order.data.accepted_time_passed) %></td>
-    <td><%= order.username %> - <%= order.phone %></td>
-    <td><%= order.data.location %></td>
-    <td><%= order.data.note %></td>
-    <td><%= order.data.cost - order.data.cost_dicounted %></td>
-    <td><%= order.data.cost_dicounted %></td>
-    <td><%= order.data.cost %></td>
-    <td><%= order.data.delivery_cost %></td>
-    <td><%= order.data.info %></td>
-    <td><a href="/store/<%= order.data.store_id %>" target="_blank" class="badge badge-success"
-        style="padding:8px;font-size:13px;letter-spacing:1.5px">
-        <i class="c-white-500 ti-share"></i>/<%= order.store_display_name %> - <%= order.store_passname %></a>
-    </td>
-    <td><a href="/order_data/<%= order.data.id %>" target="_blank">المزيد</a></td>
+            <% meal.forEach(function(meal) { %>
+              <td><%= meal.cost*meal.count %></td>
+    <td><%= meal.cost %></td>
+<td><%= meal.count %></td>
+<td><%= meal.name %></td>
+<td><img height="100" width="100" src="<%= meal.img %>"/></td>
 
   <th
-    scope="row"><%= order.data.id %></th>
+    scope="row"><%= meal.key %></th>
     </tr>
     <% }) %>
     </tbody>

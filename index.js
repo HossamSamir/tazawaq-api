@@ -114,6 +114,7 @@ app.get('/landing', (req, res) => {
 	res.render('landing')
 })
 // API
+require('./routes/order_data');
 require('./routes/api/signin');
 require('./routes/api/signup');
 require('./routes/api/verifycode');
