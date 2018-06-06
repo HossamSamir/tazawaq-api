@@ -166,7 +166,7 @@ app.get('/api/get-store-orders-0', function(req, res) {
 
 app.get('/api/get-orders', function(req, res) {
 
-	sql.qry('SELECT id,cost,info,location,store_id,status,user_id,note,cost_dicounted FROM orders ORDER BY status ASC, id DESC', function(orders_res) {
+	sql.qry('SELECT id,cost,info,location,store_id,status,user_id,note,cost_dicounted FROM orders WHERE status <= 50 ORDER BY status ASC, id DESC', function(orders_res) {
 		var orders = [];
 		async.forEachOf(orders_res, function (order, i, callback) {
 			sql.qry('SELECT phone,username FROM users WHERE id=? LIMIT 1', [ order.user_id ], function(userData) {
