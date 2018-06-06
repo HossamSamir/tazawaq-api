@@ -142,7 +142,7 @@ function getStatusAsStr(status) {
     }
 }
 
-app.get('/api/get-store-orders-0', function(req, res) {
+app.get('/api/get-store-orders', function(req, res) {
 	var store_id = req.param("store_id");
 	sql.qry('SELECT id,cost,info,location,store_id,status,user_id,note,cost_dicounted FROM orders WHERE store_id=? and status <= 1 ORDER BY status ASC, id DESC', [store_id], function(orders_res) {
 		var orders = [];
