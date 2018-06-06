@@ -302,14 +302,14 @@ setInterval(() => {
   var newOrders = [];
   fetchOrders(newOrders, () => {
     if (oldOrders.length != newOrders.length) {
-      var audio = new Audio('../assets/static/sounds/new_order.mp3').play();
+      var audio = new Audio('https://www.myinstants.com/media/sounds/tethys.mp3').play();
       setTimeout(() => {
         location.reload();
-      }, 1000)
+      }, 2000)
     } else {
       for (var i = 0; i < oldOrders.length; i++) {
         if (oldOrders[i][4] != newOrders[i][4]) {
-          var audio = new Audio('../assets/static/sounds/new_order.mp3').play();
+          var audio = new Audio('https://www.myinstants.com/media/sounds/tethys.mp3').play();
           setTimeout(() => {
             location.reload();
           }, 1000)
