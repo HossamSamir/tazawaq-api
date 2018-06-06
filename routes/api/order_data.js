@@ -40,7 +40,7 @@ app.get('/api/order-data',function(req,res){
   id = req.param('id');
   sql.qry("select * from orders where id = ?",[id],function(order,err){
     ids = order[0].ids;
-
+    console.log(order[0])
     var meals = [];
     var stored_ids = [];
     console.log(ids);
@@ -71,7 +71,7 @@ app.get('/api/order-data',function(req,res){
             if(i == ids.length-1){
               //you data coud be here ----------------->
               meals = removeDuplicates(meals,'key');
-              res.json({meals})
+              res.json({meals,order:order[0]})
               }
         });
       }
@@ -79,8 +79,7 @@ app.get('/api/order-data',function(req,res){
         if(i == ids.length-1){
           //you data coud be here ----------------->
           meals = removeDuplicates(meals,'key');
-          res.json({meals})
-          console.log(meals)
+          res.json({meals,order:order[0]})
         }
         }
       }
