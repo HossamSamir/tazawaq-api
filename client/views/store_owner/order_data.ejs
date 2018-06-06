@@ -272,7 +272,11 @@
     <script type="text/javascript" src="../assets/js/soBundle.js"></script>
     <script type="text/javascript" src="../assets/js/jquery-3.3.1.min.js"></script>
     <script>
+    var domain = window.location.hostname;
+
 function fetchOrders(arr, callback) {
+  var domain = window.location.hostname;
+
   fetch(`${domain}/api/get-store-orders?store_id=${<%= store_id %>}`)
     .then(res => (newRes = res.json()))
     .then(newRes => {

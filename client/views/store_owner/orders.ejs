@@ -277,7 +277,9 @@
     <script type="text/javascript" src="../assets/js/jquery-3.3.1.min.js"></script>
     <script>
 function fetchOrders(arr, callback) {
-  fetch(`${domain}/api/get-store-orders?store_id=${<%= store_id %>}`)
+  var domain = window.location.hostname;
+
+  fetch(`/api/get-store-orders?store_id=${<%= store_id %>}`)
     .then(res => (newRes = res.json()))
     .then(newRes => {
       newRes.orders.forEach(el => {
