@@ -142,7 +142,7 @@ function getStatusAsStr(status) {
     }
 }
 
-app.get('/api/get-store-orders', function(req, res) {
+app.get('/api/get-store-orders-0', function(req, res) {
 	var store_id = req.param("store_id");
 	sql.qry('SELECT id,cost,info,location,store_id,status,user_id,note,cost_dicounted FROM orders WHERE store_id=? and status <= 1 ORDER BY status ASC, id DESC', [store_id], function(orders_res) {
 		var orders = [];
@@ -164,7 +164,27 @@ app.get('/api/get-store-orders', function(req, res) {
 	});
 });
 
+app.get('/api/get-orders', function(req, res) {
 
+	sql.qry('SELECT id,cost,info,location,store_id,status,user_id,note,cost_dicounted FROM orders WHERE status <= 1 ORDER BY status ASC, id DESC', function(orders_res) {
+		var orders = [];
+		async.forEachOf(orders_res, function (order, i, callback) {
+			sql.qry('SELECT phone,username FROM users WHERE id=? LIMIT 1', [ order.user_id ], function(userData) {
+				sql.qry('select * from stores where id = ?',[order.store_id],function(store,err){
+
+				if(userData.length)
+					orders.push( [ userData[0].phone, order.location, order.cost, order.info, order.status,order.id,order.note,userData[0].username,order.cost_dicounted,store[0].delivery_cost] );
+				else
+					orders.push( [ 'غير متاح', order.location, order.cost, order.info, order.status,order.id,order.note,'غير متاح',order.cost_dicounted,store[0].delivery_cost ] );
+				callback(null);
+				})
+			});
+		}, function(err) {
+			if(err) return res.json({ response: 0 });;
+			res.json({ response: 1, orders });
+		});
+	});
+});
 
 function SendPushNotifications(pushTokens,message_body)
 {
