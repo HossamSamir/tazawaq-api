@@ -284,6 +284,48 @@
     <script type="text/javascript" src="../assets/js/soVendor.js"></script>
     <script type="text/javascript" src="../assets/js/soBundle.js"></script>
     <script type="text/javascript" src="../assets/js/jquery-3.3.1.min.js"></script>
+    <script>
+    function fetchOrders(arr, callback) {
 
+    fetch(`/api/get-orders`)
+    .then(res => (newRes = res.json()))
+    .then(newRes => {
+      newRes.orders.forEach(el => {
+        arr.push(el);
+      });
+    })
+    .then(() => {
+      if (callback) {
+        callback();
+      }
+    })
+    }
+
+    // fetching old orders
+    var oldOrders = [];
+    fetchOrders(oldOrders);
+
+    // check after 5secs
+    setInterval(() => {
+    var newOrders = [];
+    fetchOrders(newOrders, () => {
+    if (oldOrders.length != newOrders.length) {
+      var audio = new Audio('https://www.myinstants.com/media/sounds/tethys.mp3').play();
+      setTimeout(() => {
+        location.reload();
+      }, 2000)
+    } else {
+      for (var i = 0; i < oldOrders.length; i++) {
+        if (oldOrders[i][4] != newOrders[i][4]) {
+          var audio = new Audio('https://www.myinstants.com/media/sounds/tethys.mp3').play();
+          setTimeout(() => {
+            location.reload();
+          }, 2000)
+        }
+      }
+    }
+    });
+    }, 5000);
+    </script>
 </body>
 </html>
