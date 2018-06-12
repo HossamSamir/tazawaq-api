@@ -94,6 +94,7 @@ app.get('/api/make-order',function(req,res){
                      'FROM products WHERE id=? LIMIT 1', [ids[i]], function(err,data) {
                     if(!err) {
                       var data = data[0];
+                      console.log(data)
                       if(data != null){
                         meals.push({
                           key:data.key,

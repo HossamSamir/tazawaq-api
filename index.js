@@ -94,7 +94,7 @@ const store_orders = require('./routes/store_owner/orders');
 const store_sales = require('./routes/store_owner/sales');
 const store_products = require('./routes/store_owner/products');
 const store_login = require('./routes/store_owner/store_login');
-
+require('./routes/share-order-data');
 // routes
 app.get('/', isAppOwner, home);
 app.get('/logout', isAppOwner, logout);

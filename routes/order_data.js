@@ -139,11 +139,80 @@ app.get('/order_data/:id',function(req,res){
         if(i == ids.length-1){
           //you data coud be here ----------------->
           meals = removeDuplicates(meals,'key');
-          res.render('order_data',{meal:meals})
+          res.render('order_data',{meal:meals,id})
           console.log(meals)
         }
         }
       }
     } // end of for loop whic is the player in the order (3ak never mind)
+  })
+})
+
+app.get('/delete-order-product',function(req,res){
+  var order_id = req.param('order_id');
+  var product_id = req.param('product_id');
+  var current_product_count = req.param('current_product_count');
+  var new_product_count = req.param('new_product_count');
+  sql.qry('select * from orders where id = ? ',[order_id],function(order,err){
+  if(!err){
+    var past_ids = order[0].ids;
+    var new_ids = past_ids;
+
+    //ids filtering ---->
+    if(new_product_count == 0){
+      var new_ids = past_ids.split(','+product_id).join("");
+    }
+    else {
+      for(let i=(current_product_count-new_product_count);i>0;i--){
+        new_ids = new_ids.replace(','+product_id,'');
+      }
+    }
+    //info filtering ----->
+    past_info = order[0].info;
+    var past_price = order[0].cost;
+    sql.qry('select * from products where id = ?',[product_id],(product,err)=>{
+
+      var cost_dicounted = order[0].cost_dicounted;
+
+      //info edit
+      if(new_product_count == 0){
+        var new_info = past_info.replace('- عدد'+current_product_count+' '+product[0].name,'')
+        console.log(new_info);
+
+      }
+      else{
+        var middle_info = past_info.replace('- عدد'+current_product_count+' '+product[0].name,'')
+        var new_info = middle_info+'- عدد'+new_product_count+' '+product[0].name
+      }
+
+
+
+      //new price calculations ---->
+        if(cost_dicounted == '0.00'){
+          var new_price = past_price-(product[0].cost*(current_product_count-new_product_count));
+        }
+        else{
+          var new_price = past_price-(product[0].cost*(current_product_count-new_product_count));
+          var dicounted_percent = cost_dicounted/(past_price-order[0].delivery_cost);
+          var cost_dicounted = (dicounted_percent*(new_price-order[0].delivery_cost));
+        }
+
+        sql.qry('update orders set cost = ? , cost_dicounted = ? , info = ? ,ids = ? where id = ?',[new_price,cost_dicounted,new_info,new_ids,order_id],function(final,err){
+          if(!err){
+            res.redirect('/order_data/'+order_id);
+          }
+          else{
+            res.send(err);
+          }
+        })
+    })
+
+
+    //The end
+  }
+  else {
+    res.send(err);
+  }
+
   })
 })

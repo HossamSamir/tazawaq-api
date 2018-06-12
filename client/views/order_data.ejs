@@ -152,11 +152,13 @@
         <table class="table table-bordered table-hover">
           <thead class="thead-dark">
             <tr>
+              <th scope="col">حذف</th>
               <th scope="col">السعر الاجمالى </th>
               <th scope="col">السعر</th>
               <th scope="col">العدد</th>
               <th scope="col">الاسم</th>
               <th scope="col">الصوره</th>
+
               <th scope="col">#</th>
             </tr>
           </thead>
@@ -183,6 +185,34 @@
 
           <tbody id="ordersContainer">
             <% meal.forEach(function(meal) { %>
+              <td><button type="button" class="btn btn-danger" data-toggle="modal"
+                  data-target="#exampleModal<%= meal.key %>">حذف</button>
+                  <div class="modal fade"
+                    id="exampleModal<%=  meal.key %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">حذف الطلب</h5><button type="button" class="close"
+                            data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
+                        <div
+                          class="modal-body">
+                          <form action="/delete-order-product">
+                          <h5>العدد الذي تريده ان يتبقى</h5>
+                          <input type="text" name="new_product_count" value="0" placeholder="اتركها صفر ان كنت تريد الحذف تماما"/>
+                          <input type="hidden" name="current_product_count" value="<%= meal.count %>" />
+                          <input type="hidden" name="product_id" value="<%= meal.key %>"/>
+                          <input type="hidden" name="order_id" value="<%= id %>"/>
+                      </div>
+                      <div class="modal-footer"><button type="button" class="btn btn-outline-secondary"
+                          data-dismiss="modal">إلغاء</button>
+                        <input type="submit" value="تاكيد" class="btn btn-danger"/>
+                        </form>
+                    </div>
+                  </div>
+        </div>
+      </td>
+
               <td><%= meal.cost*meal.count %></td>
     <td><%= meal.cost %></td>
 <td><%= meal.count %></td>
