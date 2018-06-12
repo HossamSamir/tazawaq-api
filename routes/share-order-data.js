@@ -38,9 +38,11 @@ var search = (ids,id) =>{
 }
 app.get('/share-order-data',function(req,res){
   id = req.param('id');
+
   sql.qry("select * from orders where id = ?",[id],function(order,err){
+    console.log('sss')
+
     ids = order[0].ids;
-    console.log(order[0])
     var meals = [];
     var stored_ids = [];
     console.log(ids);
@@ -71,7 +73,9 @@ app.get('/share-order-data',function(req,res){
             if(i == ids.length-1){
               //you data coud be here ----------------->
               meals = removeDuplicates(meals,'key');
-              res.json({meals,order:order[0]})
+              sql.qry('select * from users where id = ?',[order[0].user_id],function(user,err){
+                res.render('share-order-data',{meal:meals,order:order[0],user:user[0]})
+              })
               }
         });
       }
@@ -79,7 +83,9 @@ app.get('/share-order-data',function(req,res){
         if(i == ids.length-1){
           //you data coud be here ----------------->
           meals = removeDuplicates(meals,'key');
-          res.json({meals,order:order[0]})
+          sql.qry('select * from users where id = ?',[order[0].user_id],function(user,err){
+            res.render('share-order-data',{meal:meals,order:order[0],user:user[0]})
+          })
         }
         }
       }

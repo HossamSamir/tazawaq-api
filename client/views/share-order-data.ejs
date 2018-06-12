@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+  <title>لوحة تحكم المدير</title>
+  <style>
+    input {
+      text-align: right
+    }
+
+    #loader {
+      transition: all .3s ease-in-out;
+      opacity: 1;
+      visibility: visible;
+      position: fixed;
+      height: 100vh;
+      width: 100%;
+      background: #fff;
+      z-index: 90000
+    }
+
+    #loader.fadeOut {
+      opacity: 0;
+      visibility: hidden
+    }
+
+    .spinner {
+      width: 40px;
+      height: 40px;
+      position: absolute;
+      top: calc(50% - 20px);
+      left: calc(50% - 20px);
+      background-color: #333;
+      border-radius: 100%;
+      -webkit-animation: sk-scaleout 1s infinite ease-in-out;
+      animation: sk-scaleout 1s infinite ease-in-out
+    }
+
+    @-webkit-keyframes sk-scaleout {
+      0% {
+        -webkit-transform: scale(0)
+      }
+      100% {
+        -webkit-transform: scale(1);
+        opacity: 0
+      }
+    }
+
+    @keyframes sk-scaleout {
+      0% {
+        -webkit-transform: scale(0);
+        transform: scale(0)
+      }
+      100% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        opacity: 0
+      }
+    }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 60px;
+      height: 34px
+    }
+
+    .switch input {
+      display: none
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      -webkit-transition: .4s;
+      transition: .4s
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 26px;
+      width: 26px;
+      left: 4px;
+      bottom: 4px;
+      background-color: #fff;
+      -webkit-transition: .4s;
+      transition: .4s
+    }
+
+    input:checked+.slider {
+      background-color: #2196f3
+    }
+
+    input:focus+.slider {
+      box-shadow: 0 0 1px #2196f3
+    }
+
+    input:checked+.slider:before {
+      -webkit-transform: translateX(26px);
+      -ms-transform: translateX(26px);
+      transform: translateX(26px)
+    }
+
+    .slider.round {
+      border-radius: 34px
+    }
+
+    .slider.round:before {
+      border-radius: 50%
+    }
+
+  </style>
+  <link href="../assets/css/style.css" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/themify-icons.css">
+</head>
+
+<body class="app">
+
+  <div>
+    <%- include('hidden-sidebar'); %>
+    <div class="page-container">
+
+    <main class="main-content bgc-grey-100">
+      <div id="mainContent col-12">
+        <table class="table table-bordered table-hover">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">السعر الاجمالى </th>
+              <th scope="col">السعر</th>
+              <th scope="col">العدد</th>
+              <th scope="col">الاسم</th>
+              <th scope="col">الصوره</th>
+
+              <th scope="col">#</th>
+            </tr>
+          </thead>
+              <%
+              function getStatusAsStr(status) {
+                  switch(status)
+                  {
+                      case 0:
+                          return ("قيد القبول");
+                      case 1:
+                          return ("جاري التوصيل");
+                      case 2:
+                          return ("تم التوصيل");
+                  }
+              }
+
+              function convertMinsToHrsMins(mins) {
+                let h = Math.floor(mins / 60);
+                let m = mins % 60;
+                h = h < 10 ? '0' + h : h;
+                m = m < 10 ? '0' + m : m;
+                return `مضي ${h} ساعة و ${m} دقيقة`;
+              } %>
+
+          <tbody id="ordersContainer">
+            <% meal.forEach(function(meal) { %>
+
+
+              <td><%= meal.cost*meal.count %></td>
+    <td><%= meal.cost %></td>
+<td><%= meal.count %></td>
+<td><%= meal.name %></td>
+<td><img height="100" width="100" src="<%= meal.img %>"/></td>
+
+  <th
+    scope="row"><%= meal.key %></th>
+    </tr>
+    <% }) %>
+    </tbody>
+    </table>
+
+
+
+  <table class="table" style="text-align:center;" style="width:100%">
+    <tr>
+      <td><%= order.cost %></td>
+
+      <th scope="col">سعرالطلب</th>
+    </tr>
+    <tr>
+      <td><%= order.cost_dicounted %></td>
+      <th scope="col">الخصم</th>
+    </tr>
+    <tr>
+      <td><%= order.delivery_cost %></td>
+
+      <th scope="col">رسوم التوصيل</th>
+
+    </tr>
+    <tr>
+      <td><%= order.cost-order.cost_dicounted %></td>
+
+      <th scope="col">السعر الإجمالي مع الضريبة</th>
+
+    </tr>
+    <tr>
+      <td><%= user.username %></td>
+      <th scope="col">اسم العميل</th>
+    </tr>
+    <tr>
+      <td><%= user.phone %></td>
+      <th scope="col">رقم هاتف العميل</th>
+    </tr>
+
+    <tr>
+      <td><%= user.location %></td>
+      <th scope="col">عنوان العميل</th>
+    </tr>
+
+  </table>
+    </div>
+    </main>
+    <footer class="bdT ta-c p-30 lh-0 fsz-sm c-grey-600"><span>Copyright © Tazawaq 2018 engineered by <a href="#" target="_blank" title="Colorlib">Garash Software House</a>. All rights reserved.</span></footer>
+    </div>
+    </div>
+    <script type="text/javascript" src="../assets/js/soVendor.js"></script>
+    <script type="text/javascript" src="../assets/js/soBundle.js"></script>
+    <script type="text/javascript" src="../assets/js/jquery-3.3.1.min.js"></script>
+
+</body>
+</html>
