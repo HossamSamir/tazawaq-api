@@ -131,7 +131,9 @@ app.get('/order_data/:id',function(req,res){
             if(i == ids.length-1){
               //you data coud be here ----------------->
               meals = removeDuplicates(meals,'key');
-              res.render('order_data',{meal:meals})
+              sql.qry('select * from products where store_id = ?',[order[0].store_id],function(products,err){
+                res.render('order_data',{meal:meals,products})
+              })
             }
         });
       }
@@ -139,7 +141,10 @@ app.get('/order_data/:id',function(req,res){
         if(i == ids.length-1){
           //you data coud be here ----------------->
           meals = removeDuplicates(meals,'key');
-          res.render('order_data',{meal:meals,id})
+          sql.qry('select * from products where store_id = ?',[order[0].store_id],function(products,err){
+            res.render('order_data',{meal:meals,products,id})
+          })
+
           console.log(meals)
         }
         }
@@ -214,5 +219,42 @@ app.get('/delete-order-product',function(req,res){
     res.send(err);
   }
 
+  })
+})
+
+app.get('/order_add_product',function(req,res){
+  order_id = req.param('order_id');
+  product_id = req.param('product_id');
+  count = req.param('count');
+  sql.qry('select * from products where id = ?',[product_id],function(product,err){
+    sql.qry('select * from orders where id = ?',[order_id],function(order,err){
+      name = '- عدد'+count+' '+product[0].name;
+      new_info = order[0].info+name;
+      new_ids = order[0].ids+","+product_id;
+      var past_price = order[0].cost;
+      var cost_dicounted = order[0].cost_dicounted;
+      if(cost_dicounted == '0.00'){
+        var new_price = past_price+(product[0].cost*(count));
+      }
+      else{
+        var new_price = past_price+(product[0].cost*(count));
+        var dicounted_percent = cost_dicounted/(past_price-order[0].delivery_cost);
+        var cost_dicounted = (dicounted_percent*(new_price-order[0].delivery_cost));
+      }
+
+      for(let i = count;i>0;i--){
+        new_ids = new_ids+","+product_id;
+        if(i == 1){
+          sql.qry("update orders set info = ? ,ids = ?,cost = ?,cost_dicounted= ? where id= "+order_id,[new_info,new_ids,order_id,new_price,cost_dicounted],function(data,err2){
+            if(!err2){
+              res.redirect('/order_data'+order_id)
+            }
+            else{
+              res.json({err2});
+            }
+          })
+        }
+      }
+    })
   })
 })
