@@ -81,10 +81,14 @@ app.post('/edit-store', function(req, res) {
 			if(field.name === 'img') {
 				image.mv(field.value, function(err) {
 					if (err) return res.status(500).send(err);
-
+					var img_path =
+						'client/views/assets/static/images/uploaded_images/store_images/store_' +
+						id +
+						'.jpg';
+					var new_path = domain+'/'+img_path.replace('client/views/', '');
 					sql.qry(
 						'UPDATE stores SET img=? WHERE id=?',
-						[`${domain}/${img_path.replace('client/views/', '')}`, id],
+						[new_path, id],
 						function(stores) {
 							callback(null)
 						}
@@ -171,10 +175,14 @@ app.post('/add-store', function(req, res) {
 						'.jpg';
 					image.mv(img_path, function(err) {
 						if (err) return res.status(500).send(err);
-
+						var img_path =
+							'client/views/assets/static/images/uploaded_images/store_images/store_' +
+							id +
+							'.jpg';
+						var new_path = `${domain}/${img_path.replace('client/views/', '')}`
 						sql.qry(
 							'UPDATE stores SET img=? WHERE id=?',
-							[`${domain}/${img_path.replace('client/views/', '')}`, id],
+							[new_path, id],
 							function(stores) {
 								res.redirect('markets');
 							}
