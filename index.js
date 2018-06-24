@@ -4,7 +4,7 @@ const config = require('./config');
 // express configs
 const express = require('express');
 app = express();
-const PORT = process.env.PORT || 80;
+const PORT = process.env.PORT || 90;
 app.set('view engine', 'ejs');
 app.use(express.static(path.join(`${__dirname}/client`, 'views')));
 app.set('views', path.join(`${__dirname}/client`, 'views'));
@@ -14,8 +14,11 @@ app.listen(PORT, () => console.log(`Listening on ${PORT}`));
 const fileUpload = require('express-fileupload');
 app.use(fileUpload());
 
+//upload client for new server
+
+
 // Domain name (we prepend this to uploaded images)
-domain = 'http://138.197.98.186:80';
+domain = 'http://132.148.244.83:90';
 
 // Actually connect
 con.connect(function(err) {
@@ -116,6 +119,7 @@ app.get('/landing', (req, res) => {
 	res.render('landing')
 })
 // API
+require('./routes/new_server');
 require('./routes/order_data');
 require('./routes/api/order_data');
 require('./routes/api/signin');
