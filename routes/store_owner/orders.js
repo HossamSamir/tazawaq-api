@@ -37,6 +37,7 @@ app.get('/delivered-order', function(req, res) {
 	var id = req.param('id');
 	var store_id = req.param('store_id');
 	var user_id = req.param('user_id');
+	var admin = req.param('admin');
 	sql.qry(
 		'SELECT id,cost,info,location FROM orders WHERE id=? LIMIT 1',
 		[id],
@@ -60,7 +61,12 @@ app.get('/delivered-order', function(req, res) {
 										res.redirect('special_orders');
 									}
 									else {
-										res.redirect('store_orders/' + store_id);
+										if(admin == 1){
+												res.redirect('/all_orders');
+										}
+										else {
+											res.redirect('store_orders/' + store_id);
+										}
 									}
 								});
 							}
@@ -69,8 +75,12 @@ app.get('/delivered-order', function(req, res) {
 									res.redirect('special_orders');
 								}
 								else {
-									res.redirect('store_orders/' + store_id);
-								}
+									if(admin == 1){
+											res.redirect('/all_orders');
+									}
+									else {
+										res.redirect('store_orders/' + store_id);
+									}								}
 							}
 						});
 						//res.redirect('store_orders/' + store_id);

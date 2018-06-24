@@ -152,6 +152,8 @@
         <table class="table table-bordered table-hover">
           <thead class="thead-dark">
             <tr>
+              <th scope="col">تغيير الحاله</th>
+
                 <th scope="col">حذف</th>
               <th scope="col">الحالة</th>
               <th scope="col">الوقت المنقضي</th>
@@ -193,6 +195,68 @@
           <tbody id="ordersContainer">
             <% orders.forEach(function(order) { %>
             <tr>
+              <td>
+                  <% if(order.data.status != 1) { %>
+                  <div style="margin-bottom:5%;">
+                    <a href="#" data-toggle="modal" data-target="#deliveringOrder_<%= order.data.id %>" class="col-6">
+                        <i class="c-orange-500 ti-truck" style="font-size:21px"></i>
+                        <span>جاري التوصيل</span>
+                    </a>
+                  <div
+                    class="modal fade" id="deliveringOrder_<%= order.data.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">جاري توصيل الطلب</h5>
+                          <button type="button" class="close" data-dismiss="modal"
+                            aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        </div>
+                        <div
+                          class="modal-body">
+                          <h5>سيظهر عند الزبون انه جاري توصيل طلبهم</h5>
+                      </div>
+                      <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">الغاء</button>
+                          <a href="/delivering-order?admin=1&store_id=<%= order.data.store_id %>&id=<%= order.data.id %>&user_id=<%= order.data.user_id %>">
+                              <button type="button" class="btn btn-danger">موافق</button>
+                          </a>
+                      </div>
+                    </div>
+                  </div>
+                  </div>
+                  </div>
+                  <% } %>
+                  <div>
+                  <a href="#" data-toggle="modal" data-target="#deliverOrder_<%= order.data.id %>" class="col-6">
+                      <i class="c-green-500 ti-check-box" style="font-size:21px"></i>
+                      <span>تم التوصيل</span>
+                  </a>
+                <div
+                  class="modal fade" id="deliverOrder_<%= order.data.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                  aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">اتم توصيل الطلب</h5>
+                        <button type="button" class="close" data-dismiss="modal"
+                          aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                      </div>
+                      <div
+                        class="modal-body">
+                        <h5>سيتم ازاله الطلب من صفحه الطلبات النشطة و وضعه فى صفحة المبيعات</h5>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">الغاء</button>
+                        <a href="/delivered-order?admin=1&store_id=<%= order.data.store_id %>&id=<%= order.data.id %>&user_id=<%= order.data.user_id %>">
+                            <button type="button" class="btn btn-danger">موافق</button>
+                        </a>
+                    </div>
+                  </div>
+      </div>
+  </div>
+</div>
+  </td>
                 <td><button type="button" class="btn btn-danger" data-toggle="modal"
                     data-target="#exampleModal<%= order.data.id %>">حذف</button>
                   <div class="modal fade"
