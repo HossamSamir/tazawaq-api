@@ -247,7 +247,7 @@ app.get('/order_add_product',function(req,res){
         if(i == 1){
           sql.qry("update orders set info = ? ,ids = ?,cost = ?,cost_dicounted= ? where id= "+order_id,[new_info,new_ids,order_id,new_price,cost_dicounted],function(data,err2){
             if(!err2){
-              res.redirect('/order_data'+order_id)
+              res.redirect('/order_data/'+order_id)
             }
             else{
               res.json({err2});
