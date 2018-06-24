@@ -39,7 +39,7 @@ app.get('/api/delivered-order', function(req, res) {
 										tokens.forEach(function(tok) {
 												pushTokensArr.push(tok.token);
 										});
-										SendPushNotifications(pushTokensArr,'عزيزى العميل تم توصيل طلبك ');
+										SendPushNotifications(pushTokensArr,'عزيزي العميل : تم توصيل طلبك بنجاح ، ولاتنسى تقييم مستوى الخدمة على وسائل التواصل ، و بانتظار تكرار طلب الخدمة .');
 								}
 						});
 					});
@@ -78,7 +78,7 @@ app.get('/api/delivering-order', function(req, res) {
 							tokens.forEach(function(tok) {
 									pushTokensArr.push(tok.token);
 							});
-							SendPushNotifications(pushTokensArr,'عزيزى العميل تم قبول طلبك و جارى التوصيل');
+							SendPushNotifications(pushTokensArr,'عزيزي العميل : تم قبول طلبك وسيقوم فريق التوصيل بإعداد الطلب و توصيله بأقرب وقت .');
 					}
 			});
 		});
