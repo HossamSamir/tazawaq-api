@@ -119,7 +119,6 @@ app.get('/landing', (req, res) => {
 	res.render('landing')
 })
 // API
-require('./routes/new_server');
 require('./routes/order_data');
 require('./routes/api/order_data');
 require('./routes/api/signin');
