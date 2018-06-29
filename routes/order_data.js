@@ -245,7 +245,8 @@ app.get('/order_add_product',function(req,res){
       for(let i = count;i>0;i--){
         new_ids = new_ids+","+product_id;
         if(i == 1){
-          sql.qry("update orders set info = ? ,ids = ?,cost = ?,cost_dicounted= ? where id= "+order_id,[new_info,new_ids,order_id,new_price,cost_dicounted],function(data,err2){
+          console.log('new price : '+new_price+'cost discounted:'+cost_dicounted);
+          sql.qry("update orders set info = ? ,ids = ?,cost = ?,cost_dicounted= ? where id= "+order_id,[new_info,new_ids,new_price,cost_dicounted],function(data,err2){
             if(!err2){
               res.redirect('/order_data/'+order_id)
             }
