@@ -230,7 +230,7 @@ app.get('/order_add_product',function(req,res){
     sql.qry('select * from orders where id = ?',[order_id],function(order,err){
       name = '- عدد'+count+' '+product[0].name;
       new_info = order[0].info+name;
-      new_ids = order[0].ids+","+product_id;
+      new_ids = order[0].ids;
       var past_price = order[0].cost;
       var cost_dicounted = order[0].cost_dicounted;
       if(cost_dicounted == '0.00'){
@@ -244,6 +244,7 @@ app.get('/order_add_product',function(req,res){
 
       for(let i = count;i>0;i--){
         new_ids = new_ids+","+product_id;
+        console.log(i)
         if(i == 1){
           console.log('new price : '+new_price+'cost discounted:'+cost_dicounted);
           sql.qry("update orders set info = ? ,ids = ?,cost = ?,cost_dicounted= ? where id= "+order_id,[new_info,new_ids,new_price,cost_dicounted],function(data,err2){
