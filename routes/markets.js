@@ -10,6 +10,18 @@ function travers(req, res) {
 	);
 }
 
+app.get('/open-stores',function(req,res){
+	sql.qry('update stores set status = 1',function(data,err){
+		res.redirect('/markets')
+	})
+})
+
+app.get('/close-stores',function(req,res){
+	sql.qry('update stores set status = 0',function(data,err){
+		res.redirect('/markets')
+	})
+})
+
 app.get('/delete-store', function(req, res) {
 	var id = req.param('id');
 	sql.qry('DELETE FROM stores WHERE id=?', [id], function() {
