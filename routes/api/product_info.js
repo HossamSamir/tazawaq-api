@@ -11,18 +11,28 @@ app.get('/api/product-info',function(req,res){
             {
               con.query('SELECT id AS `key`, name, img AS image, cost AS price, info AS `desc` '+
                    'FROM products WHERE parent_id = ? ', [product_id], function(err,data2) {
-                     for(let i in data2){
-                       data3.push(
-                         {label: data2[i].name, value: data2[i].key },
-                       )
-                       if(i == data2.length-1){
-                         res.json({
-                             response: data[0],
-                             childs:data2,
-                             check:data3
-                         });
+                     if(data2.length > 0){
+                       for(let i in data2){
+                         data3.push(
+                           {label: data2[i].name, value: data2[i].key },
+                         )
+                         if(i == data2.length-1){
+                           res.json({
+                               response: data[0],
+                               childs:data2,
+                               check:data3
+                           });
+                         }
                        }
                      }
+                     else {
+                       res.json({
+                           response: data[0],
+                           childs:[],
+                           check:[]
+                       });
+                     }
+
 
               });
             }
