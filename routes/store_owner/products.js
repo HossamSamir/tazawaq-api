@@ -111,11 +111,13 @@ app.post('/add-product', function(req, res) {
 								var category_name = req.param('category_'+i+'_name');
 								if(category_price != '' && category_name != ''){
 									sql.query('INSERT INTO products (store_id, category_id, name, info, cost, status, img) VALUES(?,?,?,?,?,?,"")',[_ID,0, category_name, '0', category_price, 1],function(data1,err){
-										if(!err){
-											res.redirect(`/store_products/${_ID}`);
-										}
-										else {
-											res.json({data1,err})
+										if(i == 6){
+											if(!err){
+												res.redirect(`/store_products/${_ID}`);
+											}
+											else {
+												res.json({data1,err})
+											}
 										}
 									})
 								}
