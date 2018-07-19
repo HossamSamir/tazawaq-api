@@ -5,10 +5,10 @@ function travers(req, res) {
 	var last_product_id = req.query.last_product_id;
 	var search = req.query.search;
 	if(typeof search !== 'undefined'){
-		query = `SELECT id, category_id, name, info, cost, status, img FROM products WHERE store_id = ? and name LIKE '%${search}%' limit 10`
+		query = `SELECT id, category_id, name, info, cost, status, img FROM products WHERE store_id = ? and name LIKE '%${search}%' ORDER BY name limit 10`
 	}
 	else {
-		query="SELECT id, category_id, name, info, cost, status, img FROM products WHERE store_id = ? and id > ? limit 10";
+		query="SELECT id, category_id, name, info, cost, status, img FROM products WHERE store_id = ? and id > ? ORDER BY name limit 10";
 	}
 console.log(search);
 	_ID = store_id;
