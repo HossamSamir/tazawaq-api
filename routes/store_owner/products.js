@@ -106,7 +106,20 @@ app.post('/add-product', function(req, res) {
 						],
 						function(stores) {
 							res.send("aaa"+response.insertId)
-							//res.redirect(`/store_products/${_ID}`);
+							for(let i = 1;i<7;i++){
+								var category_price = req.param('category_'+i+'_price');
+								var category_name = req.param('category_'+i+'_name');
+								if(category_price != '' && category_name != ''){
+									sql.query('INSERT INTO products (store_id, category_id, name, info, cost, status, img) VALUES(?,?,?,?,?,?,"")',[_ID,0, category_name, '0', category_price, 1],function(data1,err){
+										if(!err){
+											res.redirect(`/store_products/${_ID}`);
+										}
+										else {
+											res.json({data1,err})
+										}
+									})
+								}
+							}
 						}
 					);
 				});
