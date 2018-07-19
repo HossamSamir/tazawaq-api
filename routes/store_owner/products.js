@@ -109,7 +109,7 @@ app.post('/add-product', function(req, res) {
 								var category_price = req.param('category_'+i+'_price');
 								var category_name = req.param('category_'+i+'_name');
 								if(category_price != '' && category_name != ''){
-									sql.qry('INSERT INTO products (store_id, category_id, name, info, cost, status, img,parent_id) VALUES(?,?,?,?,?,?,"",?)',[_ID,0, category_name, '0', category_price, 1,response.insertId],function(data1,err){
+									sql.qry('INSERT INTO products (store_id, category_id, name, info, cost, status, img,parent_id) VALUES(?,?,?,?,?,?,"",?)',[_ID,0, name+'/'+category_name, '0', category_price, 1,response.insertId],function(data1,err){
 										console.log("data "+data1+"err"+err+"i "+i)
 										if(i == 6){
 											if(!err){
