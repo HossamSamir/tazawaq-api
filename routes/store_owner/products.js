@@ -105,7 +105,8 @@ app.post('/add-product', function(req, res) {
 							response.insertId
 						],
 						function(stores) {
-							res.redirect(`/store_products/${_ID}`);
+							res.send("aaa"+response.insertId)
+							//res.redirect(`/store_products/${_ID}`);
 						}
 					);
 				});

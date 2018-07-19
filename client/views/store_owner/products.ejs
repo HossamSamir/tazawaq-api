@@ -125,7 +125,7 @@
 </head>
 
 <body class="app">
-  
+
   <div>
     <%- include('sidebar', { store_id }); %>
     <div class="page-container">
@@ -443,7 +443,30 @@
         <input name="price" type="text" class="form-control"
           placeholder="قم بإدخال سعر المنتج ">
         </div>
-  </div><button type="submit" class="btn btn-primary">اضافه</button></form>
+        </div>
+<!-- hhhh -->
+<%
+for(let num = 1;num < 7;num ++){
+%>
+<h5 class="c-grey-900 mB-20">صنف <%= num %>  <h5>
+  <div class="form-row">
+        <div
+          class="form-group col-md-6"><label for="inputPassword4">سعر الصنف</label>
+          <input name="category_<%= num %>_price" type="text" class="form-control"
+            placeholder="قم ب ادخال سعر الصنف ">
+          </div>
+          <div
+            class="form-group col-md-6"><label for="inputPassword4">اسم الصنف</label>
+            <input name="category_<%= num %>_name" type="text" class="form-control"
+              placeholder="اسم الصنف">
+            </div>
+      </div>
+
+<%
+}
+%>
+<!--   hhhh-->
+  <button type="submit" class="btn btn-primary">اضافه</button></form>
   </div>
   </div>
   </div>
