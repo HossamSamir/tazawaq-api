@@ -105,7 +105,6 @@ app.post('/add-product', function(req, res) {
 							response.insertId
 						],
 						function(stores) {
-							res.send("aaa"+response.insertId)
 							for(let i = 1;i<7;i++){
 								var category_price = req.param('category_'+i+'_price');
 								var category_name = req.param('category_'+i+'_name');
