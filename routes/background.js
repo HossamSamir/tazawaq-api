@@ -3,7 +3,7 @@ function travers(req, res) {
 }
 
 
-app.get('/background_action',function(req,res){
+app.post('/background_action',function(req,res){
 	var image = req.files.image
 	var img_path = `client/views/assets/static/images/uploaded_images/offers_images/offer.jpg`;
 	image.mv(img_path, function(err) {
