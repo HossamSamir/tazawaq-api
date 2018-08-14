@@ -28,6 +28,7 @@
 
 app.get('/api/stores',function(req,res) {
     var user_id = req.param("user_id");
+    var category_id = req.param("id");
 
     if(user_id == -1)
     {
@@ -54,12 +55,13 @@ app.get('/api/stores',function(req,res) {
                 parseInt(req.param("sortby")),
                 user[0].latitude,
                 user[0].longitude,
-                user[0].region);
+                user[0].region,
+                category_id);
         });
     }
 });
 
-function FetchStores(res, maxcost, maxtime, sortby, lat, lng, region)
+function FetchStores(res, maxcost, maxtime, sortby, lat, lng, region,category_id)
 {
     var filteringClause = "";
     if(maxcost > 0.0 && maxtime > 0)
@@ -128,7 +130,7 @@ function FetchStores(res, maxcost, maxtime, sortby, lat, lng, region)
                         con.query('SELECT id AS `key`, display_name AS name, img AS image, info AS `desc`,'+
                             'delivery_cost AS deliver_price, delivery_time AS time, min_delivery_cost, status '+
                              'FROM stores' +
-                             `${filteringClause} AND id NOT IN (${fetchedStoreIDs})`,
+                             `${filteringClause} AND id NOT IN (${fetchedStoreIDs}) `,
                              function(err,other_stores) {
                             if(!err) {
                                 if(other_stores.length == 0) return res.json({ response: 1, stores });
@@ -163,7 +165,7 @@ function FetchStores(res, maxcost, maxtime, sortby, lat, lng, region)
 
     con.query('SELECT id AS `key`, display_name AS name, img AS image, info AS `desc`,'+
         'delivery_cost AS deliver_price, delivery_time AS time, min_delivery_cost, status '+
-         'FROM stores' + filteringClause + sortingClause, function(err,stores_res) {
+         'FROM stores' + filteringClause +' and store_category_id ='+ category_id + sortingClause, function(err,stores_res) {
         if(!err) {
             if(stores_res.length == 0) return res.json({ response: 0 });
             else

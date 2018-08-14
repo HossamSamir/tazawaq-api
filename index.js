@@ -90,6 +90,9 @@ const coupons = require('./routes/coupons');
 const special_orders = require('./routes/special_orders');
 const markets = require('./routes/markets');
 const users = require('./routes/users');
+const notify = require('./routes/notify');
+const background = require('./routes/background');
+
 const tickets = require('./routes/tickets');
 const offers = require('./routes/offers');
 const store_home = require('./routes/store_owner/home');
@@ -107,6 +110,9 @@ app.get('/all_orders', isAppOwner, all_orders);
 app.get('/special_orders', isAppOwner, special_orders);
 app.get('/markets', isAppOwner, markets);
 app.get('/users', isAppOwner, users);
+app.get('/notify', isAppOwner, notify);
+app.get('/background', isAppOwner, background);
+
 app.get('/tickets', isAppOwner, tickets);
 app.get('/offers', isAppOwner, offers);
 app.get('/store/:store_id?', isStoreOwner, store_home);

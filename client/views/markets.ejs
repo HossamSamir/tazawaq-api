@@ -248,6 +248,16 @@
                                         <option value="1" <% if(store.status == 1){ %>selected <% }%>>مفتوح</option>
                                         <option value="0" <% if(store.status == 0){ %>selected <% }%>>مُغلق</option>
                                       </select>
+
+
+                                      <label>النوع</label>
+                                      <select class="form-control" name="category" id="<%= store.id %>">
+                                          <option value="1" <% if(store.store_category_id == 1){ %>selected <% }%> >المحلات التجارية</option>
+                                          <option value="2" <% if(store.store_category_id == 2){ %>selected <% }%>>خدمات طلباتك</option>
+                                          <option value="3" <% if(store.store_category_id == 3){ %>selected <% }%>>المتاجر الشخصية</option>
+                                          <option value="4" <% if(store.store_category_id == 4){ %>selected <% }%>>الأسر المنتجة</option>
+
+                                        </select>
                                     </div>
                               </div>
 
@@ -324,7 +334,14 @@
         <select class="list-of-regions" class="form-control" name="region">
           </select>
           </div>
+          <label>النوع</label>
+          <select class="form-control" name="category" id="<%= store.id %>">
+              <option value="1">المحلات التجارية</option>
+              <option value="2" >خدمات طلباتك</option>
+              <option value="3" >المتاجر الشخصية</option>
+              <option value="4" >الأسر المنتجة</option>
 
+            </select>
     <div class="pac-card" id="pac-card">
       <div>
         <div id="title">
@@ -355,6 +372,7 @@
         <input type="hidden" class="lng" name="lng">
       </div>
     </div>
+
     <div id="map"></div>
     <div id="infowindow-content">
       <img src="" width="16" height="16" id="place-icon">

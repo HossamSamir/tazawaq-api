@@ -3,7 +3,7 @@ const crypto = require('crypto');
 
 function travers(req, res) {
 	sql.qry(
-		'SELECT status,id,display_name,passname,region FROM stores ORDER BY id DESC',
+		'SELECT status,id,display_name,passname,store_category_id,region FROM stores ORDER BY id DESC',
 		function(stores) {
 			res.render('markets', { stores });
 		}
@@ -70,7 +70,7 @@ app.post('/edit-store', function(req, res) {
 	var min_delivery_cost = req.param('min_delivery_cost');
 	var delivery_time = req.param('delivery_time');
 	var status = req.param('status');
-
+	var category = req.param('category');
 	var fields = [];
 
 	if(name) fields.push({ name: 'display_name', value: name });
@@ -82,6 +82,8 @@ app.post('/edit-store', function(req, res) {
 	if(delivery_cost) fields.push({ name: 'delivery_cost', value: delivery_cost });
 	if(delivery_time) fields.push({ name: 'delivery_time', value: delivery_time });
 	if(status) fields.push({ name: 'status', value: status });
+	 if(category) fields.push({ name: 'store_category_id', value: category });
+
 	if(min_delivery_cost) fields.push({ name: 'min_delivery_cost', value: min_delivery_cost });
 	if(image) fields.push({ name: 'img', value: 'client/views/assets/static/images/uploaded_images/store_images/store_' +
 		id +
@@ -137,7 +139,7 @@ app.post('/add-store', function(req, res) {
 	var delivery_cost = req.param('delivery_cost');
 	var min_delivery_cost = req.param('min_delivery_cost');
 	var delivery_time = req.param('delivery_time');
-
+	var category = req.param('category')
 	if (
 		!display_name ||
 		image === null ||
@@ -149,6 +151,8 @@ app.post('/add-store', function(req, res) {
 		!delivery_cost ||
 		!min_delivery_cost ||
 		!delivery_time
+		||
+		!category
 	) {
 		res.send('هناك مدخلات ناقصة او لم تُكتب بشكل صحيح من فضلك راجعها');
 		return;
@@ -165,8 +169,8 @@ app.post('/add-store', function(req, res) {
 				.update(password)
 				.digest('hex');
 			sql.qry(
-				'INSERT INTO stores(display_name,min_delivery_cost,delivery_cost,delivery_time,passname,password,address,latitude,longitude,region,img) ' +
-					'VALUES(?,?,?,?,?,?,?,?,?,?,"")',
+				'INSERT INTO stores(display_name,min_delivery_cost,delivery_cost,delivery_time,passname,password,address,latitude,longitude,region,img,store_category_id) ' +
+					'VALUES(?,?,?,?,?,?,?,?,?,?,"",?)',
 				[
 					display_name,
 					min_delivery_cost,
@@ -177,7 +181,8 @@ app.post('/add-store', function(req, res) {
 					address,
 					lat,
 					lng,
-					region
+					region,
+					category
 				],
 				function(insert) {
 					var id = insert.insertId;

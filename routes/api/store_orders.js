@@ -59,6 +59,8 @@ app.get('/api/delivered-order', function(req, res) {
 
 
 app.get('/push-noti',function(req,res){
+	var text = req.param('text');
+
 	con.query('SELECT token FROM user_push_tokens ', function(err,tokens) {
 			if(tokens.length)
 			{
@@ -66,12 +68,14 @@ app.get('/push-noti',function(req,res){
 					tokens.forEach(function(tok) {
 							pushTokensArr.push(tok.token);
 					});
-				if(SendPushNotifications(pushTokensArr,'الرجاء تحديث التطبيق في متجر قوقل بلاي لمستخدمي أجهزة الجالكسي ( الأندرويد ) للأستفادة من الخدمات الجديدة في التطبيق')){
-					res.send({response:'done sir amr'})
+				if(SendPushNotifications(pushTokensArr,text)){
+					res.redirect('/notify')
 				}
 			}
 	});
 });
+
+
 app.get('/api/delivering-order', function(req, res) {
 
 	var id = req.param('id');

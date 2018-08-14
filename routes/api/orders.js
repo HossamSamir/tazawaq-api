@@ -65,6 +65,11 @@ sql.qry("select * from meta_data where name = 'special_orders_status'",function(
 })
 })
 
+app.get('/api/image',function(req,res){
+sql.qry("select * from meta_data where name = 'background'",function(status,err){
+  res.json({background:status[0].value});
+})
+})
 
 
 
