@@ -195,33 +195,47 @@
 app.get('/api/stores',function(req,res) {
   var user_id = req.param("user_id");
      var category_id = req.param("id");
-     con.query('SELECT id AS `key`, display_name AS name, img AS image, info AS `desc`,'+
-         'delivery_cost AS deliver_price, delivery_time AS time, min_delivery_cost, status '+
-          'FROM stores' +' where '+'store_category_id ='+ category_id , function(err,stores_res) {
-         if(!err) {
-             if(stores_res.length == 0) return res.json({ response: 0 });
-             else
-             {
-                 var stores = [];
-                 async.forEachOf(stores_res, function (store, i, callback) {
-                     sql.qry('SELECT rating FROM ratings WHERE store_id=?', [ store.key ], function(storesRatings) {
-                         if(storesRatings.length)
-                             stores.push( { ...store, stars: storesRatings[0].rating } );
-                         else
-                             stores.push( { ...store, stars: -1 } );
-                         callback(null);
-                     });
-                 }, function(err) {
-                     if(err) throw err;
-
-                     res.json({ response: 1, stores });
-                 });
-             }
-         }
-         else
-         {
-             res.json({ response:0, err });
-         }
-     });
+     var page_state = 1
+     var page = req.param('page');
+     var offest = page*6;
+     console.log(page)
+     if(page == null || page == 'null' || typeof page === 'undefined'){
+       page_state = 0
+     }
+     console.log(page_state)
+     if(page_state == 0){
+       con.query('SELECT id AS `key`, display_name AS name, img AS image, info AS `desc`,'+
+           'delivery_cost AS deliver_price, delivery_time AS time, min_delivery_cost, status '+
+            'FROM stores' +' where '+'store_category_id ='+ category_id , function(err,stores_res) {
+           if(!err) {
+               if(stores_res.length == 0) return res.json({ response: 0 });
+               else
+               {
+                  res.json({stores:stores_res,response: 1})
+               }
+           }
+           else
+           {
+               res.json({ response:0, err });
+           }
+       });
+     }
+     else {
+       con.query('SELECT id AS `key`, display_name AS name, img AS image, info AS `desc`,'+
+           'delivery_cost AS deliver_price, delivery_time AS time, min_delivery_cost, status '+
+            'FROM stores' +' where '+'store_category_id ='+ category_id +' LIMIT 6 OFFSET '+offest, function(err,stores_res) {
+           if(!err) {
+               if(stores_res.length == 0) return res.json({ response: 0 });
+               else
+               {
+                  res.json({stores:stores_res,response: 1})
+               }
+           }
+           else
+           {
+               res.json({ response:0, err });
+           }
+       });
+     }
 
 });
