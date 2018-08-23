@@ -37,9 +37,11 @@ app.get('/api/delivered-order', function(req, res) {
 								{
 										var pushTokensArr = [];
 										tokens.forEach(function(tok) {
-												pushTokensArr.push(tok.token);
+											push(tok.token,'عزيزي العميل : تم توصيل طلبك بنجاح ، ولاتنسى تقييم مستوى الخدمة على وسائل التواصل ، و بانتظار تكرار طلب الخدمة ')
+
+												// pushTokensArr.push(tok.token);
 										});
-										SendPushNotifications(pushTokensArr,'عزيزي العميل : تم توصيل طلبك بنجاح ، ولاتنسى تقييم مستوى الخدمة على وسائل التواصل ، و بانتظار تكرار طلب الخدمة .');
+										// SendPushNotifications(pushTokensArr,'');
 								}
 						});
 					});
@@ -66,11 +68,12 @@ app.get('/push-noti',function(req,res){
 			{
 					var pushTokensArr = [];
 					tokens.forEach(function(tok) {
-							pushTokensArr.push(tok.token);
+						push(tok.token,text)
+							// pushTokensArr.push(tok.token);
 					});
-				if(SendPushNotifications(pushTokensArr,text)){
-					res.redirect('/notify')
-				}
+				// if(SendPushNotifications(pushTokensArr,text)){
+				// 	res.redirect('/notify')
+				// }
 			}
 	});
 });
@@ -93,9 +96,10 @@ app.get('/api/delivering-order', function(req, res) {
 					{
 							var pushTokensArr = [];
 							tokens.forEach(function(tok) {
+								push(tok.token,'عزيزي العميل : تم قبول طلبك وسيقوم فريق التوصيل بإعداد الطلب و توصيله بأقرب وقت .')
 									pushTokensArr.push(tok.token);
 							});
-							SendPushNotifications(pushTokensArr,'عزيزي العميل : تم قبول طلبك وسيقوم فريق التوصيل بإعداد الطلب و توصيله بأقرب وقت .');
+							// SendPushNotifications(pushTokensArr,'');
 					}
 			});
 		});
@@ -202,7 +206,34 @@ app.get('/api/get-orders', function(req, res) {
 		});
 	});
 });
+function push(registrationToken,body){
 
+  // See documentation on defining a message payload.
+  var message = {
+    notification: {
+      title:'Talbatk',
+      body,
+      icon: "default",
+sound:"default",
+vibrate:"true"
+
+    },
+  };
+   var options = {
+     priority:"high",
+   }
+  // Send a message to the device corresponding to the provided
+  // registration token.
+  admin.messaging().sendToDevice(registrationToken,message,options)
+    .then((response) => {
+      // Response is a message ID string.
+      res.json( response);
+    })
+    .catch((error) => {
+      res.send('Error sending message:', error);
+    });
+
+}
 function SendPushNotifications(pushTokens,message_body)
 {
     const Expo = require('expo-server-sdk');

@@ -16,3 +16,34 @@ app.get('/api/store-push-tokens',function(req,res){
         });
     });
 });
+
+app.get('/api/test',function(req,res){
+  // assets/static/images/logo.png
+
+push('')
+
+});
+function push(registrationToken,body){
+
+  // See documentation on defining a message payload.
+  var message = {
+    notification: {
+      title:'Talbatk',
+      body,
+    },
+  };
+   var options = {
+     priority:"high",
+   }
+  // Send a message to the device corresponding to the provided
+  // registration token.
+  admin.messaging().sendToDevice(registrationToken,message,options)
+    .then((response) => {
+      // Response is a message ID string.
+      res.json( response);
+    })
+    .catch((error) => {
+      res.send('Error sending message:', error);
+    });
+
+}

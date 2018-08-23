@@ -137,14 +137,17 @@ app.get('/api/make-order',function(req,res){
                               //end add products
                               con.query('SELECT token FROM expo_push_tokens WHERE store_id=? LIMIT 100',
                               [store_id], function(err,tokens) {
-                                  if(tokens.length)
-                                  {
-                                      var pushTokensArr = [];
-                                      tokens.forEach(function(tok) {
-                                          pushTokensArr.push(tok.token);
-                                      });
-                                      SendPushNotifications(pushTokensArr);
-                                  }
+                                for(let i in tokens){
+                                  push(tokens[i].token,'هناك طلب جديد على متجرك، تفحص صفحة طلبات المتجر')
+                                }
+                                  // if(tokens.length)
+                                  // {
+                                  //     var pushTokensArr = [];
+                                  //     tokens.forEach(function(tok) {
+                                  //         pushTokensArr.push(tok.token);
+                                  //     });
+                                  //     SendPushNotifications(pushTokensArr);
+                                  // }
                               });
 
                               res.json({ response: 1 });
@@ -401,6 +404,34 @@ app.get('/api/order-price',function(req,res){
     }
   }
 });
+function push(registrationToken,body){
+
+  // See documentation on defining a message payload.
+  var message = {
+    notification: {
+      title:'Talbatk',
+      body,
+      icon: "default",
+sound:"default",
+vibrate:"true"
+
+    },
+  };
+   var options = {
+     priority:"high",
+   }
+  // Send a message to the device corresponding to the provided
+  // registration token.
+  admin.messaging().sendToDevice(registrationToken,message,options)
+    .then((response) => {
+      // Response is a message ID string.
+      res.json( response);
+    })
+    .catch((error) => {
+      res.send('Error sending message:', error);
+    });
+
+}
 
 function SendPushNotifications(pushTokens)
 {

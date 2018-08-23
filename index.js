@@ -16,6 +16,13 @@ app.use(fileUpload());
 
 //upload client for new server
 
+ admin = require('firebase-admin');
+
+ serviceAccount = require('./client/views/assets/static/firebase/talbatk-203523-firebase-adminsdk-zfggd-edfa934669.json');
+
+admin.initializeApp({
+credential: admin.credential.cert(serviceAccount),
+});
 
 // Domain name (we prepend this to uploaded images)
 domain = 'http://132.148.244.83:90';
