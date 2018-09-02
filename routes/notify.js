@@ -6,19 +6,45 @@ function travers(req, res) {
 app.get('/push-noti',function(req,res){
 	var text = req.param('text');
 
-	con.query('SELECT token FROM user_push_tokens ', function(err,tokens) {
-			if(tokens.length)
-			{
-					var pushTokensArr = [];
-					tokens.forEach(function(tok) {
-							pushTokensArr.push(tok.token);
-					});
-				if(SendPushNotifications(pushTokensArr,text)){
-					res.redirect('/notify')
-				}
-			}
-	});
+	// con.query('SELECT token FROM user_push_tokens ', function(err,tokens) {
+	// 		if(tokens.length)
+	// 		{
+	// 			for(let i in tokens){
+	// 				push(tokens[i].token,text);
+	// 			}
+	// 		}
+	// });
 });
+
+function push(registrationToken,body){
+
+  // See documentation on defining a message payload.
+  var message = {
+    notification: {
+      title:'Talbatk',
+      body,
+      icon: "default",
+sound:"default",
+vibrate:"true"
+
+    },
+  };
+   var options = {
+     priority:"high",
+   }
+  // Send a message to the device corresponding to the provided
+  // registration token.
+  admin.messaging().sendToDevice(registrationToken,message,options)
+    .then((response) => {
+      // Response is a message ID string.
+      console.log( response.results);
+    })
+    .catch((error) => {
+      console.log('Error sending message:', error);
+    });
+
+}
+
 function SendPushNotifications(pushTokens,message_body)
 {
     const Expo = require('expo-server-sdk');
