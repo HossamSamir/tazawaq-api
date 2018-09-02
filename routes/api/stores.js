@@ -222,7 +222,7 @@ app.get('/api/stores',function(req,res) {
            'delivery_cost AS deliver_price, delivery_time AS time, min_delivery_cost, status '+
             'FROM stores' +' where '+'store_category_id ='+ category_id , function(err,stores_res) {
            if(!err) {
-               if(stores_res.length == 0) return res.json({ response: 0 });
+			   if (stores_res.length == 0) return res.json({ response: 0, stores: [] });
                else
                {
                   res.json({stores:stores_res,response: 1})
@@ -230,7 +230,7 @@ app.get('/api/stores',function(req,res) {
            }
            else
            {
-               res.json({ response:0, err });
+			   res.json({ response: 0, err, stores: [] });
            }
        });
      }
@@ -239,7 +239,7 @@ app.get('/api/stores',function(req,res) {
            'delivery_cost AS deliver_price, delivery_time AS time, min_delivery_cost, status '+
             'FROM stores' +' where '+'store_category_id ='+ category_id +' LIMIT 6 OFFSET '+offest, function(err,stores_res) {
            if(!err) {
-               if(stores_res.length == 0) return res.json({ response: 0 });
+			   if (stores_res.length == 0) return res.json({ response: 0, stores: [] });
                else
                {
                   res.json({stores:stores_res,response: 1})
@@ -247,7 +247,7 @@ app.get('/api/stores',function(req,res) {
            }
            else
            {
-               res.json({ response:0, err });
+			   res.json({ response: 0, err, stores: [] });
            }
        });
      }
