@@ -25,7 +25,7 @@ credential: admin.credential.cert(serviceAccount),
 });
 
 // Domain name (we prepend this to uploaded images)
-domain = 'http://132.148.244.83:90';
+domain = 'http://66.45.240.101:90';
 
 // Actually connect
 con.connect(function(err) {

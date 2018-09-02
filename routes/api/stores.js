@@ -193,6 +193,20 @@
 //     });
 // }
 app.get('/api/stores',function(req,res) {
+  // res.json({
+  //   stores:[
+  //     {
+  //       key:1,
+  //       name:'الرجاء تحديث التطبيق ',
+  //       image:'',
+  //       desc:'الرجاء تحديث التطبيق',
+  //       deliver_price:1,
+  //       time:0,
+  //       min_delivery_cost:0
+  //     }
+  //   ],
+  //   response: 1
+  // })
   var user_id = req.param("user_id");
      var category_id = req.param("id");
      var page_state = 1
