@@ -6,14 +6,14 @@ function travers(req, res) {
 app.get('/push-noti',function(req,res){
 	var text = req.param('text');
 
-	// con.query('SELECT token FROM user_push_tokens ', function(err,tokens) {
-	// 		if(tokens.length)
-	// 		{
-	// 			for(let i in tokens){
-	// 				push(tokens[i].token,text);
-	// 			}
-	// 		}
-	// });
+	con.query('SELECT token FROM user_push_tokens ', function(err,tokens) {
+			if(tokens.length)
+			{
+				for(let i in tokens){
+					push(tokens[i].token,text);
+				}
+			}
+	});
 });
 
 function push(registrationToken,body){

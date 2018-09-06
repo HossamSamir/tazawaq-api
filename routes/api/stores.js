@@ -196,14 +196,15 @@ app.get('/api/stores',function(req,res) {
   // res.json({
   //   stores:[
   //     {
-  //       key:1,
-  //       name:'الرجاء تحديث التطبيق ',
-  //       image:'',
-  //       desc:'الرجاء تحديث التطبيق',
-  //       deliver_price:1,
-  //       time:0,
-  //       min_delivery_cost:0
-  //     }
+// key: 26,
+// name: "الرجاء تحديث التطبيق",
+// image: "http://66.45.240.101:90/assets/static/images/uploaded_images/store_images/store_26.jpg",
+// desc: "الرجاء تحديث التطبيق",
+// deliver_price: 12,
+// time: 60,
+// min_delivery_cost: 0,
+// status: 1
+// },
   //   ],
   //   response: 1
   // })
