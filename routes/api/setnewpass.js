@@ -20,22 +20,22 @@ app.get('/api/setnewpass',function(req,res){
                                         response: 1,
                                         id: userData[0]['id']
                                     });
-                                } else res.json(err);
+                                } else res.json({err});
                             });
                         }
                         else res.json({ response: 0 });
                     }
-                    else res.json(err);
+                    else res.json({err});
                 });
 
                 con.query('DELETE FROM awaiting_verification WHERE id=?', [codeData[0]['id']], function(err,data) {
                     if(!err) {
 
-                    } else res.json(err);
+                    } else res.json({err});
                 });
             }
             else res.json({ response: 0 });
         }
-        else res.json(err);
+        else res.json({err});
     });
 });
