@@ -61,7 +61,7 @@ app.get('/api/signup',function(req,res){
         }
         else
         {
-            con.query('SELECT id FROM users WHERE phone=?  LIMIT 1', [phone], function(err,data) {
+            con.query('SELECT id FROM users WHERE phone=? OR email=? LIMIT 1', [phone, email], function(err,data) {
                 if(!err) {
                     if(data.length > 0)
                     {
