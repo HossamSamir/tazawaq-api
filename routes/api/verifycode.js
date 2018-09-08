@@ -9,7 +9,7 @@ app.get('/api/verifycode',function(req,res){
         if(!err) {
             if(codeData.length)
             {
-                con.query('SELECT id from users WHERE phone=? OR email=? OR username=? LIMIT 1', [identifier,codeData[0]['email'],codeData[0]['username']],
+                con.query('SELECT id from users WHERE phone=? OR email=?  LIMIT 1', [identifier,codeData[0]['email'],
                 function(err,data) {
                     if(!err) {
                         if(data.length > 0)
