@@ -189,7 +189,7 @@ app.get('/api/change_store_status',function(req,res){
 	var id = req.param('store_id');
 	var status = req.param('status');
 	sql.qry('UPDATE stores SET status=?  WHERE id=? ', [status,id], function(orders,err) {
-		res.json({result:orders})
+		res.json({res:status})
 	});
 })
 
