@@ -171,10 +171,10 @@ app.get('/api/get-store-orders', function(req, res) {
 			sql.qry('SELECT phone,username FROM users WHERE id=? LIMIT 1', [ order.user_id ], function(userData) {
 				sql.qry('select * from stores where id = ?',[order.store_id],function(store,err){
 
-				if(userData.length)
-					orders.push( [ userData[0].phone, order.location,  order.status,order.id,order.note,userData[0].username,order.cost_dicounted,store[0].delivery_cost,userData[0].phone] );
-				else
-					orders.push( [ 'غير متاح', order.location,  order.status,order.id,order.note,'غير متاح',order.cost_dicounted,store[0].delivery_cost,userData[0].phone ] );
+					if(userData.length)
+						orders.push( [ userData[0].phone, order.location, order.cost, order.info, order.status,order.id,order.note,userData[0].username,order.cost_dicounted,store[0].delivery_cost,userData[0].phone] );
+					else
+						orders.push( [ 'غير متاح', order.location, order.cost, order.info, order.status,order.id,order.note,'غير متاح',order.cost_dicounted,store[0].delivery_cost,userData[0].phone ] );
 				callback(null);
 				})
 			});
