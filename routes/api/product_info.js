@@ -14,7 +14,7 @@ app.get('/api/product-info',function(req,res){
                      if(data2.length > 0){
                        for(let i in data2){
                          data3.push(
-                           {key: data2[i].key, name: data2[i].name.split('/')[1],price: data2[i].price},
+                           {key: data2[i].key, name: data2[i].name,price: data2[i].price},
                          )
                          if(i == data2.length-1){
                            res.json({

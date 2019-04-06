@@ -5,10 +5,10 @@ function travers(req, res) {
 	var last_product_id = req.query.last_product_id;
 	var search = req.query.search;
 	if(typeof search !== 'undefined'){
-		query = `SELECT id, category_id, name, info, cost, status, img FROM products WHERE store_id = ? and name LIKE '%${search}%' ORDER BY name limit 10`
+		query = `SELECT id, category_id, name, info, cost, status, img FROM products WHERE store_id = ? and  parent_id = 0 and name LIKE '%${search}%' ORDER BY name limit 10`
 	}
 	else {
-		query="SELECT id, category_id, name, info, cost, status, img FROM products WHERE store_id = ? and id > ? ORDER BY name limit 10";
+		query="SELECT id, category_id, name, info, cost, status, img FROM products WHERE store_id = ? and id > ? and parent_id = 0 ORDER BY name limit 10";
 	}
 console.log(search);
 	_ID = store_id;
@@ -22,14 +22,25 @@ console.log(search);
 				function(products) {
 					products.forEach((product, i) => {
 						product.status = product.status == 0 ? 'غير نشط' : 'نشط';
-						for (var ii = 0; ii < cats.length; ii++) {
-							if (product.category_id == cats[ii].id) {
-								product.category_name = cats[ii].name;
-								break;
+						sql.qry('SELECT id, category_id, name, info, cost, status, img, parent_id FROM products WHERE  parent_id = ?',[product.id],function(sub_products,err){
+							product.sub_products = sub_products;
+
+							for (var ii = 0; ii < cats.length; ii++) {
+
+								if (product.category_id == cats[ii].id) {
+									product.category_name = cats[ii].name;
+									break;
+								}
 							}
-						}
+							console.log('i'+i+'length'+products.length)
+							if(products.length == i+1){
+								res.render('store_owner/products', { cats, products, store_id });
+
+							}
+						});
+
+
 					});
-					res.render('store_owner/products', { cats, products, store_id });
 				}
 			);
 		}
@@ -109,7 +120,7 @@ app.post('/add-product', function(req, res) {
 								var category_price = req.param('category_'+i+'_price');
 								var category_name = req.param('category_'+i+'_name');
 								if(category_price != '' && category_name != ''){
-									sql.qry('INSERT INTO products (store_id, category_id, name, info, cost, status, img,parent_id) VALUES(?,?,?,?,?,?,"",?)',[_ID,0, name+'/'+category_name, '0', category_price, 1,response.insertId],function(data1,err){
+									sql.qry('INSERT INTO products (store_id, category_id, name, info, cost, status, img,parent_id) VALUES(?,?,?,?,?,?,"",?)',[_ID,0, category_name, '0', category_price, 1,response.insertId],function(data1,err){
 										console.log("data "+data1+"err"+err+"i "+i)
 										if(i == 6){
 											if(!err){
@@ -141,16 +152,43 @@ app.post('/edit-product', function(req, res) {
 	var status = req.param('status');
 	var image = req.files.image || null;
 	var product_id = req.param('product_id');
-
+	var sub = req.param('sub');
+	var sub_num = req.param('sub_num')-1;
 	// console.log(name, category_id, price, info, status, image);
 
 	if (!name || !info || !status || !category_id || !price) {
 		res.send('هناك مدخلات ناقصة او لم تُكتب بشكل صحيح من فضلك راجعها');
 	} else {
+
 		sql.qry(
 			'UPDATE products SET name = ?, category_id = ?, cost = ?, info = ?, status = ? WHERE id = ?',
 			[name, category_id, price, info, status, product_id],
 			function(response) {
+				if(sub == 'true'){
+					console.log(sub_num);
+					for(let i = sub_num;i >= 0;i--){
+						console.log('aaa')
+
+						console.log('i='+i);
+						var sub_name = req.param('sub_name_'+i);
+						var sub_cos = req.param('sub_cost_'+i);
+						var sub_id = req.param('sub_id_'+i);
+						sql.qry(
+							'UPDATE products SET name = ?,  cost = ? WHERE id = ?',
+							[sub_name, sub_cos, sub_id],
+							function(response) {
+
+							})
+							if(i== 0){
+								// var store_id = req.params.store_id;
+
+								// console.log('store = '+_ID);
+
+								res.redirect(`/store_products/${_ID}?last_product_id=0`);
+							}
+
+		 			}
+				}
 				if (image != null) {
 					var img_path = `client/views/assets/static/images/uploaded_images/store_images/products/product_${product_id}.jpg`;
 					image.mv(img_path, function(err) {
@@ -168,7 +206,7 @@ app.post('/edit-product', function(req, res) {
 						);
 					});
 				} else {
-					res.redirect(`/store_products/${_ID}`);
+					res.redirect(`/store_products/${_ID}?last_product_id=0`);
 				}
 			}
 		);

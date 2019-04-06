@@ -55,9 +55,19 @@ app.get('/api/all-offers', function(req, res) {
 			if (!err) {
 				if (data.length == 0) return res.json({ response: 0 });
 				else {
-					res.json({
-						response: data
-					});
+					data.forEach((offer,i)=>{
+						con.query('select * from stores where id = ?',[offer.store_id],function(err,resturant){
+							offer.resturant = resturant[0]
+							console.log('i'+i);
+							if(i == data.length-1){
+								res.json({
+									response: data
+								});
+							}
+						})
+
+					})
+
 				}
 			} else {
 				res.json({ response: 0, err });

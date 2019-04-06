@@ -5,6 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
   <title>لوحة تحكم المدير</title>
+
   <style>
     input {
       text-align: right
@@ -123,7 +124,6 @@
   <link href="../assets/css/style.css" rel="stylesheet">
   <link rel="stylesheet" href="../assets/css/themify-icons.css">
 </head>
-
 <body class="app">
 
   <div>
@@ -354,6 +354,34 @@
                                             alt=""><br><input type="file" name="image" old-img="<%= product.img %>" class="form-control-file"
                                             id="exampleFormControlFile1">
                                             <input type="hidden" value="<%= product.id %>" name="product_id">
+                                            <h2 style="text-align:'center'"> الاصناف الفرعيه</h2>
+                                            <%
+
+                                            if(product.sub_products){ %>
+                                              <% product.sub_products.forEach(function(sub_product,i) { %>
+
+                                              <label for="product_desc">الاسم</label>
+                                            <input
+                                              name="sub_name_<%= i %>" type="text" id="product_desc"  class="form-control" aria-describedby="emailHelp"
+                                              value="<%= sub_product.name %>" placeholder="الاسم">
+                                              <br>
+                                              <label for="product_desc">السعر</label>
+                                            <input
+                                              name="sub_cost_<%= i %>" type="text" id="product_desc"  class="form-control" aria-describedby="emailHelp"
+                                              value="<%= sub_product.cost %>" placeholder="السعر">
+                                              <input
+                                                name="sub_id_<%= i %>" type="hidden" id="product_desc"  class="form-control" aria-describedby="emailHelp"
+                                                value="<%= sub_product.id %>" placeholder="السعر">
+
+                                              <% }) %>
+                                          <!-- <%= JSON.stringify(product.sub_products[0]) %> -->
+                                          <input name="sub" type="hidden" value="true"/>
+                                          <input name="sub_num" type="hidden" value="<%= product.sub_products.length %>"/>
+
+                                          <% } else{ %>
+                                          <input name="sub" type="hidden" value="false"/>
+
+                                          <% } %>
                               </div>
                           </div>
                           <div class="modal-footer"><button type="button" class="btn btn-outline-secondary" data-dismiss="modal">إلغاء</button>
