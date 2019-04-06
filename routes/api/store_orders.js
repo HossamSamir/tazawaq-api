@@ -185,6 +185,14 @@ app.get('/api/get-store-orders', function(req, res) {
 	});
 });
 
+app.get('/api/change_store_status',function(req,res){
+	var id = req.param('store_id');
+	var status = req.param('status');
+	sql.qry('UPDATE stores SET status=?  WHERE id=? ', [status,id], function(orders,err) {
+		res.json({result:orders})
+	});
+})
+
 app.get('/api/get-orders', function(req, res) {
 
 	sql.qry('SELECT * FROM orders WHERE status <= 50 ORDER BY status ASC, id DESC', function(orders_res) {
