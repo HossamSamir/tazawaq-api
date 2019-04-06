@@ -56,8 +56,10 @@ app.get('/api/all-offers', function(req, res) {
 				if (data.length == 0) return res.json({ response: 0 });
 				else {
 					data.forEach((offer,i)=>{
-						con.query('select * from stores where id = ?',[offer.store_id],function(err,resturant){
-							offer.resturant = resturant[0]
+						con.query('SELECT id AS `key`, display_name AS name, img AS image, info AS `desc`,'+
+		            'delivery_cost AS deliver_price, delivery_time AS time, min_delivery_cost, status '+
+		             'FROM stores where id = ?',[offer.store_id],function(err,resturant){
+							offer.resturant = resturant[0];
 							console.log('i'+i);
 							if(i == data.length-1){
 								res.json({
