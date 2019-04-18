@@ -278,6 +278,8 @@ app.get('/api/stores',function(req,res) {
                         stores2.push(stores_res[i])
                       }
                       if(i == stores_res.length-1){
+                        if (stores2.length == 0) return res.json({ response: 0, stores: [] });
+
                         res.json({stores:stores2,response: 1})
 
                       }
