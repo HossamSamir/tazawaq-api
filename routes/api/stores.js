@@ -267,27 +267,28 @@ app.get('/api/stores',function(req,res) {
 			   if (stores_res.length == 0) return res.json({ response: 0, stores: [] });
                else
                {
-                 con.query('select * from users where id = ? ',[user_id],(err,user)=>{
-                   var GeoPoint = require('geopoint')
-                   var stores2 = []
-                   for(let i in stores_res){
-                     point1 = new GeoPoint(stores_res[i].latitude, stores_res[i].longitude);
-                      point2 = new GeoPoint(user[0].latitude, user[0].longitude);
-                      var distance = point1.distanceTo(point2, true)//output in kilometers
-                      if(distance <= 10){
-                        stores2.push(stores_res[i])
-                      }
-                      if(i == stores_res.length-1){
-                        // if (stores2.length == 0) return res.json({ response: 0, stores: [] });
-                        if (stores2.length == 0) return res.json({ response: 1, stores: stores_res });
+                 res.json({ response: 1, stores: stores_res });
 
-                        res.json({stores:stores2,response: 1})
-
-                      }
-                      }
-                     // console.log(data)
-
-                 })
+                 // con.query('select * from users where id = ? ',[user_id],(err,user)=>{
+                 //   var GeoPoint = require('geopoint')
+                 //   var stores2 = []
+                 //   for(let i in stores_res){
+                 //     point1 = new GeoPoint(stores_res[i].latitude, stores_res[i].longitude);
+                 //      point2 = new GeoPoint(user[0].latitude, user[0].longitude);
+                 //      var distance = point1.distanceTo(point2, true)//output in kilometers
+                 //      if(distance <= 10){
+                 //        stores2.push(stores_res[i])
+                 //      }
+                 //      if(i == stores_res.length-1){
+                 //         if (stores2.length == 0) return res.json({ response: 0, stores: [] });
+                 //
+                 //        res.json({stores:stores2,response: 1})
+                 //
+                 //      }
+                 //      }
+                 //     // console.log(data)
+                 //
+                 // })
                }
            }
            else
