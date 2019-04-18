@@ -3,7 +3,7 @@ const crypto = require('crypto');
 
 function travers(req, res) {
 	sql.qry(
-		'SELECT status,id,display_name,passname,store_category_id,region FROM stores ORDER BY id DESC',
+		'SELECT status,id,display_name,passname,store_category_id,region,order_number FROM stores ORDER BY order_number',
 		function(stores) {
 			res.render('markets', { stores });
 		}
@@ -71,6 +71,8 @@ app.post('/edit-store', function(req, res) {
 	var delivery_time = req.param('delivery_time');
 	var status = req.param('status');
 	var category = req.param('category');
+	var order_number = req.param('order_number');
+
 	var fields = [];
 
 	if(name) fields.push({ name: 'display_name', value: name });
@@ -83,6 +85,7 @@ app.post('/edit-store', function(req, res) {
 	if(delivery_time) fields.push({ name: 'delivery_time', value: delivery_time });
 	if(status) fields.push({ name: 'status', value: status });
 	 if(category) fields.push({ name: 'store_category_id', value: category });
+	 if(order_number) fields.push({ name: 'order_number', value: order_number });
 
 	if(min_delivery_cost) fields.push({ name: 'min_delivery_cost', value: min_delivery_cost });
 	if(image) fields.push({ name: 'img', value: 'client/views/assets/static/images/uploaded_images/store_images/store_' +

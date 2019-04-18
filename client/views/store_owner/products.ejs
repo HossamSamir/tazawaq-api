@@ -439,7 +439,7 @@
           <h5 class="c-grey-900 mB-20">: إضافة منتج</h5>
           <div class="form-row">
             <div class="form-group col-md-6"><label for="inputPassword4">صورة المنتج</label>
-              <input name="image" type="file" class="form-control"
+              <input name="image" id="file" type="file" class="form-control"
                 placeholder="قم بإدخال اسم الماركت">
               </div>
             <div class="form-group col-md-6"><label for="inputPassword4">اسم المنتج</label>
@@ -526,7 +526,14 @@ fetch(`/edit-cat?name=${nameValue}&id=${id}&status=${statusValue}`).then(functio
 });
 
 $(document).ready(function(){
+  var uploadField = document.getElementById("file");
 
+  uploadField.onchange = function() {
+      if(this.files[0].size > 40000){
+         alert("image must be maximum 40 kb!");
+         this.value = "";
+      };
+  };
     $('#search').keypress(function(e){
         if(e.which == 13){//Enter key pressed
           var search = $('#search').val();

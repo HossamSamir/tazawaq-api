@@ -192,6 +192,28 @@
 //         }
 //     });
 // }
+function distance(lat1, lon1, lat2, lon2, unit) {
+	if ((lat1 == lat2) && (lon1 == lon2)) {
+		return 0;
+	}
+	else {
+		var radlat1 = Math.PI * lat1/180;
+		var radlat2 = Math.PI * lat2/180;
+		var theta = lon1-lon2;
+		var radtheta = Math.PI * theta/180;
+		var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+		if (dist > 1) {
+			dist = 1;
+		}
+		dist = Math.acos(dist);
+		dist = dist * 180/Math.PI;
+		dist = dist * 60 * 1.1515;
+		if (unit=="K") { dist = dist * 1.609344 }
+		if (unit=="N") { dist = dist * 0.8684 }
+		return dist;
+	}
+}
+
 app.get('/api/stores',function(req,res) {
 //   res.json({
 //     stores:[
@@ -210,6 +232,7 @@ app.get('/api/stores',function(req,res) {
 //   })
   var user_id = req.param("user_id");
      var category_id = req.param("id");
+     var fetch = require('node-fetch')
      var page_state = 1
      var page = req.param('page');
      var offest = page*6;
@@ -220,12 +243,13 @@ app.get('/api/stores',function(req,res) {
      console.log(page_state)
      if(page_state == 0){
        con.query('SELECT id AS `key`, display_name AS name, img AS image, info AS `desc`,'+
-           'delivery_cost AS deliver_price, delivery_time AS time, min_delivery_cost, status '+
-            'FROM stores' +' where '+'store_category_id ='+ category_id , function(err,stores_res) {
+           'delivery_cost AS deliver_price, delivery_time AS time, min_delivery_cost, status,latitude,longitude '+
+            'FROM stores' +' where '+'store_category_id ='+ category_id+' ORDER BY order_number ASC' , function(err,stores_res) {
            if(!err) {
 			   if (stores_res.length == 0) return res.json({ response: 0, stores: [] });
                else
                {
+
                   res.json({stores:stores_res,response: 1})
                }
            }
@@ -237,13 +261,30 @@ app.get('/api/stores',function(req,res) {
      }
      else {
        con.query('SELECT id AS `key`, display_name AS name, img AS image, info AS `desc`,'+
-           'delivery_cost AS deliver_price, delivery_time AS time, min_delivery_cost, status '+
-            'FROM stores' +' where '+'store_category_id ='+ category_id +' LIMIT 6 OFFSET '+offest, function(err,stores_res) {
+           'delivery_cost AS deliver_price, delivery_time AS time, min_delivery_cost, status,order_number,latitude,longitude '+
+            'FROM stores' +' where '+'store_category_id ='+ category_id +'  ORDER BY order_number  LIMIT 6 OFFSET '+offest+'', function(err,stores_res) {
            if(!err) {
 			   if (stores_res.length == 0) return res.json({ response: 0, stores: [] });
                else
                {
-                  res.json({stores:stores_res,response: 1})
+                 con.query('select * from users where id = ? ',[user_id],(err,user)=>{
+                   var GeoPoint = require('geopoint')
+                   var stores2 = []
+                   for(let i in stores_res){
+                     point1 = new GeoPoint(stores_res[i].latitude, stores_res[i].longitude);
+                      point2 = new GeoPoint(user[0].latitude, user[0].longitude);
+                      var distance = point1.distanceTo(point2, true)//output in kilometers
+                      if(distance <= 10){
+                        stores2.push(stores_res[i])
+                      }
+                      if(i == stores_res.length-1){
+                        res.json({stores:stores2,response: 1})
+
+                      }
+                      }
+                     // console.log(data)
+
+                 })
                }
            }
            else

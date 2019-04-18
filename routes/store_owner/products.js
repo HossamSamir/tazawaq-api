@@ -91,6 +91,7 @@ app.get('/delete-product', (req, res) => {
 app.post('/add-product', function(req, res) {
 	var name = req.param('name');
 	var image = req.files.image || null;
+	var file = req.files;
 	var info = req.param('info');
 	var status = req.param('status');
 	var category_id = req.param('category_id');
@@ -142,6 +143,7 @@ app.post('/add-product', function(req, res) {
 			}
 		);
 	}
+
 });
 
 app.post('/edit-product', function(req, res) {
