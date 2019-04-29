@@ -262,7 +262,7 @@ app.get('/api/stores',function(req,res) {
      else {
        con.query('SELECT id AS `key`, display_name AS name, img AS image, info AS `desc`,'+
            'delivery_cost AS deliver_price, delivery_time AS time, min_delivery_cost, status,order_number,latitude,longitude '+
-            'FROM stores' +' where '+'store_category_id ='+ category_id +'  ORDER BY order_number  LIMIT 6 OFFSET '+offest+'', function(err,stores_res) {
+            'FROM stores' +' where '+'store_category_id ='+ category_id +'  ORDER BY order_number ASC', function(err,stores_res) {
            if(!err) {
 			   if (stores_res.length == 0) return res.json({ response: 0, stores: [] });
                else
