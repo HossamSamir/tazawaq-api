@@ -13,4 +13,11 @@ app.get('/api/user_location',function(req,res){
         if(!err) res.json({reply:1});
         else res.json({reply:0});
     });
+    con.query('UPDATE users SET location=?,latitude=?,longitude=?,region=? WHERE id=?',
+        [location,latitude,longitude,region,id],function(err,data) {
+          console.log('err'+err);
+          console.log('data'+data);
+        if(!err) res.json({reply:1});
+        else res.json({reply:0});
+    });
 });
