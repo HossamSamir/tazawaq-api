@@ -17,7 +17,5 @@ app.get('/api/user_location',function(req,res){
         [location,latitude,longitude,region,id],function(err,data) {
           console.log('err'+err);
           console.log('data'+data);
-        if(!err) res.json({reply:1});
-        else res.json({reply:0});
     });
 });
