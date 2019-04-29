@@ -276,6 +276,7 @@ app.get('/api/stores',function(req,res) {
                      point1 = new GeoPoint(stores_res[i].latitude, stores_res[i].longitude);
                       point2 = new GeoPoint(user[0].latitude, user[0].longitude);
                       var distance = point1.distanceTo(point2, true)//output in kilometers
+											console.log('user lat : '+user[0].latitude+'user lang :'+user[0].longitude);
 											console.log(distance);
                       if(distance <= 10){
                         stores2.push(stores_res[i])
