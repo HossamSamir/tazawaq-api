@@ -268,6 +268,7 @@ app.get('/api/stores',function(req,res) {
                else
                {
                  // res.json({ response: 0, stores: [] });
+								 console.log('user'+user_id)
 
                  con.query('select * from users where id = ? ',[user_id],(err,user)=>{
                    var GeoPoint = require('geopoint')
