@@ -288,7 +288,7 @@ app.get('/api/stores',function(req,res) {
                  //      }
                      // console.log(data)
 
-                 })
+                 // })
                }
            }
            else
